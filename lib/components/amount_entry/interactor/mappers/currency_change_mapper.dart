@@ -6,16 +6,16 @@ import 'package:seeds/domain-shared/result_to_state_mapper.dart';
 class CurrencyChangeMapper extends StateMapper {
   AmountEntryState mapResultToState(AmountEntryState currentState) {
     final input = currentState.currentCurrencyInput == CurrencyInput.token ? CurrencyInput.fiat : CurrencyInput.token;
-
+    String newText = "";
+    if (input == CurrencyInput.fiat) {
+      newText = currentState.fiatAmount?.asFixedString() ?? "";
+    } else {
+      newText = currentState.tokenAmount?.amountString() ?? "";
+    }
     return currentState.copyWith(
       currentCurrencyInput: input,
-      pageCommand: SendTextInputDataBack(
-        handleAmountToSendBack(
-          currentCurrencyInput: input,
-          textInput: currentState.textInput,
-          fiatToSeeds: currentState.tokenAmount.amountString(),
-        ),
-      ),
+      textInput: newText,
+      pageCommand: PushTextIntoField(newText),
     );
   }
 }
