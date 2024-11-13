@@ -123,6 +123,7 @@ class InviteRepository extends HttpRepository with EosRepository {
       indexPosition: 3,
       lowerBound: userAccount,
       upperBound: userAccount,
+      reverse: true,
     );
 
     return http
