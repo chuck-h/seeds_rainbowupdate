@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:seeds/components/search_user/interactor/viewmodels/search_user_bloc.dart';
 import 'package:seeds/components/transfer_expert/interactor/viewmodels/transfer_expert_bloc.dart';
@@ -74,6 +75,9 @@ class SelectUserTextFieldState extends State<SelectUserTextField> {
             border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
             hintText: context.loc.searchUserHintText,
           ),
+          inputFormatters: [
+            FilteringTextInputFormatter.deny(" "),
+          ],
         );
           }
       );
