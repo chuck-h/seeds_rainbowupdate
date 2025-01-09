@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:seeds/components/custom_dialog.dart';
 import 'package:seeds/components/profile_avatar.dart';
+import 'package:seeds/components/transfer_expert/interactor/viewmodels/transfer_expert_bloc.dart';
 import 'package:seeds/datasource/local/models/fiat_data_model.dart';
 import 'package:seeds/datasource/local/models/token_data_model.dart';
+import 'package:seeds/datasource/local/settings_storage.dart';
 import 'package:seeds/design/app_colors.dart';
 import 'package:seeds/design/app_theme.dart';
 import 'package:seeds/utils/build_context_extension.dart';
@@ -63,6 +66,8 @@ class SendConfirmationDialog extends StatelessWidget {
         Text(fiatAmount?.asFormattedString() ?? "", style: Theme.of(context).textTheme.subtitle2),
         const SizedBox(height: 30.0),
         DialogRow(imageUrl: toImage, account: toAccount, name: toName, toOrFromText: context.loc.transferSendTo),
+        const SizedBox(height: 24.0),
+        DialogRow(imageUrl: toImage, account: toAccount, name: toName, toOrFromText: context.loc.transferTransactionSuccessFrom),
         const SizedBox(height: 24.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
