@@ -6,7 +6,7 @@ import 'package:seeds/datasource/remote/model/balance_model.dart';
 import 'package:seeds/datasource/remote/model/oswap_model.dart';
 
 class OswapsRepository extends HttpRepository {
-  static const defaultPoolContract = 'oswapper1111';
+  static const defaultPoolContract = 'oswaps.rcf';
 
   Future<Result<List<OswapAsset>>> getAssetList(
       {String poolContract = OswapsRepository.defaultPoolContract, int first = 0, void Function(bool, int?)? nextCallback}) {
