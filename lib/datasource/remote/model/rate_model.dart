@@ -36,4 +36,19 @@ class RateModel {
       return RateModel(tokenId, 0);
     }
   }
+
+  factory RateModel.fromRainbowJson(String tokenId, Map<String,dynamic> json) {
+    if (json != null && (json['rows'] as List).isNotEmpty) {
+      final amount = json['rows'][0]['val_per_token'];
+      final ref_currency = json['rows'][0]['ref_currency'];
+      if (amount!=null && ref_currency!=null) {
+        if (ref_currency!='USD') {
+          // do currency conversion here, or refactor?
+          print('substituting ${ref_currency} with USD');
+        }
+        return RateModel(tokenId, double.parse(amount as String));
+      }
+    } 
+    return RateModel(tokenId, 0);
+  }
 }

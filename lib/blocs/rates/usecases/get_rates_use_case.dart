@@ -12,6 +12,10 @@ class GetRatesUseCase {
       _ratesRepository.getTelosRate(),
       _ratesRepository.getFiatRates(),
     ];
-    return Future.wait(futures);
+    final rainbowFutures = _ratesRepository.getRainbowRates();
+    final ratesFutures = Future.wait(futures).then((rates) {
+      return rainbowFutures.then((rainbows) => rates + rainbows);
+    });
+    return ratesFutures;
   }
 }

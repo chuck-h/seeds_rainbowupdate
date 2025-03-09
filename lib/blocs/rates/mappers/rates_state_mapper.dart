@@ -24,6 +24,13 @@ class RatesStateMapper extends StateMapper {
       if (telosRateModel != null) {
         rates[telosTokenId] = telosRateModel;
       }
+      // rainbow tokens
+      for(final rm in results.sublist(3)) {
+        final rateModel = rm.asValue?.value as RateModel;
+        if (rateModel.tokensPerUSD != 0) {
+          rates[rateModel.tokenId] = rateModel;
+        }
+      }
       final FiatRateModel? fiatRate = results[2].asValue?.value as FiatRateModel?;
       return currentState.copyWith(rates: rates, fiatRate: fiatRate);
     }

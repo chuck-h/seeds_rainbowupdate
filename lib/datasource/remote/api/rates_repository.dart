@@ -1,5 +1,7 @@
 import 'package:async/async.dart';
+import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
+import 'package:seeds/datasource/local/settings_storage.dart';
 import 'package:seeds/datasource/remote/api/http_repo/http_repository.dart';
 import 'package:seeds/datasource/remote/api/http_repo/seeds_scopes.dart';
 import 'package:seeds/datasource/remote/api/http_repo/seeds_tables.dart';
@@ -50,5 +52,35 @@ class RatesRepository extends HttpRepository {
               return RateModel.fromOracleJson("eosio.token#TLOS", 4, body);
             }))
         .catchError((error) => mapHttpError(error));
+  }
+
+  Future<Result<RateModel>> getRainbowRate(String tokenId) async {
+    print('[http] get rainbow rate ${tokenId}');
+    final about = "rate from rainbow contract";
+    final contract = tokenId.split('#')[1];
+    final symbol = tokenId.split('#')[2];
+    final request = '{"json":true,"code":"${contract}","scope":"${symbol}","table":"configs"}';
+
+    return http
+        .post(Uri.parse('$baseURL/v1/chain/get_table_rows'), headers: headers, body: request)
+        .then((http.Response response) => 
+          mapHttpResponse<RateModel>(response, (Map<String, dynamic> body) {
+              return RateModel.fromRainbowJson(tokenId, body);
+          }))
+        .catchError((error) => mapHttpError(error, about: about));
+  }
+
+  Future<List<Result<RateModel>>> getRainbowRates() async {
+    // consider: try all tokens and silently ignore if they have no configs.val_per_token
+    const rainbowContracts = ['rainbowproto', 'tokensmaster'];
+    final futureList = settingsStorage.tokensWhitelist.map((tokenId) {
+      final contract = tokenId.split('#')[1];
+      if (rainbowContracts.contains(contract)) {
+        return getRainbowRate(tokenId);
+      } else {
+        return null;
+      }
+    });
+    return Future.wait(futureList.whereNotNull().toList());
   }
 }
