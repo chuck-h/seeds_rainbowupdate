@@ -12,7 +12,7 @@ class RateModel {
     if (json != null && (json['rows'] as List).isNotEmpty) {
       final value = json['rows'][0]['current_seeds_per_usd'] ?? 0.toString();
       final amount = double.parse(value.split(' ').first as String);
-      return RateModel(seedsTokenId, amount);
+      return RateModel(seedsTokenId, amount<=0 ? 0 : 1.0/amount);
     } else {
       return const RateModel(seedsTokenId, 0);
     }
@@ -23,7 +23,7 @@ class RateModel {
       print("JSON $json");
       final int value = json['rows'][0]['median'] as int? ?? 0;
       final double amount = value / pow(10, precision).toDouble();
-      return RateModel(tokenId, 1 / amount);
+      return RateModel(tokenId, amount);
     } else {
       return RateModel(tokenId, 0);
     }
