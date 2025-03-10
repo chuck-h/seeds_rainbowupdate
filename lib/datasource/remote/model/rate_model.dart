@@ -3,17 +3,9 @@ import 'dart:math';
 /// Token per USD
 class RateModel {
   final String tokenId;
-  final double tokensPerUSD;
-
-  const RateModel(this.tokenId, this.tokensPerUSD);
-
-  double? tokenToUSD(double seedsAmount) {
-    return tokensPerUSD > 0 ? seedsAmount / tokensPerUSD : null;
-  }
-
-  double? usdToToken(double usdAmount) {
-    return tokensPerUSD > 0 ? usdAmount * tokensPerUSD : null;
-  }
+  final String referenceFiat;
+  final double fiatPerToken;
+  const RateModel(this.tokenId, this.fiatPerToken, {this.referenceFiat='USD'});
 
   factory RateModel.fromSeedsJson(Map<String, dynamic>? json) {
     const seedsTokenId = 'Telos#token.seeds#SEEDS';
@@ -42,11 +34,7 @@ class RateModel {
       final amount = json['rows'][0]['val_per_token'];
       final ref_currency = json['rows'][0]['ref_currency'];
       if (amount!=null && ref_currency!=null) {
-        if (ref_currency!='USD') {
-          // do currency conversion here, or refactor?
-          print('substituting ${ref_currency} with USD');
-        }
-        return RateModel(tokenId, double.parse(amount as String));
+        return RateModel(tokenId, double.parse(amount as String), referenceFiat: ref_currency as String);
       }
     } 
     return RateModel(tokenId, 0);

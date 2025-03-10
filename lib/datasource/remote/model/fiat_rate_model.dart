@@ -14,22 +14,12 @@ class FiatRateModel {
     }
   }
 
-  double? usdToCurrency(double usdValue, String currency) {
-    final num? rate = rates[currency];
-    if (rate != null) {
-      return usdValue * rate;
-    } else {
+  double? currency2PerCurrency1(String currency1, String currency2) {
+    if (rates[currency1] != null && rates[currency1]! > 0 
+      && rates[currency2] != null && rates[currency2]! > 0) {
+        return rates[currency1]!/rates[currency2]!;
+      }
       return null;
-    }
-  }
-
-  double? currencyToUSD(double currencyValue, String currency) {
-    final num? rate = rates[currency];
-    if (rate != null) {
-      return rate > 0 ? currencyValue / rate : 0;
-    } else {
-      return null;
-    }
   }
 
   void rebase(String symbol) {

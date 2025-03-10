@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 abstract class AmountDataModel {
   final double amount;
   final String symbol;
@@ -17,5 +19,10 @@ abstract class AmountDataModel {
   // full precision string without symbol, e.g. "10.0000"
   String asFixedString() {
     return amount.toStringAsFixed(precision);
+  }
+
+  String asDisplayString() {
+    final formatCurrency = NumberFormat.simpleCurrency(name: symbol);
+    return "${formatCurrency.format(amount)} $symbol";
   }
 }

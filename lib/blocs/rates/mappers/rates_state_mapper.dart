@@ -27,7 +27,7 @@ class RatesStateMapper extends StateMapper {
       // rainbow tokens
       for(final rm in results.sublist(3)) {
         final rateModel = rm.asValue?.value as RateModel;
-        if (rateModel.tokensPerUSD != 0) {
+        if (rateModel.fiatPerToken != 0) {
           rates[rateModel.tokenId] = rateModel;
         }
       }
