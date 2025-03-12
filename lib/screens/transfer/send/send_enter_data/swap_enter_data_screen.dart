@@ -33,6 +33,7 @@ import 'package:seeds/screens/transfer/send/send_confirmation/interactor/viewmod
 import 'package:seeds/screens/transfer/send/send_enter_data/components/send_confirmation_dialog.dart';
 import 'package:seeds/screens/transfer/send/send_enter_data/interactor/viewmodels/show_send_confirm_dialog_data.dart';
 import 'package:seeds/utils/build_context_extension.dart';
+import 'package:seeds/utils/rate_states_extensions.dart';
 import 'package:seeds/utils/observer_utils.dart';
 
 
@@ -110,6 +111,7 @@ class SwapEnterDataScreen extends StatelessWidget with RouteAware {
       bloc: BlocProvider.of<TransferExpertBloc>(fromContext),
       builder: (context, state) {
         final proxySend = state.selectedAccounts["from"] != settingsStorage.accountName;
+        final sendingTokenDataModel = TokenDataModel.from(senderBalance, token: state.swapSendAmount!.token);
         return
      Scaffold(
       appBar: AppBar(
@@ -226,8 +228,12 @@ class SwapEnterDataScreen extends StatelessWidget with RouteAware {
                                   
                                   BalanceRow(
                                     label: context.loc.transferSendAvailableBalance,
-                                    fiatAmount: FiatDataModel(111), // state.availableBalanceFiat,
-                                    tokenAmount: TokenDataModel.from(senderBalance, token: state.swapSendAmount!.token)
+                                    fiatAmount: 
+                                      BlocProvider.of<RatesBloc>(context).state.tokenToFiat(
+                                        sendingTokenDataModel!,
+                                        settingsStorage.selectedFiatCurrency),
+ // state.availableBalanceFiat,
+                                    tokenAmount: sendingTokenDataModel
                                   ),
                                   
                                   const SizedBox(height: 100),
