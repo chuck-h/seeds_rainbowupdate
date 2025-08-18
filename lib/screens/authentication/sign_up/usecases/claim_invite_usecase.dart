@@ -11,7 +11,7 @@ class ClaimInviteUseCase {
   }
 
   Future<Result> unpackLink(String link) {
-    const String prefix = 'invite-';
+    const String prefix = 'seedsinvite-';
     if(link.startsWith(prefix)) {
       return Future<Result>(() => Result.value(link.substring(prefix.length)));
     } else {

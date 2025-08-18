@@ -24,7 +24,7 @@ class CreateInviteResultStateMapper extends StateMapper {
       if (response != null && response.transactionId.isNotEmpty) {
         // Transaction success show invite link dialog
         //final Uri? dynamicSecretLink = values.firstWhere((i) => i is Uri, orElse: () => null) as Uri?;
-        final String secretLink = 'invite-${values.firstWhere((i) => i is String)}';
+        final String secretLink = 'seedsinvite-${values.firstWhere((i) => i is String)}';
 
         return currentState.copyWith(
           pageState: PageState.success,

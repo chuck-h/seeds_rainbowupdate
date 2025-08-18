@@ -35,16 +35,21 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<ClearSignupPageCommand>((_, emit) => emit(state.copyWith()));
   }
 
-  // if it has a invite deep link
+  // if it has a invite deep link or user text entry
   Future<void> _onInviteCodeFromDeepLink(OnInviteCodeFromDeepLink event, Emitter<SignupState> emit) async {
     if (event.inviteCode != null) {
+      const String prefix = 'seedsinvite-';
+      String invite = event.inviteCode!;
+      if(invite.startsWith(prefix)) {
+        invite=invite.substring(prefix.length);
+      }
       emit(state.copyWith(
-        inviteMnemonic: event.inviteCode,
+        inviteMnemonic: invite,
         claimInviteView: ClaimInviteView.processing,
         fromDeepLink: true,
       ));
       await Future.delayed(const Duration(seconds: 1));
-      final Result result = await ClaimInviteUseCase().validateInviteCode(event.inviteCode!);
+      final Result result = await ClaimInviteUseCase().validateInviteCode(invite);
       emit(ClaimInviteMapper().mapValidateInviteCodeToState(state, result));
       // if success shows successs screen for 1 second then move to add name
       if (state.claimInviteView == ClaimInviteView.success) {

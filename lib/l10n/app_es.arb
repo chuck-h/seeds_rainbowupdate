@@ -139,7 +139,7 @@
   "@signUpErrorUsernameAlreadyTaken": {},
   "signUpErrorNoInvitesFound": "No se encontró la invitación, intenta otro código",
   "@signUpErrorNoInvitesFound": {},
-  "signUpErrorInviteAlreadyClaimed": "La invitación ya se reclamó",
+  "signUpErrorInviteAlreadyClaimed": "Es posible que la invitación ya se reclamó",
   "@signUpErrorInviteAlreadyClaimed": {},
   "recoverAccountFoundShowLinkCopied": "Copiado",
   "@recoverAccountFoundShowLinkCopied": {},
