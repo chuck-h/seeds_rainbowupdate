@@ -10,5 +10,13 @@ class ClaimInviteUseCase {
     return InviteRepository().findInvite(inviteHash);
   }
 
-  Future<Result> unpackLink(String link) => SignupRepository().unpackDynamicLink(link);
+  Future<Result> unpackLink(String link) {
+    const String prefix = 'invite-';
+    if(link.startsWith(prefix)) {
+      return Future<Result>(() => Result.value(link.substring(prefix.length)));
+    } else {
+      // Dynamic Links end of life Aug 25 2025
+      return SignupRepository().unpackDynamicLink(link);
+    }
+  }
 }
