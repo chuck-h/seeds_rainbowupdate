@@ -70,17 +70,16 @@ class RatesRepository extends HttpRepository {
         .catchError((error) => mapHttpError(error, about: about));
   }
 
-  Future<List<Result<RateModel>>> getRainbowRates() async {
+  Future<List<Result>> getRainbowRates() async {
     // consider: try all tokens and silently ignore if they have no configs.val_per_token
     const rainbowContracts = ['rainbowproto', 'tokensmaster'];
-    final futureList = settingsStorage.tokensWhitelist.map((tokenId) {
+    List<Result> rv = [];
+    for (String tokenId in settingsStorage.tokensWhitelist) {
       final contract = tokenId.split('#')[1];
       if (rainbowContracts.contains(contract)) {
-        return getRainbowRate(tokenId);
-      } else {
-        return null;
+        rv.add(await getRainbowRate(tokenId));
       }
-    });
-    return Future.wait(futureList.whereNotNull().toList());
+    };
+    return Future(() => rv);
   }
 }
