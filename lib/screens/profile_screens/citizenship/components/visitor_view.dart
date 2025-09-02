@@ -20,7 +20,8 @@ class VisitorView extends StatefulWidget {
   _VisitorViewState createState() => _VisitorViewState();
 }
 
-class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin {
+class _VisitorViewState extends State<VisitorView>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _timeLineAnimation;
   late Animation<double> _reputationAnimation;
@@ -35,7 +36,8 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
 
   @override
   void initState() {
-    _controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    _controller =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
     super.initState();
   }
 
@@ -49,29 +51,39 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return BlocConsumer<CitizenshipBloc, CitizenshipState>(
       listenWhen: (previous, current) =>
-          previous.pageState != PageState.success && current.pageState == PageState.success,
+          previous.pageState != PageState.success &&
+          current.pageState == PageState.success,
       listener: (context, state) {
-        _timeLineAnimation = Tween<double>(begin: 0, end: state.progressTimeline).animate(_controller)
-          ..addListener(() {
-            setState(() => _timeLine = _timeLineAnimation.value.toInt());
-          });
-        _reputationAnimation = Tween<double>(begin: 0, end: state.profile?.reputation.toDouble()).animate(_controller)
+        _timeLineAnimation =
+            Tween<double>(begin: 0, end: state.progressTimeline)
+                .animate(_controller)
+              ..addListener(() {
+                setState(() => _timeLine = _timeLineAnimation.value.toInt());
+              });
+        _reputationAnimation = Tween<double>(
+                begin: 0, end: state.profile?.reputation.toDouble())
+            .animate(_controller)
           ..addListener(() {
             setState(() => _reputation = _reputationAnimation.value.toInt());
           });
-        _visitorsAnimation = Tween<double>(begin: 0, end: state.invitedVisitors?.toDouble()).animate(_controller)
+        _visitorsAnimation = Tween<double>(
+                begin: 0, end: state.invitedVisitors?.toDouble())
+            .animate(_controller)
           ..addListener(() {
             setState(() => _visitors = _visitorsAnimation.value.toInt() * 100);
           });
-        _seedsAnimation = Tween<double>(begin: 0, end: state.plantedSeeds).animate(_controller)
+        _seedsAnimation = Tween<double>(begin: 0, end: state.plantedSeeds)
+            .animate(_controller)
           ..addListener(() {
             setState(() => _seeds = _seedsAnimation.value.toInt());
           });
-        _transactionsAnimation =
-            Tween<double>(begin: 0, end: state.seedsTransactionsCount?.toDouble()).animate(_controller)
-              ..addListener(() {
-                setState(() => _transactions = _transactionsAnimation.value.toInt());
-              });
+        _transactionsAnimation = Tween<double>(
+                begin: 0, end: state.seedsTransactionsCount?.toDouble())
+            .animate(_controller)
+          ..addListener(() {
+            setState(
+                () => _transactions = _transactionsAnimation.value.toInt());
+          });
         _controller.forward();
       },
       builder: (context, state) {
@@ -100,12 +112,13 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
                         const SizedBox(height: 8.0),
                         Text(
                           state.profile!.nickname,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           state.profile!.statusString.i18n,
-                          style: Theme.of(context).textTheme.headline7LowEmphasis,
+                          style:
+                              Theme.of(context).textTheme.headline7LowEmphasis,
                         ),
                       ],
                     ),
@@ -115,7 +128,8 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
                 Container(
                   decoration: const BoxDecoration(
                     color: AppColors.lightGreen2,
-                    borderRadius: BorderRadius.all(Radius.circular(defaultCardBorderRadius)),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(defaultCardBorderRadius)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -124,8 +138,12 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Progress Timeline'.i18n, style: Theme.of(context).textTheme.button),
-                            Text('$_timeLine%', style: Theme.of(context).textTheme.subtitle2LowEmphasis),
+                            Text('Progress Timeline'.i18n,
+                                style: Theme.of(context).textTheme.labelLarge),
+                            Text('$_timeLine%',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2LowEmphasis),
                           ],
                         ),
                         const SizedBox(height: 16.0),
@@ -151,44 +169,53 @@ class _VisitorViewState extends State<VisitorView> with TickerProviderStateMixin
                   childAspectRatio: 0.8,
                   children: <Widget>[
                     CircularProgressItem(
-                      icon: SvgPicture.asset('assets/images/citizenship/reputation.svg'),
+                      icon: SvgPicture.asset(
+                          'assets/images/citizenship/reputation.svg'),
                       totalStep: residentRequiredReputation,
                       currentStep: _reputation,
                       circleRadius: 30,
                       title: 'Reputation Points'.i18n,
                       titleStyle: Theme.of(context).textTheme.subtitle3,
                       rate: '$_reputation/$residentRequiredReputation',
-                      rateStyle: Theme.of(context).textTheme.subtitle1!,
+                      rateStyle: Theme.of(context).textTheme.titleMedium ??
+                          const TextStyle(),
                     ),
                     CircularProgressItem(
-                      icon: SvgPicture.asset('assets/images/citizenship/community.svg'),
+                      icon: SvgPicture.asset(
+                          'assets/images/citizenship/community.svg'),
                       totalStep: residentRequiredVisitorsInvited * 100,
                       currentStep: _visitors,
                       circleRadius: 30,
                       title: 'Visitors Invited'.i18n,
                       titleStyle: Theme.of(context).textTheme.subtitle3,
-                      rate: '${_visitors ~/ 100}/$residentRequiredVisitorsInvited',
-                      rateStyle: Theme.of(context).textTheme.subtitle1!,
+                      rate:
+                          '${_visitors ~/ 100}/$residentRequiredVisitorsInvited',
+                      rateStyle: Theme.of(context).textTheme.titleMedium ??
+                          const TextStyle(),
                     ),
                     CircularProgressItem(
-                      icon: SvgPicture.asset('assets/images/citizenship/planted.svg'),
+                      icon: SvgPicture.asset(
+                          'assets/images/citizenship/planted.svg'),
                       totalStep: residentRequiredPlantedSeeds,
                       currentStep: _seeds,
                       circleRadius: 30,
                       title: 'Planted Seeds'.i18n,
                       titleStyle: Theme.of(context).textTheme.subtitle3,
                       rate: '$_seeds/$residentRequiredPlantedSeeds',
-                      rateStyle: Theme.of(context).textTheme.subtitle1!,
+                      rateStyle: Theme.of(context).textTheme.titleMedium ??
+                          const TextStyle(),
                     ),
                     CircularProgressItem(
-                      icon: SvgPicture.asset('assets/images/citizenship/transaction.svg'),
+                      icon: SvgPicture.asset(
+                          'assets/images/citizenship/transaction.svg'),
                       totalStep: residentRequiredSeedsTransactions,
                       currentStep: _transactions,
                       circleRadius: 30,
                       title: 'Transactions with Seeds'.i18n,
                       titleStyle: Theme.of(context).textTheme.subtitle3,
                       rate: '$_transactions/$residentRequiredSeedsTransactions',
-                      rateStyle: Theme.of(context).textTheme.subtitle1!,
+                      rateStyle: Theme.of(context).textTheme.titleMedium ??
+                          const TextStyle(),
                     ),
                   ],
                 ),

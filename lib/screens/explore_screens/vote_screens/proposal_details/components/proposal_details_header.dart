@@ -13,7 +13,8 @@ class ProposalDetailsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return BlocBuilder<ProposalDetailsBloc, ProposalDetailsState>(
-      buildWhen: (previous, current) => previous.currentIndex != current.currentIndex,
+      buildWhen: (previous, current) =>
+          previous.currentIndex != current.currentIndex,
       builder: (context, state) {
         return Container(
           clipBehavior: Clip.hardEdge,
@@ -51,7 +52,11 @@ class ProposalDetailsHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(left: 0, top: 0, right: 0, child: AppBar(backgroundColor: Colors.transparent)),
+              Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  child: AppBar(backgroundColor: Colors.transparent)),
               Positioned(
                 bottom: kToolbarHeight + 42,
                 left: 0,
@@ -59,10 +64,13 @@ class ProposalDetailsHeader extends StatelessWidget {
                   size: const Size(100, 40),
                   painter: const CategoryLabel(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                     child: Text(
-                      state.proposals[state.currentIndex].proposalCategory.localizedDescription(context).inCaps,
-                      style: Theme.of(context).textTheme.subtitle2,
+                      state.proposals[state.currentIndex].proposalCategory
+                          .localizedDescription(context)
+                          .inCaps,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                 ),

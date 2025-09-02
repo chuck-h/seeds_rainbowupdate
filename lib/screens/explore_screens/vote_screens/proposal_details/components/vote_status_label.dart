@@ -17,15 +17,23 @@ class VoteStatusLabel extends StatelessWidget {
           switch (state.voteStatus) {
             case VoteStatus.notCitizen:
               return Padding(
-                padding: const EdgeInsets.only(top: horizontalEdgePadding, left: horizontalEdgePadding),
+                padding: const EdgeInsets.only(
+                    top: horizontalEdgePadding, left: horizontalEdgePadding),
                 child: Row(
                   children: [
                     RichText(
                       text: TextSpan(
                         children: [
-                          TextSpan(text: 'You must be a'.i18n, style: Theme.of(context).textTheme.subtitle2),
-                          TextSpan(text: ' Citizen '.i18n, style: Theme.of(context).textTheme.subtitle2Green2),
-                          TextSpan(text: 'to vote on proposals.'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                          TextSpan(
+                              text: 'You must be a'.i18n,
+                              style: Theme.of(context).textTheme.titleSmall),
+                          TextSpan(
+                              text: ' Citizen '.i18n,
+                              style:
+                                  Theme.of(context).textTheme.subtitle2Green2),
+                          TextSpan(
+                              text: 'to vote on proposals.'.i18n,
+                              style: Theme.of(context).textTheme.titleSmall),
                         ],
                       ),
                     ),
@@ -34,19 +42,25 @@ class VoteStatusLabel extends StatelessWidget {
               );
             case VoteStatus.alreadyVoted:
               return Padding(
-                padding: const EdgeInsets.only(top: horizontalEdgePadding, left: horizontalEdgePadding),
+                padding: const EdgeInsets.only(
+                    top: horizontalEdgePadding, left: horizontalEdgePadding),
                 child: Row(
                   children: [
                     RichText(
                       text: TextSpan(
                         children: [
-                          TextSpan(text: 'You have already'.i18n, style: Theme.of(context).textTheme.subtitle2),
-                          TextSpan(text: ' Voted with '.i18n, style: Theme.of(context).textTheme.subtitle2Green2),
+                          TextSpan(
+                              text: 'You have already'.i18n,
+                              style: Theme.of(context).textTheme.titleSmall),
+                          TextSpan(
+                              text: ' Voted with '.i18n,
+                              style:
+                                  Theme.of(context).textTheme.subtitle2Green2),
                           TextSpan(
                               text: state.vote!.amount == 1
                                   ? '${state.vote!.amount} ' 'vote '.i18n
                                   : '${state.vote!.amount} ' 'votes'.i18n,
-                              style: Theme.of(context).textTheme.subtitle2),
+                              style: Theme.of(context).textTheme.titleSmall),
                         ],
                       ),
                     ),
@@ -55,7 +69,8 @@ class VoteStatusLabel extends StatelessWidget {
               );
             case VoteStatus.hasDelegate:
               return Padding(
-                padding: const EdgeInsets.only(top: horizontalEdgePadding, left: horizontalEdgePadding),
+                padding: const EdgeInsets.only(
+                    top: horizontalEdgePadding, left: horizontalEdgePadding),
                 child: Row(
                   children: [
                     Flexible(
@@ -65,12 +80,15 @@ class VoteStatusLabel extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: 'You have delegated your vote to'.i18n,
-                                style: Theme.of(context).textTheme.subtitle2),
+                                style: Theme.of(context).textTheme.titleSmall),
                             TextSpan(
                                 text: ' ${state.proposalDelegate}. ',
-                                style: Theme.of(context).textTheme.subtitle2Green2),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2Green2),
                             TextSpan(
-                                text: 'They are voting for you.'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                                text: 'They are voting for you.'.i18n,
+                                style: Theme.of(context).textTheme.titleSmall),
                           ],
                         ),
                       ),
@@ -80,21 +98,26 @@ class VoteStatusLabel extends StatelessWidget {
               );
             case VoteStatus.canVote:
               return Padding(
-                padding: const EdgeInsets.only(top: horizontalEdgePadding, left: horizontalEdgePadding),
+                padding: const EdgeInsets.only(
+                    top: horizontalEdgePadding, left: horizontalEdgePadding),
                 child: Row(
                   children: [
                     RichText(
                       text: TextSpan(
                         children: [
-                          TextSpan(text: 'Voting'.i18n, style: Theme.of(context).textTheme.subtitle2),
                           TextSpan(
-                              text: ' - ${state.proposals[state.currentIndex].proposalCategory.name}: ',
-                              style: Theme.of(context).textTheme.subtitle2Green2),
+                              text: 'Voting'.i18n,
+                              style: Theme.of(context).textTheme.titleSmall),
+                          TextSpan(
+                              text:
+                                  ' - ${state.proposals[state.currentIndex].proposalCategory.name}: ',
+                              style:
+                                  Theme.of(context).textTheme.subtitle2Green2),
                           TextSpan(
                               text: state.voteAmount == 1
                                   ? '${state.voteAmount} ' 'vote '.i18n
                                   : '${state.voteAmount} ' 'votes'.i18n,
-                              style: Theme.of(context).textTheme.subtitle2),
+                              style: Theme.of(context).textTheme.titleSmall),
                         ],
                       ),
                     ),
@@ -106,10 +129,12 @@ class VoteStatusLabel extends StatelessWidget {
           }
         } else if (state.proposals[state.currentIndex].stage == 'staged') {
           return Padding(
-            padding: const EdgeInsets.only(top: horizontalEdgePadding, left: horizontalEdgePadding),
+            padding: const EdgeInsets.only(
+                top: horizontalEdgePadding, left: horizontalEdgePadding),
             child: Row(
               children: [
-                Text('Voting for this proposal is not open yet.'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                Text('Voting for this proposal is not open yet.'.i18n,
+                    style: Theme.of(context).textTheme.titleSmall),
               ],
             ),
           );

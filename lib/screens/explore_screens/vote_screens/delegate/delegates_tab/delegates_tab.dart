@@ -25,7 +25,8 @@ class DelegatesTab extends StatelessWidget {
         listenWhen: (_, current) => current.pageCommand != null,
         listener: (context, state) {
           final pageCommand = state.pageCommand;
-          BlocProvider.of<DelegatesBloc>(context).add(const ClearDelegatesPageCommand());
+          BlocProvider.of<DelegatesBloc>(context)
+              .add(const ClearDelegatesPageCommand());
           if (pageCommand is ShowDelegateRemovalConfirmation) {
             showDialog<void>(
               context: context,
@@ -56,11 +57,13 @@ class DelegatesTab extends StatelessWidget {
             case PageState.success:
               return WillPopScope(
                 onWillPop: () async {
-                  Navigator.of(context).pop(state.shouldRefreshCurrentDelegates);
+                  Navigator.of(context)
+                      .pop(state.shouldRefreshCurrentDelegates);
                   return true;
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: horizontalEdgePadding),
                   child: Column(
                     children: <Widget>[
                       const SizedBox(height: 30),
@@ -68,12 +71,15 @@ class DelegatesTab extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                             'Delegating your vote means to entrust the power of your vote to another Citizen.  Please choose your delegate carefully!',
-                            style: Theme.of(context).textTheme.subtitle2),
+                            style: Theme.of(context).textTheme.titleSmall),
                       ),
                       const SizedBox(height: 30),
                       DelegateCard(
-                        onTapRemove: () => BlocProvider.of<DelegatesBloc>(context).add(const OnRemoveDelegateTapped()),
-                        onTap: () => NavigationService.of(context).navigateTo(Routes.delegateAUser),
+                        onTapRemove: () =>
+                            BlocProvider.of<DelegatesBloc>(context)
+                                .add(const OnRemoveDelegateTapped()),
+                        onTap: () => NavigationService.of(context)
+                            .navigateTo(Routes.delegateAUser),
                         activeDelegate: state.activeDelegate,
                         delegate: state.delegate,
                       )

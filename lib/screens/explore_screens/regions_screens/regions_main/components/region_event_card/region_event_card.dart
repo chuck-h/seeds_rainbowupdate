@@ -19,13 +19,15 @@ class RegionEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => RegionEventCardBloc(event)..add(OnLoadRegionEventMembers(event.users)),
+      create: (_) => RegionEventCardBloc(event)
+        ..add(OnLoadRegionEventMembers(event.users)),
       child: BlocBuilder<RegionEventCardBloc, RegionEventCardState>(
         builder: (_, state) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: InkWell(
-              onTap: () => NavigationService.of(context).navigateTo(Routes.regionEventDetails, event),
+              onTap: () => NavigationService.of(context)
+                  .navigateTo(Routes.regionEventDetails, event),
               borderRadius: BorderRadius.circular(16.0),
               child: Container(
                 decoration: state.isEventExpired
@@ -51,7 +53,8 @@ class RegionEventCard extends StatelessWidget {
                               height: MediaQuery.of(context).size.width - 250,
                               width: MediaQuery.of(context).size.width - 32,
                               placeholder: (_, __) => const SizedBox.shrink(),
-                              errorWidget: (_, __, ___) => const SizedBox.shrink(),
+                              errorWidget: (_, __, ___) =>
+                                  const SizedBox.shrink(),
                             ),
                           ),
                           if (state.isEventExpired)
@@ -62,10 +65,12 @@ class RegionEventCard extends StatelessWidget {
                                 size: const Size(100, 40),
                                 painter: const CategoryLabel(color: Colors.red),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 6),
                                   child: Text(
                                     "The event has passed",
-                                    style: Theme.of(context).textTheme.subtitle2,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
                                   ),
                                 ),
                               ),
@@ -83,12 +88,16 @@ class RegionEventCard extends StatelessWidget {
                             Flexible(
                               child: Text(
                                 event.eventName,
-                                style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .buttonLowEmphasis,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             const SizedBox(width: 16.0),
-                            Text(event.eventStartTime.toDate().toYMMMMD(context)),
+                            Text(event.eventStartTime
+                                .toDate()
+                                .toYMMMMD(context)),
                           ],
                         ),
                       ),
@@ -104,7 +113,10 @@ class RegionEventCard extends StatelessWidget {
                             const SizedBox(width: 6.0),
                             Text(
                               '${context.loc.regionMainMembersTitle(event.users.length, event.readableMembersCount)} ${context.loc.regionEventCardJoinedTitle}',
-                              style: Theme.of(context).textTheme.subtitle3.copyWith(color: AppColors.grey2),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle3
+                                  .copyWith(color: AppColors.grey2),
                             ),
                             const Spacer(),
                             Container(
@@ -115,9 +127,13 @@ class RegionEventCard extends StatelessWidget {
                               padding: const EdgeInsets.all(4.0),
                               child: Row(
                                 children: [
-                                  const Icon(Icons.access_time, size: 14, color: AppColors.green3),
+                                  const Icon(Icons.access_time,
+                                      size: 14, color: AppColors.green3),
                                   const SizedBox(width: 4.0),
-                                  Text(event.formattedStartTime, style: Theme.of(context).textTheme.subtitle3Green),
+                                  Text(event.formattedStartTime,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle3Green),
                                 ],
                               ),
                             ),

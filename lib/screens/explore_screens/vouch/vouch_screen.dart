@@ -15,11 +15,16 @@ class VouchScreen extends StatelessWidget {
         appBar: AppBar(
           shape: const Border(bottom: BorderSide(color: AppColors.lightGreen2)),
           bottom: TabBar(
-            unselectedLabelStyle: Theme.of(context).textTheme.buttonOpacityEmphasis,
-            labelStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+            unselectedLabelStyle:
+                Theme.of(context).textTheme.labelLargeOpacityEmphasis,
+            labelStyle: Theme.of(context).textTheme.labelLargeLowEmphasis,
             tabs: [
-              const Padding(padding: EdgeInsets.only(bottom: 16), child: Text("Vouched for")),
-              const Padding(padding: EdgeInsets.only(bottom: 16), child: Text("Vouched for me"))
+              const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Text("Vouched for")),
+              const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Text("Vouched for me"))
             ],
           ),
           title: const Text("Vouch"),

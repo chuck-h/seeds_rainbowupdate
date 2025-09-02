@@ -21,7 +21,8 @@ class ReceiveDetailQrCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (_) => ReceiveDetailsBloc(details, BlocProvider.of<RatesBloc>(context).state),
+      create: (_) => ReceiveDetailsBloc(
+          details, BlocProvider.of<RatesBloc>(context).state),
       child: BlocConsumer<ReceiveDetailsBloc, ReceiveDetailsState>(
         listenWhen: (_, current) => current.receivePaidSuccessArgs != null,
         listener: (context, state) {
@@ -29,7 +30,8 @@ class ReceiveDetailQrCodeScreen extends StatelessWidget {
           showDialog<void>(
             context: context,
             barrierDismissible: false, // user must tap button
-            builder: (_) => ReceivePaidSuccessDialog(state.receivePaidSuccessArgs!),
+            builder: (_) =>
+                ReceivePaidSuccessDialog(state.receivePaidSuccessArgs!),
           );
         },
         builder: (context, state) {
@@ -45,7 +47,9 @@ class ReceiveDetailQrCodeScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 30),
-                          QrCodeGeneratorWidget(data: state.details.invoiceLink, size: size.width * 0.8),
+                          QrCodeGeneratorWidget(
+                              data: state.details.invoiceLink,
+                              size: size.width * 0.8),
                           const SizedBox(height: 20),
                           ShareLinkRow(
                             label: context.loc.transferReceiveShareLink,
@@ -70,19 +74,25 @@ class ReceiveDetailQrCodeScreen extends StatelessWidget {
                               child: RichText(
                                 text: TextSpan(
                                     text: context.loc.transferReceiveMemo,
-                                    children: [TextSpan(text: state.details.memo)]),
+                                    children: [
+                                      TextSpan(text: state.details.memo)
+                                    ]),
                               ),
                             ),
                           const SizedBox(height: 40),
-                          Text(context.loc.transferReceiveWaiting, style: Theme.of(context).textTheme.headline6),
+                          Text(context.loc.transferReceiveWaiting,
+                              style: Theme.of(context).textTheme.titleLarge),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(60.0, 40, 60.0, 0),
+                            padding:
+                                const EdgeInsets.fromLTRB(60.0, 40, 60.0, 0),
                             child: FlatButtonLong(
                               enabled: !state.isCheckButtonLoading,
                               isLoading: state.isCheckButtonLoading,
-                              title: context.loc.transferReceiveCheckPaymentButtonTitle,
+                              title: context
+                                  .loc.transferReceiveCheckPaymentButtonTitle,
                               onPressed: () {
-                                BlocProvider.of<ReceiveDetailsBloc>(context).add(const OnCheckPaymentButtonPressed());
+                                BlocProvider.of<ReceiveDetailsBloc>(context)
+                                    .add(const OnCheckPaymentButtonPressed());
                               },
                             ),
                           ),

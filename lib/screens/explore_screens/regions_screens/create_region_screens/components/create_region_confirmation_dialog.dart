@@ -16,29 +16,40 @@ class CreateRegionConfirmationDialog extends StatelessWidget {
         return true;
       },
       child: CustomDialog(
-        icon: const CustomPaint(size: Size(60, 60), painter: RedExclamationCircle()),
+        icon: const CustomPaint(
+            size: Size(60, 60), painter: RedExclamationCircle()),
         leftButtonTitle: "Cancel",
         rightButtonTitle: "Yes I'm sure",
         onRightButtonPressed: () {
-          BlocProvider.of<CreateRegionBloc>(context).add(const OnConfirmCreateRegionTapped());
+          BlocProvider.of<CreateRegionBloc>(context)
+              .add(const OnConfirmCreateRegionTapped());
           Navigator.of(context).pop();
         },
         children: [
           const SizedBox(height: 10.0),
-          Text("Create Region Confirmation", style: Theme.of(context).textTheme.headline6),
+          Text("Create Region Confirmation",
+              style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 30.0),
           RichText(
               textAlign: TextAlign.center,
               text: TextSpan(children: <TextSpan>[
-                TextSpan(text: "By selecting “Yes I’m sure”,", style: Theme.of(context).textTheme.subtitle2),
-                TextSpan(text: " 1,000 Seeds", style: Theme.of(context).textTheme.subtitle2Green3LowEmphasis),
                 TextSpan(
-                    text: " will be staked and your region will be created for others to see and join.",
-                    style: Theme.of(context).textTheme.subtitle2)
+                    text: "By selecting “Yes I’m sure”,",
+                    style: Theme.of(context).textTheme.titleSmall),
+                TextSpan(
+                    text: " 1,000 Seeds",
+                    style:
+                        Theme.of(context).textTheme.subtitle2Green3LowEmphasis),
+                TextSpan(
+                    text:
+                        " will be staked and your region will be created for others to see and join.",
+                    style: Theme.of(context).textTheme.titleSmall)
               ])),
           const SizedBox(height: 16.0),
-          Text("Please make sure that everything is in order and that you are ready to create your region!",
-              style: Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.center),
+          Text(
+              "Please make sure that everything is in order and that you are ready to create your region!",
+              style: Theme.of(context).textTheme.titleSmall,
+              textAlign: TextAlign.center),
           const SizedBox(height: 20.0),
         ],
       ),

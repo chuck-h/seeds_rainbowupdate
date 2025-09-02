@@ -27,11 +27,12 @@ class FlagScreen extends StatelessWidget {
               child: FlatButtonLong(
                 title: 'Flag a User',
                 onPressed: () async {
-                  final shouldScreenReload =
-                      await NavigationService.of(context).navigateTo(Routes.flagUser, state.usersIHaveFlagged);
+                  final shouldScreenReload = await NavigationService.of(context)
+                      .navigateTo(Routes.flagUser, state.usersIHaveFlagged);
                   if (shouldScreenReload != null) {
                     // ignore: use_build_context_synchronously
-                    BlocProvider.of<FlagBloc>(context).add(const LoadUsersFlags());
+                    BlocProvider.of<FlagBloc>(context)
+                        .add(const LoadUsersFlags());
                   }
                 },
               ),
@@ -53,7 +54,9 @@ class FlagScreen extends StatelessWidget {
                             ? Center(
                                 child: Text(
                                   'You have not flagged any users',
-                                  style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLargeLowEmphasis,
                                 ),
                               )
                             : ListView(
@@ -71,15 +74,20 @@ class FlagScreen extends StatelessWidget {
                                             barrierDismissible: false,
                                             builder: (_) {
                                               return BlocProvider.value(
-                                                value: BlocProvider.of<FlagBloc>(context),
-                                                child: RemoveFlagInfoDialog(member.account),
+                                                value:
+                                                    BlocProvider.of<FlagBloc>(
+                                                        context),
+                                                child: RemoveFlagInfoDialog(
+                                                    member.account),
                                               );
                                             },
                                           );
                                         },
                                         child: const Text(
                                           "Remove Flag",
-                                          style: TextStyle(color: AppColors.red, fontSize: 12),
+                                          style: TextStyle(
+                                              color: AppColors.red,
+                                              fontSize: 12),
                                         ),
                                       ),
                                       onTileTap: () {

@@ -44,10 +44,12 @@ class ProfileAvatar extends StatelessWidget {
     } else if (image != null && image!.startsWith("asset")) {
       return Image.asset(image!);
     } else {
-      final shortName =
-          nickname != null && nickname!.isNotEmpty && nickname != 'Seeds Account' && nickname != 'Telos Account'
-              ? nickname!.substring(0, 2).toUpperCase()
-              : account.substring(0, 2).toUpperCase();
+      final shortName = nickname != null &&
+              nickname!.isNotEmpty &&
+              nickname != 'Seeds Account' &&
+              nickname != 'Telos Account'
+          ? nickname!.substring(0, 2).toUpperCase()
+          : account.substring(0, 2).toUpperCase();
 
       return Container(
         decoration: decoration ??
@@ -58,7 +60,9 @@ class ProfileAvatar extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           shortName,
-          style: size > 30 ? Theme.of(context).textTheme.subtitle1HighEmphasis : Theme.of(context).textTheme.subtitle3,
+          style: size > 30
+              ? Theme.of(context).textTheme.titleMediumHighEmphasis
+              : Theme.of(context).textTheme.subtitle3,
         ),
       );
     }

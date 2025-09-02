@@ -10,7 +10,8 @@ class NotEnoughSeedsDialog extends StatelessWidget {
   const NotEnoughSeedsDialog({super.key});
 
   Future<void> show(BuildContext context) async {
-    return showDialog<void>(context: context, barrierDismissible: false, builder: (_) => this);
+    return showDialog<void>(
+        context: context, barrierDismissible: false, builder: (_) => this);
   }
 
   @override
@@ -21,17 +22,22 @@ class NotEnoughSeedsDialog extends StatelessWidget {
         return true;
       },
       child: CustomDialog(
-        icon: const CustomPaint(size: Size(60, 60), painter: RedExclamationCircle()),
-        leftButtonTitle: context.loc.createRegionNotEnoughSeedsDialogLeftButtonTitle,
-        rightButtonTitle: context.loc.createRegionNotEnoughSeedsDialogRightButtonTitle,
-        onRightButtonPressed: () => launchUrl(Uri.parse('$urlBuySeeds${settingsStorage.accountName}')),
+        icon: const CustomPaint(
+            size: Size(60, 60), painter: RedExclamationCircle()),
+        leftButtonTitle:
+            context.loc.createRegionNotEnoughSeedsDialogLeftButtonTitle,
+        rightButtonTitle:
+            context.loc.createRegionNotEnoughSeedsDialogRightButtonTitle,
+        onRightButtonPressed: () =>
+            launchUrl(Uri.parse('$urlBuySeeds${settingsStorage.accountName}')),
         children: [
           const SizedBox(height: 10.0),
-          Text(context.loc.createRegionNotEnoughSeedsDialogTitle, style: Theme.of(context).textTheme.headline6),
+          Text(context.loc.createRegionNotEnoughSeedsDialogTitle,
+              style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 30.0),
           Text(
             context.loc.createRegionNotEnoughSeedsDialogSubtitle,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20.0),

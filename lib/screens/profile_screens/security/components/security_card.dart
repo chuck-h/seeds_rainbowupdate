@@ -51,7 +51,8 @@ class SecurityCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 8.0),
+                    padding: const EdgeInsets.only(
+                        left: 16.0, top: 16.0, right: 8.0),
                     child: icon,
                   ),
                 ],
@@ -66,13 +67,16 @@ class SecurityCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
                               child: Row(
                                 children: [
                                   Flexible(
                                     child: Text(
                                       title,
-                                      style: Theme.of(context).textTheme.button,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
                                     ),
                                   ),
                                   const SizedBox(width: 10),
@@ -90,7 +94,8 @@ class SecurityCard extends StatelessWidget {
                         child: Row(
                           children: [
                             Flexible(
-                              child: Text(description, style: Theme.of(context).textTheme.subtitle3),
+                              child: Text(description,
+                                  style: Theme.of(context).textTheme.subtitle3),
                             )
                           ],
                         ),

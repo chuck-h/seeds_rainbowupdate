@@ -13,26 +13,34 @@ class GuardianSecurityCard extends StatelessWidget {
   final GestureTapCallback? onTap;
   final bool hasNotification;
 
-  const GuardianSecurityCard({super.key, this.guardiansStatus, this.onTap, this.hasNotification = false});
+  const GuardianSecurityCard(
+      {super.key,
+      this.guardiansStatus,
+      this.onTap,
+      this.hasNotification = false});
 
   @override
   Widget build(BuildContext context) {
     Widget guardianStatus;
     switch (guardiansStatus) {
       case GuardiansStatus.active:
-        guardianStatus =
-            Text(context.loc.securityGuardiansStatusActive, style: const TextStyle(color: AppColors.green1));
+        guardianStatus = Text(context.loc.securityGuardiansStatusActive,
+            style: const TextStyle(color: AppColors.green1));
         break;
       case GuardiansStatus.inactive:
-        guardianStatus =
-            Text(context.loc.securityGuardiansStatusInactive, style: const TextStyle(color: AppColors.red));
+        guardianStatus = Text(context.loc.securityGuardiansStatusInactive,
+            style: const TextStyle(color: AppColors.red));
         break;
       case GuardiansStatus.readyToActivate:
-        guardianStatus =
-            Text(context.loc.securityGuardiansStatusReadyToActivate, style: const TextStyle(color: AppColors.orange));
+        guardianStatus = Text(
+            context.loc.securityGuardiansStatusReadyToActivate,
+            style: const TextStyle(color: AppColors.orange));
         break;
       default:
-        guardianStatus = Container(height: 16, width: 16, child: const Center(child: CircularProgressIndicator()));
+        guardianStatus = Container(
+            height: 16,
+            width: 16,
+            child: const Center(child: CircularProgressIndicator()));
     }
 
     return Padding(
@@ -52,8 +60,10 @@ class GuardianSecurityCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 8.0),
-                    child: SvgPicture.asset('assets/images/security/key_guardians_icon.svg'),
+                    padding: const EdgeInsets.only(
+                        left: 16.0, top: 16.0, right: 8.0),
+                    child: SvgPicture.asset(
+                        'assets/images/security/key_guardians_icon.svg'),
                   ),
                 ],
               ),
@@ -67,13 +77,16 @@ class GuardianSecurityCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
                               child: Row(
                                 children: [
                                   Flexible(
                                     child: Text(
                                       context.loc.securityGuardiansHeader,
-                                      style: Theme.of(context).textTheme.button,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
                                     ),
                                   ),
                                   const SizedBox(width: 10),

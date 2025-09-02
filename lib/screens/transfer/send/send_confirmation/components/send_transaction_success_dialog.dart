@@ -39,7 +39,8 @@ class SendTransactionSuccessDialog extends StatelessWidget {
     required this.transactionID,
   });
 
-  factory SendTransactionSuccessDialog.fromPageCommand(ShowTransferSuccess pageCommand) {
+  factory SendTransactionSuccessDialog.fromPageCommand(
+      ShowTransferSuccess pageCommand) {
     return SendTransactionSuccessDialog(
       amount: pageCommand.transactionModel.doubleQuantity.seedsFormatted,
       tokenSymbol: pageCommand.transactionModel.symbol,
@@ -55,7 +56,8 @@ class SendTransactionSuccessDialog extends StatelessWidget {
   }
 
   Future<void> show(BuildContext context) {
-    return showDialog<void>(context: context, barrierDismissible: false, builder: (_) => this);
+    return showDialog<void>(
+        context: context, barrierDismissible: false, builder: (_) => this);
   }
 
   @override
@@ -63,7 +65,8 @@ class SendTransactionSuccessDialog extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         child: CustomDialog(
-          icon: SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
+          icon: SvgPicture.asset(
+              'assets/images/security/success_outlined_icon.svg'),
           singleLargeButtonTitle: context.loc.genericCloseButtonTitle,
           children: [
             const SizedBox(height: 6),
@@ -73,11 +76,13 @@ class SendTransactionSuccessDialog extends StatelessWidget {
                 Text(amount, style: Theme.of(context).textTheme.headline4),
                 Padding(
                   padding: const EdgeInsets.only(top: 14, left: 4),
-                  child: Text(tokenSymbol, style: Theme.of(context).textTheme.subtitle2),
+                  child: Text(tokenSymbol,
+                      style: Theme.of(context).textTheme.subtitle2),
                 ),
               ],
             ),
-            Text(fiatAmount?.asFormattedString() ?? "", style: Theme.of(context).textTheme.subtitle2),
+            Text(fiatAmount?.asFormattedString() ?? "",
+                style: Theme.of(context).textTheme.subtitle2),
             const SizedBox(height: 30.0),
             DialogRow(
                 imageUrl: toImage,
@@ -93,7 +98,8 @@ class SendTransactionSuccessDialog extends StatelessWidget {
             const SizedBox(height: 30.0),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessDate, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessDate,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Text(
                   DateFormat('dd MMMM yyyy').format(DateTime.now()),
@@ -103,7 +109,8 @@ class SendTransactionSuccessDialog extends StatelessWidget {
             ),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessID, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessID,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
@@ -116,21 +123,25 @@ class SendTransactionSuccessDialog extends StatelessWidget {
                   icon: const Icon(Icons.copy),
                   color: AppColors.lightGreen6,
                   onPressed: () {
-                    Clipboard.setData(ClipboardData(text: transactionID))
-                        .then((_) => eventBus.fire(ShowSnackBar(context.loc.transferTransactionSuccessCopiedMessage)));
+                    Clipboard.setData(ClipboardData(text: transactionID)).then(
+                        (_) => eventBus.fire(ShowSnackBar(context
+                            .loc.transferTransactionSuccessCopiedMessage)));
                   },
                 )
               ],
             ),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessStatus, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessStatus,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Container(
                   decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)), color: AppColors.lightGreen6),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: AppColors.lightGreen6),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 4, right: 8, left: 8),
                     child: Text(
                       context.loc.transferTransactionSuccessSuccessful,
                       overflow: TextOverflow.ellipsis,
@@ -153,32 +164,44 @@ class DialogRow extends StatelessWidget {
   final String? name;
   final String? toOrFromText;
 
-  const DialogRow({super.key, this.imageUrl, required this.account, this.name, this.toOrFromText});
+  const DialogRow(
+      {super.key,
+      this.imageUrl,
+      required this.account,
+      this.name,
+      this.toOrFromText});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ProfileAvatar(size: 60, image: imageUrl, account: account, nickname: name),
+        ProfileAvatar(
+            size: 60, image: imageUrl, account: account, nickname: name),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name ?? account, textAlign: TextAlign.start, style: Theme.of(context).textTheme.button),
+                Text(name ?? account,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
-                Text(account, style: Theme.of(context).textTheme.subtitle2LowEmphasis)
+                Text(account,
+                    style: Theme.of(context).textTheme.subtitle2LowEmphasis)
               ],
             ),
           ),
         ),
         Container(
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.elliptical(4, 4)), color: AppColors.lightGreen6),
+              borderRadius: BorderRadius.all(Radius.elliptical(4, 4)),
+              color: AppColors.lightGreen6),
           child: Padding(
-            padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
-            child: Text(toOrFromText!, style: Theme.of(context).textTheme.subtitle2),
+            padding:
+                const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
+            child: Text(toOrFromText!,
+                style: Theme.of(context).textTheme.subtitle2),
           ),
         ),
       ],

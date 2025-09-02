@@ -11,11 +11,15 @@ class CitizenshipUpgradeInProgressDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      icon: const Image(image: AssetImage("assets/images/profile/celebration_icon.png")),
+      icon: const Image(
+          image: AssetImage("assets/images/profile/celebration_icon.png")),
       children: [
-        Text('Upgrading account ...'.i18n, style: Theme.of(context).textTheme.button1),
+        Text('Upgrading account ...'.i18n,
+            style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 18.0),
-        Center(child: Container(height: 130, child: const FullPageLoadingIndicator())),
+        Center(
+            child: Container(
+                height: 130, child: const FullPageLoadingIndicator())),
         const SizedBox(height: 18.0),
         FlatButtonLong(enabled: false, title: 'Done'.i18n, onPressed: () {}),
         const SizedBox(height: 10.0),

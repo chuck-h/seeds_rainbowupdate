@@ -18,7 +18,8 @@ class GenericTransactionSuccessDialog extends StatelessWidget {
   const GenericTransactionSuccessDialog(this.transactionModel, {super.key});
 
   Future<void> show(BuildContext context) {
-    return showDialog<void>(context: context, barrierDismissible: false, builder: (_) => this);
+    return showDialog<void>(
+        context: context, barrierDismissible: false, builder: (_) => this);
   }
 
   @override
@@ -26,29 +27,34 @@ class GenericTransactionSuccessDialog extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         child: CustomDialog(
-          icon: SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
+          icon: SvgPicture.asset(
+              'assets/images/security/success_outlined_icon.svg'),
           singleLargeButtonTitle: context.loc.genericCloseButtonTitle,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(context.loc.transferTransactionSuccessHeader, style: Theme.of(context).textTheme.headline4)
+                Text(context.loc.transferTransactionSuccessHeader,
+                    style: Theme.of(context).textTheme.headline4)
               ],
             ),
             const SizedBox(height: 30.0),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessDate, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessDate,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Text(
-                  DateFormat('dd MMMM yyyy HH:mm').format(transactionModel.timestamp?.toLocal() ?? DateTime.now()),
+                  DateFormat('dd MMMM yyyy HH:mm').format(
+                      transactionModel.timestamp?.toLocal() ?? DateTime.now()),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
             ),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessID, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessID,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
@@ -62,50 +68,64 @@ class GenericTransactionSuccessDialog extends StatelessWidget {
                   color: AppColors.lightGreen6,
                   onPressed: () {
                     Clipboard.setData(ClipboardData(
-                            text: transactionModel.transactionId ?? context.loc.transferTransactionSuccessNoID))
-                        .then((_) => eventBus.fire(ShowSnackBar(context.loc.transferTransactionSuccessCopiedMessage)));
+                            text: transactionModel.transactionId ??
+                                context.loc.transferTransactionSuccessNoID))
+                        .then((_) => eventBus.fire(ShowSnackBar(context
+                            .loc.transferTransactionSuccessCopiedMessage)));
                   },
                 )
               ],
             ),
-            if (transactionModel.transaction.actions[0].name == "propose"
-              && transactionModel.transaction.actions[0].account == "eosio.msig")
-            Row(
-              children: [
-                Text("Multisig Proposal:", style: Theme.of(context).textTheme.subtitle2),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    transactionModel.transaction.actions[0].data?["proposal_name"] as String? ?? "",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.subtitle2,
+            if (transactionModel.transaction.actions[0].name == "propose" &&
+                transactionModel.transaction.actions[0].account == "eosio.msig")
+              Row(
+                children: [
+                  Text("Multisig Proposal:",
+                      style: Theme.of(context).textTheme.subtitle2),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      transactionModel.transaction.actions[0]
+                              .data?["proposal_name"] as String? ??
+                          "",
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.copy),
-                  color: AppColors.lightGreen6,
-                  onPressed: () async {
-                    final proposalName = transactionModel.transaction.actions[0].data?["proposal_name"] as String? ?? "";
-                    final proposer = transactionModel.transaction.actions[0].data?["proposer"] as String? ?? "";
-                    final esrString = await MsigProposal.ApprovalESR(proposer: proposer, proposalName: proposalName);
-                    final approvalLink = (esrString == null) ? '$proposalName by $proposer' :
-                      'https://eosio.to/${esrString!.replaceAll("esr://", "")}';
-                    Clipboard.setData(ClipboardData(
-                            text: approvalLink))
-                        .then((_) => eventBus.fire(ShowSnackBar(context.loc.transferTransactionSuccessCopiedMessage)));
-                  },
-                )
-              ],
-            ),
+                  IconButton(
+                    icon: const Icon(Icons.copy),
+                    color: AppColors.lightGreen6,
+                    onPressed: () async {
+                      final proposalName = transactionModel.transaction
+                              .actions[0].data?["proposal_name"] as String? ??
+                          "";
+                      final proposer = transactionModel.transaction.actions[0]
+                              .data?["proposer"] as String? ??
+                          "";
+                      final esrString = await MsigProposal.ApprovalESR(
+                          proposer: proposer, proposalName: proposalName);
+                      final approvalLink = (esrString == null)
+                          ? '$proposalName by $proposer'
+                          : 'https://eosio.to/${esrString!.replaceAll("esr://", "")}';
+                      Clipboard.setData(ClipboardData(text: approvalLink)).then(
+                          (_) => eventBus.fire(ShowSnackBar(context
+                              .loc.transferTransactionSuccessCopiedMessage)));
+                    },
+                  )
+                ],
+              ),
             Row(
               children: [
-                Text(context.loc.transferTransactionSuccessStatus, style: Theme.of(context).textTheme.subtitle2),
+                Text(context.loc.transferTransactionSuccessStatus,
+                    style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(width: 16),
                 Container(
                   decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)), color: AppColors.lightGreen6),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: AppColors.lightGreen6),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 4, right: 8, left: 8),
                     child: Text(
                       context.loc.transferTransactionSuccessSuccessful,
                       overflow: TextOverflow.ellipsis,
@@ -120,15 +140,17 @@ class GenericTransactionSuccessDialog extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    context.loc.transferTransactionSuccessCount(transactionModel.transaction.actions.length),
-                    style: Theme.of(context).textTheme.buttonGreen1,
+                    context.loc.transferTransactionSuccessCount(
+                        transactionModel.transaction.actions.length),
+                    style: Theme.of(context).textTheme.labelLargeGreen1,
                     maxLines: 2,
                   ),
                 ),
                 IconButton(
                   onPressed: () {
-                    NavigationService.of(context)
-                        .navigateTo(Routes.transactionActions, transactionModel.transaction.actions);
+                    NavigationService.of(context).navigateTo(
+                        Routes.transactionActions,
+                        transactionModel.transaction.actions);
                   },
                   icon: const Icon(Icons.chevron_right_sharp),
                 )

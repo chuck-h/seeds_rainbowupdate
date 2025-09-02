@@ -26,7 +26,8 @@ class FlatButtonLongOutlined extends StatelessWidget {
             side: const BorderSide(color: AppColors.green1),
           ),
           onPressed: onPressed,
-          child: Text(title, style: Theme.of(context).textTheme.buttonWhiteL)),
+          child:
+              Text(title, style: Theme.of(context).textTheme.labelLargeWhiteL)),
     );
   }
 }

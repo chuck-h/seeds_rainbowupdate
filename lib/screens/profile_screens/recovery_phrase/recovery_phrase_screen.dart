@@ -21,7 +21,9 @@ class RecoveryPhraseScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('12-word Recovery Phrase')),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
-        child: FlatButtonLong(title: 'I’ve written it down', onPressed: () => Navigator.of(context).pop()),
+        child: FlatButtonLong(
+            title: 'I’ve written it down',
+            onPressed: () => Navigator.of(context).pop()),
       ),
       body: SafeArea(
         child: BlocProvider(
@@ -35,18 +37,26 @@ class RecoveryPhraseScreen extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: Theme.of(context).textTheme.bodyMedium ??
+                              const TextStyle(),
                           children: <TextSpan>[
-                            const TextSpan(text: 'Get a pen and paper before you start. \nWrite down or '),
+                            const TextSpan(
+                                text:
+                                    'Get a pen and paper before you start. \nWrite down or '),
                             TextSpan(
                                 text: 'copy ',
-                                style: Theme.of(context).textTheme.subtitle2Green2,
+                                style:
+                                    Theme.of(context).textTheme.subtitle2Green2,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Clipboard.setData(ClipboardData(text: state.printableWords));
-                                    eventBus.fire(const ShowSnackBar.success('Copied'));
+                                    Clipboard.setData(ClipboardData(
+                                        text: state.printableWords));
+                                    eventBus.fire(
+                                        const ShowSnackBar.success('Copied'));
                                   }),
-                            const TextSpan(text: ' these words in the right order and save them somewhere safe. '),
+                            const TextSpan(
+                                text:
+                                    ' these words in the right order and save them somewhere safe. '),
                           ],
                         ),
                       ),
@@ -62,13 +72,17 @@ class RecoveryPhraseScreen extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.only(
                                 left: (index % _numberOfColumns == 0) ? 0 : 8,
-                                right: ((index + 1) % _numberOfColumns == 0) ? 0 : 8),
+                                right: ((index + 1) % _numberOfColumns == 0)
+                                    ? 0
+                                    : 8),
                             child: TextField(
                               autocorrect: false,
                               enabled: false,
-                              controller: TextEditingController(text: state.words[index]),
+                              controller: TextEditingController(
+                                  text: state.words[index]),
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: (index + 1).toString(),
                                 border: const OutlineInputBorder(),
                               ),

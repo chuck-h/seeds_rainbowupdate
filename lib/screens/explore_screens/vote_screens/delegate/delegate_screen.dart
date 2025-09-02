@@ -15,16 +15,20 @@ class DelegateScreen extends StatelessWidget {
         appBar: AppBar(
           shape: const Border(bottom: BorderSide(color: AppColors.lightGreen2)),
           bottom: TabBar(
-            unselectedLabelStyle: Theme.of(context).textTheme.buttonOpacityEmphasis,
-            labelStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+            unselectedLabelStyle:
+                Theme.of(context).textTheme.labelLargeOpacityEmphasis,
+            labelStyle: Theme.of(context).textTheme.labelLargeLowEmphasis,
             tabs: [
-              const Padding(padding: EdgeInsets.all(16.0), child: Text("Delegates")),
-              const Padding(padding: EdgeInsets.all(16.0), child: Text("Delegators"))
+              const Padding(
+                  padding: EdgeInsets.all(16.0), child: Text("Delegates")),
+              const Padding(
+                  padding: EdgeInsets.all(16.0), child: Text("Delegators"))
             ],
           ),
           title: const Text("Delegates"),
         ),
-        body: const SafeArea(child: TabBarView(children: [DelegatesTab(), DelegatorsTab()])),
+        body: const SafeArea(
+            child: TabBarView(children: [DelegatesTab(), DelegatorsTab()])),
       ),
     );
   }

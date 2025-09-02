@@ -14,15 +14,22 @@ class CurrentVoteChoiceLabel extends StatelessWidget {
       builder: (context, state) {
         if (state.voteAmount > 0) {
           return Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: horizontalEdgePadding, bottom: 10),
+            padding: const EdgeInsets.only(
+                top: 28.0, left: horizontalEdgePadding, bottom: 10),
             child: Row(
               children: [
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(text: "I'm".i18n, style: Theme.of(context).textTheme.subtitle2),
-                      TextSpan(text: ' in favor '.i18n, style: Theme.of(context).textTheme.subtitle2Green2),
-                      TextSpan(text: 'of this proposal'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                      TextSpan(
+                          text: "I'm".i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
+                      TextSpan(
+                          text: ' in favor '.i18n,
+                          style: Theme.of(context).textTheme.subtitle2Green2),
+                      TextSpan(
+                          text: 'of this proposal'.i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
                     ],
                   ),
                 ),
@@ -31,15 +38,22 @@ class CurrentVoteChoiceLabel extends StatelessWidget {
           );
         } else if (state.voteAmount == 0) {
           return Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: horizontalEdgePadding, bottom: 10),
+            padding: const EdgeInsets.only(
+                top: 28.0, left: horizontalEdgePadding, bottom: 10),
             child: Row(
               children: [
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(text: 'I'.i18n, style: Theme.of(context).textTheme.subtitle2),
-                      TextSpan(text: ' refrain '.i18n, style: Theme.of(context).textTheme.subtitle2Green2),
-                      TextSpan(text: 'from voting'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                      TextSpan(
+                          text: 'I'.i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
+                      TextSpan(
+                          text: ' refrain '.i18n,
+                          style: Theme.of(context).textTheme.subtitle2Green2),
+                      TextSpan(
+                          text: 'from voting'.i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
                     ],
                   ),
                 ),
@@ -48,15 +62,22 @@ class CurrentVoteChoiceLabel extends StatelessWidget {
           );
         } else if (state.voteAmount < 0) {
           return Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: horizontalEdgePadding, bottom: 10),
+            padding: const EdgeInsets.only(
+                top: 28.0, left: horizontalEdgePadding, bottom: 10),
             child: Row(
               children: [
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(text: "I'm".i18n, style: Theme.of(context).textTheme.subtitle2),
-                      TextSpan(text: ' against '.i18n, style: Theme.of(context).textTheme.subtitle2Green2),
-                      TextSpan(text: 'this proposal'.i18n, style: Theme.of(context).textTheme.subtitle2),
+                      TextSpan(
+                          text: "I'm".i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
+                      TextSpan(
+                          text: ' against '.i18n,
+                          style: Theme.of(context).textTheme.subtitle2Green2),
+                      TextSpan(
+                          text: 'this proposal'.i18n,
+                          style: Theme.of(context).textTheme.titleSmall),
                     ],
                   ),
                 ),

@@ -40,7 +40,8 @@ class _UnplantSeedsScreenState extends State<UnplantSeedsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          UnplantSeedsBloc(BlocProvider.of<RatesBloc>(context).state)..add(const LoadUserPlantedBalance()),
+          UnplantSeedsBloc(BlocProvider.of<RatesBloc>(context).state)
+            ..add(const LoadUserPlantedBalance()),
       child: Scaffold(
         appBar: AppBar(title: const Text('Unplant')),
         body: BlocConsumer<UnplantSeedsBloc, UnplantSeedsState>(
@@ -56,7 +57,8 @@ class _UnplantSeedsScreenState extends State<UnplantSeedsScreen> {
                   return BlocProvider.value(
                     value: BlocProvider.of<UnplantSeedsBloc>(context),
                     child: UnplantSeedsSuccessDialog(
-                      unplantedInputAmountFiat: pageCommand.unplantedInputAmountFiat,
+                      unplantedInputAmountFiat:
+                          pageCommand.unplantedInputAmountFiat,
                       unplantedInputAmount: pageCommand.unplantedInputAmount,
                     ),
                   );
@@ -76,7 +78,8 @@ class _UnplantSeedsScreenState extends State<UnplantSeedsScreen> {
             } else if (pageCommand is ShowErrorMessage) {
               eventBus.fire(ShowSnackBar(pageCommand.message));
             } else if (pageCommand is UpdateTextController) {
-              _amountController = TextEditingController.fromValue(pageCommand.textEditingValue);
+              _amountController =
+                  TextEditingController.fromValue(pageCommand.textEditingValue);
             }
           },
           builder: (context, state) {
@@ -92,37 +95,51 @@ class _UnplantSeedsScreenState extends State<UnplantSeedsScreen> {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          height: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight!,
+                          height: MediaQuery.of(context).size.height -
+                              Scaffold.of(context).appBarMaxHeight!,
                           child: Column(
                             children: [
                               const SizedBox(height: 26),
-                              Text('Unplant amount', style: Theme.of(context).textTheme.headline6),
+                              Text('Unplant amount',
+                                  style:
+                                      Theme.of(context).textTheme.titleLarge),
                               const SizedBox(height: 16),
                               UnplantSeedsAmountEntry(
                                 controller: _amountController,
-                                unplantedBalanceFiat: state.unplantedInputAmountFiat,
+                                unplantedBalanceFiat:
+                                    state.unplantedInputAmountFiat,
                                 tokenDataModel: TokenDataModel(0),
                                 onValueChange: (value) {
-                                  BlocProvider.of<UnplantSeedsBloc>(context).add(OnAmountChange(value));
+                                  BlocProvider.of<UnplantSeedsBloc>(context)
+                                      .add(OnAmountChange(value));
                                 },
                                 autoFocus: state.onFocus,
                                 onTapMax: () {
                                   BlocProvider.of<UnplantSeedsBloc>(context)
-                                      .add(OnMaxButtonTapped(state.plantedBalance?.amount.toString() ?? '0'));
+                                      .add(OnMaxButtonTapped(state
+                                              .plantedBalance?.amount
+                                              .toString() ??
+                                          '0'));
                                 },
                               ),
                               const SizedBox(height: 24),
-                              AlertInputValue('Not enough balance', isVisible: state.showOverBalanceAlert),
-                              AlertInputValue('Need to keep at least 5 planted seeds',
+                              AlertInputValue('Not enough balance',
+                                  isVisible: state.showOverBalanceAlert),
+                              AlertInputValue(
+                                  'Need to keep at least 5 planted seeds',
                                   isVisible: state.showMinPlantedBalanceAlert),
                               const SizedBox(height: 60),
                               if (state.showUnclaimedBalance)
                                 ClaimUnplantSeedsBalanceRow(
                                     onTapClaim: () =>
-                                        BlocProvider.of<UnplantSeedsBloc>(context).add(const OnClaimButtonTapped()),
-                                    isClaimButtonEnable: state.isClaimButtonEnabled,
+                                        BlocProvider.of<UnplantSeedsBloc>(
+                                                context)
+                                            .add(const OnClaimButtonTapped()),
+                                    isClaimButtonEnable:
+                                        state.isClaimButtonEnabled,
                                     tokenAmount: state.availableClaimBalance,
-                                    fiatAmount: state.availableClaimBalanceFiat),
+                                    fiatAmount:
+                                        state.availableClaimBalanceFiat),
                               const SizedBox(height: 10),
                               const DividerJungle(),
                               const SizedBox(height: 10),
@@ -141,7 +158,8 @@ class _UnplantSeedsScreenState extends State<UnplantSeedsScreen> {
                           title: 'Unplant Seeds',
                           enabled: state.isUnplantSeedsButtonEnabled,
                           onPressed: () =>
-                              BlocProvider.of<UnplantSeedsBloc>(context).add(const OnUnplantSeedsButtonTapped()),
+                              BlocProvider.of<UnplantSeedsBloc>(context)
+                                  .add(const OnUnplantSeedsButtonTapped()),
                         ),
                       ),
                     ],

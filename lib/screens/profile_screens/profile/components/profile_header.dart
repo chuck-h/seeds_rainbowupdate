@@ -34,7 +34,8 @@ class ProfileHeader extends StatelessWidget {
                           );
                           if (file != null) {
                             // ignore: use_build_context_synchronously
-                            BlocProvider.of<ProfileBloc>(context).add(OnUpdateProfileImage(file as File));
+                            BlocProvider.of<ProfileBloc>(context)
+                                .add(OnUpdateProfileImage(file as File));
                           }
                         },
                         child: state.showShimmer
@@ -66,7 +67,8 @@ class ProfileHeader extends StatelessWidget {
                                 Flexible(
                                   child: Text(
                                     state.profile?.nickname ?? '',
-                                    style: Theme.of(context).textTheme.button1,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -74,10 +76,13 @@ class ProfileHeader extends StatelessWidget {
                                   icon: const Icon(Icons.edit_outlined),
                                   onPressed: () async {
                                     final newName =
-                                        await NavigationService.of(context).navigateTo(Routes.editName, state.profile);
+                                        await NavigationService.of(context)
+                                            .navigateTo(
+                                                Routes.editName, state.profile);
                                     if (newName != null) {
                                       // ignore: use_build_context_synchronously
-                                      BlocProvider.of<ProfileBloc>(context).add(OnNameChanged(newName as String));
+                                      BlocProvider.of<ProfileBloc>(context).add(
+                                          OnNameChanged(newName as String));
                                     }
                                   },
                                 ),
@@ -87,9 +92,11 @@ class ProfileHeader extends StatelessWidget {
                             const ShimmerRectangle(size: Size(94, 21))
                           else
                             Text(
-                              (settingsStorage.isSeedsMember ? "SEEDS " : "")
-                              +state.accountStatus.i18n,
-                              style: Theme.of(context).textTheme.headline7LowEmphasis,
+                              (settingsStorage.isSeedsMember ? "SEEDS " : "") +
+                                  state.accountStatus.i18n,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline7LowEmphasis,
                             ),
                         ],
                       ),

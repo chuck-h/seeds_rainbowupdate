@@ -22,12 +22,14 @@ class InviteGuardiansSentScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              const Icon(Icons.check_circle, size: 120, color: AppColors.lightGreen5),
+              const Icon(Icons.check_circle,
+                  size: 120, color: AppColors.lightGreen5),
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Text(
                   "Invites Sent!".i18n,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.displayMedium ??
+                      const TextStyle(),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -39,7 +41,8 @@ class InviteGuardiansSentScreen extends StatelessWidget {
                     onPressed: () => {
                       Navigator.popUntil(context, ModalRoute.withName('app')),
                       NavigationService.of(context).navigateTo(Routes.security),
-                      NavigationService.of(context).navigateTo(Routes.guardianTabs)
+                      NavigationService.of(context)
+                          .navigateTo(Routes.guardianTabs)
                     },
                   ),
                 ),

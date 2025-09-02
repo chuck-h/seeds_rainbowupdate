@@ -15,12 +15,14 @@ class RegionMainAppBar extends StatelessWidget {
     return BlocBuilder<RegionBloc, RegionState>(
       builder: (context, state) {
         return SliverAppBar(
-          title: Text(state.region?.title ?? "", overflow: TextOverflow.ellipsis),
+          title:
+              Text(state.region?.title ?? "", overflow: TextOverflow.ellipsis),
           actions: [
             if (!state.isBrowseView)
               IconButton(
                 icon: const Icon(Icons.more_horiz),
-                onPressed: () => RegionBottomSheet(state.userType!).show(context),
+                onPressed: () =>
+                    RegionBottomSheet(state.userType!).show(context),
               )
           ],
           expandedHeight: 220.0,
@@ -79,7 +81,9 @@ class RegionMainAppBar extends StatelessWidget {
                               state.region?.locationJson ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.headline7LowEmphasis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline7LowEmphasis,
                             ),
                           ),
                         ],
@@ -90,7 +94,7 @@ class RegionMainAppBar extends StatelessWidget {
                         state.region?.membersCount ?? 0,
                         '  ${state.region?.readableMembersCount ?? 0}',
                       ),
-                      style: Theme.of(context).textTheme.buttonWhiteL,
+                      style: Theme.of(context).textTheme.labelLargeWhiteL,
                     ),
                   ],
                 ),
@@ -103,15 +107,18 @@ class RegionMainAppBar extends StatelessWidget {
                     onTap: () {
                       GenericRegionDialog(
                         title: context.loc.joinRegionConfirmDialogTitle,
-                        description: context.loc.joinRegionConfirmDialogDescription,
+                        description:
+                            context.loc.joinRegionConfirmDialogDescription,
                       ).show(context).then((isConfirmed) {
                         if (isConfirmed ?? false) {
-                          BlocProvider.of<RegionBloc>(context).add(const OnJoinRegionButtonPressed());
+                          BlocProvider.of<RegionBloc>(context)
+                              .add(const OnJoinRegionButtonPressed());
                         }
                       });
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 30),
                       decoration: BoxDecoration(
                         color: AppColors.primary,
                         border: Border.all(color: AppColors.green3),

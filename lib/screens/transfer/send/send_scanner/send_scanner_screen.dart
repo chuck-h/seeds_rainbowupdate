@@ -38,16 +38,19 @@ class _SendScannerScreenState extends State<SendScannerScreen> {
           listenWhen: (_, current) => current.pageCommand != null,
           listener: (context, state) {
             final pageCommand = state.pageCommand;
-            BlocProvider.of<SendScannerBloc>(context).add(const ClearSendScannerPageCommand());
+            BlocProvider.of<SendScannerBloc>(context)
+                .add(const ClearSendScannerPageCommand());
             if (pageCommand is NavigateToRouteWithArguments) {
-              NavigationService.of(context).navigateTo(pageCommand.route, pageCommand.arguments, true);
+              NavigationService.of(context)
+                  .navigateTo(pageCommand.route, pageCommand.arguments, true);
             }
           },
           child: Center(
             child: Column(
               children: [
                 const SizedBox(height: 32),
-                Text(context.loc.transferSendScanQRCodePrompt, style: Theme.of(context).textTheme.button),
+                Text(context.loc.transferSendScanQRCodePrompt,
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 82),
                 _scannerWidget,
                 BlocBuilder<SendScannerBloc, SendScannerState>(
@@ -65,12 +68,17 @@ class _SendScannerScreenState extends State<SendScannerScreen> {
                             padding: const EdgeInsets.all(16),
                             width: double.infinity,
                             decoration: const BoxDecoration(
-                                color: AppColors.black, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                color: AppColors.black,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 state.errorMessage!,
-                                style: Theme.of(context).textTheme.subtitle2!.copyWith(color: AppColors.orangeYellow),
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.orangeYellow),
                                 textAlign: TextAlign.center,
                               ),
                             ),

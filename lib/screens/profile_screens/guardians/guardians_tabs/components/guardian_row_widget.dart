@@ -23,12 +23,16 @@ class GuardianRowWidget extends StatelessWidget {
         nickname: guardianModel.nickname,
       ),
       title: Text(
-        (!guardianModel.nickname.isNullOrEmpty) ? guardianModel.nickname! : guardianModel.uid,
-        style: Theme.of(context).textTheme.button,
+        (!guardianModel.nickname.isNullOrEmpty)
+            ? guardianModel.nickname!
+            : guardianModel.uid,
+        style: Theme.of(context).textTheme.labelLarge,
       ),
-      subtitle: Text(guardianModel.uid, style: Theme.of(context).textTheme.subtitle2OpacityEmphasis),
+      subtitle: Text(guardianModel.uid,
+          style: Theme.of(context).textTheme.subtitle2OpacityEmphasis),
       onTap: () {
-        BlocProvider.of<GuardiansBloc>(context).add(OnGuardianRowTapped(guardianModel));
+        BlocProvider.of<GuardiansBloc>(context)
+            .add(OnGuardianRowTapped(guardianModel));
       },
     );
   }

@@ -11,9 +11,11 @@ class BiometricEnabledDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomDialog(
       icon: const Icon(Icons.fingerprint, size: 52, color: AppColors.green1),
-      singleLargeButtonTitle: context.loc.securityBiometricEnabledConfirmationButtonTitle,
+      singleLargeButtonTitle:
+          context.loc.securityBiometricEnabledConfirmationButtonTitle,
       children: [
-        Text(context.loc.securityBiometricEnabledTitle, style: Theme.of(context).textTheme.button1),
+        Text(context.loc.securityBiometricEnabledTitle,
+            style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 24.0),
         Text(
           context.loc.securityBiometricEnabledDescription,

@@ -16,12 +16,14 @@ class RemoveFlagInfoDialog extends StatelessWidget {
       leftButtonTitle: 'Back',
       rightButtonTitle: "Yes I'm sure",
       onRightButtonPressed: () {
-        BlocProvider.of<FlagBloc>(context).add(OnRemoveUserFlagTapped(userAccount));
+        BlocProvider.of<FlagBloc>(context)
+            .add(OnRemoveUserFlagTapped(userAccount));
         Navigator.of(context).pop();
       },
-      icon: const CustomPaint(size: Size(60, 60), painter: RedExclamationCircle()),
+      icon: const CustomPaint(
+          size: Size(60, 60), painter: RedExclamationCircle()),
       children: [
-        Text('Are you sure?', style: Theme.of(context).textTheme.button1),
+        Text('Are you sure?', style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 30.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -30,7 +32,7 @@ class RemoveFlagInfoDialog extends StatelessWidget {
               Text(
                 'Removing the Flag means you believe the member is now acting in good faith. Penalties will be removed from the member. ',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(height: 20.0),
             ],

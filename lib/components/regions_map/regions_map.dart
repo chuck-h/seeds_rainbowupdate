@@ -40,7 +40,9 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _regionsMapBloc = RegionsMapBloc(widget.showRegionsResults, widget.initialPlace)..add(const SetInitialValues());
+    _regionsMapBloc =
+        RegionsMapBloc(widget.showRegionsResults, widget.initialPlace)
+          ..add(const SetInitialValues());
     super.initState();
   }
 
@@ -70,7 +72,9 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
           if (pageCommand is MoveCamera) {
             _mapController?.animateCamera(
               CameraUpdate.newCameraPosition(
-                CameraPosition(target: LatLng(state.newPlace.lat, state.newPlace.lng), zoom: 15),
+                CameraPosition(
+                    target: LatLng(state.newPlace.lat, state.newPlace.lng),
+                    zoom: 15),
               ),
             );
             widget.onPlaceChanged?.call(state.newPlace);
@@ -90,7 +94,10 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                     child: Column(children: [
                       Expanded(flex: 5, child: Container()),
                       if (widget.showRegionsResults)
-                        Expanded(flex: 3, child: RegionsSearchResults(onRegionsChanged: widget.onRegionsChanged))
+                        Expanded(
+                            flex: 3,
+                            child: RegionsSearchResults(
+                                onRegionsChanged: widget.onRegionsChanged))
                     ]),
                   ),
                   // Map
@@ -103,14 +110,18 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                         children: [
                           GoogleMap(
                             gestureRecognizers: {
-                              Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
+                              Factory<OneSequenceGestureRecognizer>(
+                                  () => EagerGestureRecognizer()),
                             },
                             mapToolbarEnabled: false,
                             myLocationButtonEnabled: false,
                             zoomControlsEnabled: false,
-                            onMapCreated: (controller) => _mapController = controller,
-                            initialCameraPosition:
-                                CameraPosition(target: LatLng(state.newPlace.lat, state.newPlace.lng), zoom: 15),
+                            onMapCreated: (controller) =>
+                                _mapController = controller,
+                            initialCameraPosition: CameraPosition(
+                                target: LatLng(
+                                    state.newPlace.lat, state.newPlace.lng),
+                                zoom: 15),
                             onCameraMove: (p) {
                               // These vars are to void rebuild map for each different lat, lng
                               // Also to avoid fire a new place instance on moving
@@ -120,12 +131,14 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                                 _regionsMapBloc.add(const OnMapMoving());
                               }
                             },
-                            onCameraIdle: () => _regionsMapBloc.add(OnMapEndMove(pickedLat: lat, pickedLong: lng)),
+                            onCameraIdle: () => _regionsMapBloc.add(
+                                OnMapEndMove(pickedLat: lat, pickedLong: lng)),
                             markers: Set.from(
                               state.regions
                                   .map((i) => Marker(
                                         markerId: MarkerId(i.id),
-                                        position: LatLng(i.latitude, i.longitude),
+                                        position:
+                                            LatLng(i.latitude, i.longitude),
                                         infoWindow: InfoWindow(title: i.title),
                                       ))
                                   .toList(),
@@ -135,8 +148,10 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 24),
                               child: state.isCameraMoving
-                                  ? const Icon(Icons.location_off, color: AppColors.primary, size: 36)
-                                  : SvgPicture.asset('assets/images/explore/marker_location.svg'),
+                                  ? const Icon(Icons.location_off,
+                                      color: AppColors.primary, size: 36)
+                                  : SvgPicture.asset(
+                                      'assets/images/explore/marker_location.svg'),
                             ),
                           ),
                           if (state.isUserLocationEnabled)
@@ -146,8 +161,10 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                                 padding: const EdgeInsets.all(18.0),
                                 child: IconButton(
                                   color: Colors.transparent,
-                                  onPressed: () => _regionsMapBloc.add(const MoveToCurrentLocation()),
-                                  icon: const Icon(Icons.my_location, size: 38.0, color: AppColors.darkGreen2),
+                                  onPressed: () => _regionsMapBloc
+                                      .add(const MoveToCurrentLocation()),
+                                  icon: const Icon(Icons.my_location,
+                                      size: 38.0, color: AppColors.darkGreen2),
                                 ),
                               ),
                             ),
@@ -160,7 +177,8 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: InkWell(
-                        onTap: () => BlocProvider.of<RegionsMapBloc>(context).add(const ToggleSearchBar()),
+                        onTap: () => BlocProvider.of<RegionsMapBloc>(context)
+                            .add(const ToggleSearchBar()),
                         child: state.isSearchingPlace
                             ? const SearchPlaces()
                             : Card(
@@ -170,9 +188,13 @@ class _RegionsMapState extends State<RegionsMap> with WidgetsBindingObserver {
                                     const SizedBox(width: 16.0),
                                     Expanded(
                                       child: Text(state.newPlace.placeText,
-                                          style: Theme.of(context).textTheme.buttonWhiteL),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLargeWhiteL),
                                     ),
-                                    const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.search)),
+                                    const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Icon(Icons.search)),
                                   ],
                                 ),
                               ),

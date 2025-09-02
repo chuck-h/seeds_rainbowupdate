@@ -20,7 +20,8 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
   void show(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
       ),
       context: context,
       builder: (_) => this,
@@ -31,8 +32,9 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final account = settingsStorage.accountName;
     return BlocProvider(
-      create: (_) =>
-          MemberBloc(transaction.to == account ? transaction.from : transaction.to)..add(const OnLoadMemberData()),
+      create: (_) => MemberBloc(
+          transaction.to == account ? transaction.from : transaction.to)
+        ..add(const OnLoadMemberData()),
       child: BlocBuilder<MemberBloc, MemberState>(
         builder: (context, state) {
           switch (state.pageState) {
@@ -52,8 +54,10 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
                       children: [
                         const SizedBox(height: 12.0),
                         Text(
-                          DateFormat("EEE dd MMM y kk:mm:ss").format(transaction.timestamp),
-                          style: Theme.of(context).textTheme.subtitle2HighEmphasis,
+                          DateFormat("EEE dd MMM y kk:mm:ss")
+                              .format(transaction.timestamp),
+                          style:
+                              Theme.of(context).textTheme.subtitle2HighEmphasis,
                         ),
                         const SizedBox(height: 16.0),
                         ProfileAvatar(
@@ -61,7 +65,9 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
                           account: state.currentAccount,
                           nickname: state.localizedDisplayName(context),
                           image: state.profileImageURL,
-                          decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.lightGreen2),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.lightGreen2),
                         ),
                         const SizedBox(height: 16.0),
                         Column(
@@ -77,7 +83,9 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
                               state.currentAccount,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.subtitle2OpacityEmphasis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2OpacityEmphasis,
                             ),
                           ],
                         ),
@@ -86,29 +94,44 @@ class TransactionDetailsBottomSheet extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (account == transaction.to)
-                              Text('+', style: Theme.of(context).textTheme.subtitle1Green1)
+                              Text('+',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMediumGreen1)
                             else
-                              Text('-', style: Theme.of(context).textTheme.subtitle1Red2),
+                              Text('-',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMediumRed2),
                             const SizedBox(width: 4),
-                            Text(transaction.quantity.seedsFormatted, style: Theme.of(context).textTheme.headline5)
+                            Text(transaction.quantity.seedsFormatted,
+                                style:
+                                    Theme.of(context).textTheme.displaySmall ??
+                                        const TextStyle())
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 40.0),
                           child: Text(
                             "Memo: ${transaction.memo.isEmpty ? '---' : transaction.memo}",
-                            maxLines: 6, // <-- memo has a max of 256 characteres
+                            maxLines:
+                                6, // <-- memo has a max of 256 characteres
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         InkWell(
                           customBorder: const CircleBorder(),
-                          onTap: () => Share.share('https://explorer.telos.net/transaction/${transaction.transactionId}'),
+                          onTap: () => Share.share(
+                              'https://explorer.telos.net/transaction/${transaction.transactionId}'),
                           child: Container(
                             padding: const EdgeInsets.all(16),
-                            decoration: const BoxDecoration(color: AppColors.green1, shape: BoxShape.circle),
-                            child: SvgPicture.asset('assets/images/wallet/share_transaction_id.svg'),
+                            decoration: const BoxDecoration(
+                                color: AppColors.green1,
+                                shape: BoxShape.circle),
+                            child: SvgPicture.asset(
+                                'assets/images/wallet/share_transaction_id.svg'),
                           ),
                         ),
                       ],

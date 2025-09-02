@@ -42,7 +42,10 @@ class SendConfirmationDialog extends StatelessWidget {
             height: 300,
             width: 300,
           ),
-          Positioned(left: 12, bottom: -6, child: SvgPicture.asset("assets/images/transfer/arrow_up.svg")),
+          Positioned(
+              left: 12,
+              bottom: -6,
+              child: SvgPicture.asset("assets/images/transfer/arrow_up.svg")),
         ],
       ),
       onRightButtonPressed: () {
@@ -56,26 +59,39 @@ class SendConfirmationDialog extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(tokenAmount.amountString(), style: Theme.of(context).textTheme.headline4),
+            Text(tokenAmount.amountString(),
+                style: Theme.of(context).textTheme.headline4),
             Padding(
               padding: const EdgeInsets.only(top: 14, left: 4),
-              child: Text(tokenAmount.symbol, style: Theme.of(context).textTheme.subtitle2),
+              child: Text(tokenAmount.symbol,
+                  style: Theme.of(context).textTheme.subtitle2),
             ),
           ],
         ),
-        Text(fiatAmount?.asFormattedString() ?? "", style: Theme.of(context).textTheme.subtitle2),
+        Text(fiatAmount?.asFormattedString() ?? "",
+            style: Theme.of(context).textTheme.subtitle2),
         const SizedBox(height: 30.0),
-        DialogRow(imageUrl: toImage, account: toAccount, name: toName, toOrFromText: context.loc.transferSendTo),
+        DialogRow(
+            imageUrl: toImage,
+            account: toAccount,
+            name: toName,
+            toOrFromText: context.loc.transferSendTo),
         const SizedBox(height: 24.0),
-        DialogRow(imageUrl: toImage, account: toAccount, name: toName, toOrFromText: context.loc.transferTransactionSuccessFrom),
+        DialogRow(
+            imageUrl: toImage,
+            account: toAccount,
+            name: toName,
+            toOrFromText: context.loc.transferTransactionSuccessFrom),
         const SizedBox(height: 24.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(context.loc.transferSendNetworkFee,
-                textAlign: TextAlign.left, style: Theme.of(context).textTheme.subtitle2),
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.subtitle2),
             Text(context.loc.transferSendFreeAndInstant,
-                textAlign: TextAlign.right, style: Theme.of(context).textTheme.subtitle2),
+                textAlign: TextAlign.right,
+                style: Theme.of(context).textTheme.subtitle2),
           ],
         ),
         const SizedBox(height: 40.0),
@@ -84,7 +100,8 @@ class SendConfirmationDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.loc.transferSendMemo,
-                  textAlign: TextAlign.right, style: Theme.of(context).textTheme.subtitle2),
+                  textAlign: TextAlign.right,
+                  style: Theme.of(context).textTheme.subtitle2),
               const SizedBox(width: 16.0),
               Flexible(
                 child: Text(memo!,
@@ -108,32 +125,44 @@ class DialogRow extends StatelessWidget {
   final String? name;
   final String? toOrFromText;
 
-  const DialogRow({super.key, this.imageUrl, required this.account, this.name, this.toOrFromText});
+  const DialogRow(
+      {super.key,
+      this.imageUrl,
+      required this.account,
+      this.name,
+      this.toOrFromText});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ProfileAvatar(size: 60, image: imageUrl, account: account, nickname: name),
+        ProfileAvatar(
+            size: 60, image: imageUrl, account: account, nickname: name),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name ?? account, textAlign: TextAlign.start, style: Theme.of(context).textTheme.button),
+                Text(name ?? account,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
-                Text(account, style: Theme.of(context).textTheme.subtitle2LowEmphasis)
+                Text(account,
+                    style: Theme.of(context).textTheme.subtitle2LowEmphasis)
               ],
             ),
           ),
         ),
         Container(
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.elliptical(4, 4)), color: AppColors.lightGreen6),
+              borderRadius: BorderRadius.all(Radius.elliptical(4, 4)),
+              color: AppColors.lightGreen6),
           child: Padding(
-            padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
-            child: Text(toOrFromText!, style: Theme.of(context).textTheme.subtitle2),
+            padding:
+                const EdgeInsets.only(top: 4, bottom: 4, right: 8, left: 8),
+            child: Text(toOrFromText!,
+                style: Theme.of(context).textTheme.subtitle2),
           ),
         ),
       ],

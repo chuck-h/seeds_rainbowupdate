@@ -40,14 +40,15 @@ class DelegateCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               child: Text(
                 'Delegate',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
           ),
           const SizedBox(height: 10.0),
           if (activeDelegate)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
               child: DelegateRow(
                   account: delegate?.account ?? '',
                   nickname: delegate?.nickname ?? '',
@@ -56,17 +57,21 @@ class DelegateCard extends StatelessWidget {
             )
           else
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
               child: TextButton(
                 onPressed: onTap,
                 child: Row(
                   children: [
                     Text(
                       "Choose Delegate",
-                      style: Theme.of(context).textTheme.subtitle2Green3LowEmphasis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2Green3LowEmphasis,
                     ),
                     const SizedBox(width: 4),
-                    const Icon(Icons.arrow_forward_ios_outlined, color: AppColors.green2, size: 16)
+                    const Icon(Icons.arrow_forward_ios_outlined,
+                        color: AppColors.green2, size: 16)
                   ],
                 ),
               ),

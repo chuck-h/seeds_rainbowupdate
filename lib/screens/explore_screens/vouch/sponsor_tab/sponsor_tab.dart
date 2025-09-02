@@ -30,12 +30,16 @@ class SponsorTab extends StatelessWidget {
                       ? Center(
                           child: Text(
                             'No one has vouched for you',
-                            style: Theme.of(context).textTheme.buttonLowEmphasis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLargeLowEmphasis,
                           ),
                         )
                       : ListView(
                           padding: const EdgeInsets.only(top: 10),
-                          children: [for (final i in state.sponsors) MemberInfoRow(i)],
+                          children: [
+                            for (final i in state.sponsors) MemberInfoRow(i)
+                          ],
                         ),
                 ),
               );

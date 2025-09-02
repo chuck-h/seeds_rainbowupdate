@@ -34,7 +34,8 @@ class TransactionInfoRow extends StatelessWidget {
             child: Ink(
               decoration: const BoxDecoration(color: AppColors.primary),
               child: Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, right: 20, left: 20),
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, right: 20, left: 20),
                 child: Row(
                   children: <Widget>[
                     ProfileAvatar(
@@ -42,7 +43,8 @@ class TransactionInfoRow extends StatelessWidget {
                       account: profileAccount,
                       nickname: state.localizedDisplayName(context),
                       image: state.profileImageURL,
-                      decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.lightGreen2),
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: AppColors.lightGreen2),
                     ),
                     Expanded(
                       child: Container(
@@ -55,18 +57,27 @@ class TransactionInfoRow extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     state.localizedDisplayName(context),
-                                    style: Theme.of(context).textTheme.button,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                 ),
                                 const SizedBox(width: 40),
                                 if (incoming)
-                                  Text('+', style: Theme.of(context).textTheme.subtitle1Green1)
+                                  Text('+',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1Green1)
                                 else
-                                  Text('-', style: Theme.of(context).textTheme.subtitle1Red2),
+                                  Text('-',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1Red2),
                                 const SizedBox(width: 4),
-                                Text(amount.seedsFormatted, style: Theme.of(context).textTheme.button),
+                                Text(amount.seedsFormatted,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge),
                               ],
                             ),
                             const SizedBox(height: 10),
@@ -75,12 +86,16 @@ class TransactionInfoRow extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     timesTampToTimeAgo(timestamp),
-                                    style: Theme.of(context).textTheme.subtitle2OpacityEmphasis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2OpacityEmphasis,
                                   ),
                                 ),
                                 Text(
                                   amount.symbolFromAmount,
-                                  style: Theme.of(context).textTheme.subtitle2OpacityEmphasis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2OpacityEmphasis,
                                 )
                               ],
                             ),

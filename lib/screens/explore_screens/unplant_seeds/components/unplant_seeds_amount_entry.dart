@@ -33,8 +33,9 @@ class UnplantSeedsAmountEntry extends StatelessWidget {
               child: TextFormField(
                 controller: controller,
                 textAlign: TextAlign.end,
-                style: Theme.of(context).textTheme.headline4,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                style: Theme.of(context).textTheme.headlineMedium,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
                   hintText: "0.0",
                   border: InputBorder.none,
@@ -56,13 +57,17 @@ class UnplantSeedsAmountEntry extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   Column(
-                    children: [Text(tokenDataModel.symbol), const SizedBox(height: 18)],
+                    children: [
+                      Text(tokenDataModel.symbol),
+                      const SizedBox(height: 18)
+                    ],
                   ),
                   Positioned(
                     left: 70,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0)),
                         foregroundColor: AppColors.green1,
                       ),
                       onPressed: onTapMax,

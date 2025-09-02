@@ -30,15 +30,17 @@ class GuardianDialogSingleAction extends StatelessWidget {
               width: 250,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(defaultCardBorderRadius)),
-                image: DecorationImage(image: AssetImage(image), fit: BoxFit.fitWidth),
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(defaultCardBorderRadius)),
+                image: DecorationImage(
+                    image: AssetImage(image), fit: BoxFit.fitWidth),
               ),
             ),
             const SizedBox(height: 20),
             Text(
               title,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 30),
             Padding(

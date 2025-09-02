@@ -12,13 +12,15 @@ class SearchPlaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SearchPlacesBloc(BlocProvider.of<RegionsMapBloc>(context).state.regions),
+      create: (_) => SearchPlacesBloc(
+          BlocProvider.of<RegionsMapBloc>(context).state.regions),
       child: MultiBlocListener(
         listeners: [
           BlocListener<SearchPlacesBloc, SearchPlacesState>(
             listenWhen: (_, current) => current.placeSelected != null,
             listener: (_, state) {
-              BlocProvider.of<RegionsMapBloc>(context).add(OnPlaceResultSelected(state.placeSelected!));
+              BlocProvider.of<RegionsMapBloc>(context)
+                  .add(OnPlaceResultSelected(state.placeSelected!));
             },
           ),
         ],
@@ -34,10 +36,11 @@ class SearchPlaces extends StatelessWidget {
                     child: Builder(builder: (context) {
                       return TextField(
                         autofocus: true,
-                        style: Theme.of(context).textTheme.buttonWhiteL,
+                        style: Theme.of(context).textTheme.labelLargeWhiteL,
                         decoration: InputDecoration(
                           hintText: 'Search',
-                          hintStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+                          hintStyle:
+                              Theme.of(context).textTheme.labelLargeLowEmphasis,
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -45,7 +48,8 @@ class SearchPlaces extends StatelessWidget {
                           disabledBorder: InputBorder.none,
                         ),
                         onChanged: (value) {
-                          BlocProvider.of<SearchPlacesBloc>(context).add(OnQueryTextChange(value));
+                          BlocProvider.of<SearchPlacesBloc>(context)
+                              .add(OnQueryTextChange(value));
                         },
                       );
                     }),
@@ -53,7 +57,8 @@ class SearchPlaces extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: () => BlocProvider.of<RegionsMapBloc>(context).add(const ToggleSearchBar()),
+                      onTap: () => BlocProvider.of<RegionsMapBloc>(context)
+                          .add(const ToggleSearchBar()),
                       child: const Icon(Icons.close),
                     ),
                   ),
@@ -71,7 +76,8 @@ class SearchPlaces extends StatelessWidget {
                             const PoweredByGoogleImage(),
                             if (state.showLinearIndicator)
                               Container(
-                                  constraints: const BoxConstraints(maxHeight: 2.0),
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 2.0),
                                   child: const LinearProgressIndicator())
                           ],
                         ),
@@ -96,15 +102,21 @@ class SearchPlaces extends StatelessWidget {
                             return ListTile(
                               onTap: () {
                                 FocusScope.of(context).unfocus();
-                                BlocProvider.of<SearchPlacesBloc>(context).add(OnPredictionSelected(item));
+                                BlocProvider.of<SearchPlacesBloc>(context)
+                                    .add(OnPredictionSelected(item));
                               },
                               leading: isRegion
-                                  ? const CustomPaint(size: Size(24, 24), painter: Regions())
+                                  ? const CustomPaint(
+                                      size: Size(24, 24), painter: Regions())
                                   : const Icon(Icons.location_on),
                               title: Text(
                                 item.description,
                                 overflow: TextOverflow.ellipsis,
-                                style: isRegion ? Theme.of(context).textTheme.subtitle2Green3LowEmphasis : null,
+                                style: isRegion
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .subtitle2Green3LowEmphasis
+                                    : null,
                               ),
                             );
                           },

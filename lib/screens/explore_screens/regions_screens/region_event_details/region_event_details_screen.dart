@@ -25,15 +25,18 @@ class RegionEventDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RegionEventModel event = ModalRoute.of(context)!.settings.arguments! as RegionEventModel;
+    final RegionEventModel event =
+        ModalRoute.of(context)!.settings.arguments! as RegionEventModel;
     final double width = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (_) => RegionEventDetailsBloc(event)..add(const OnRegionEventDetailsMounted()),
+      create: (_) => RegionEventDetailsBloc(event)
+        ..add(const OnRegionEventDetailsMounted()),
       child: BlocConsumer<RegionEventDetailsBloc, RegionEventDetailsState>(
         listenWhen: (_, current) => current.pageCommand != null,
         listener: (context, state) {
           final command = state.pageCommand;
-          BlocProvider.of<RegionEventDetailsBloc>(context).add(const ClearRegionEventPageCommand());
+          BlocProvider.of<RegionEventDetailsBloc>(context)
+              .add(const ClearRegionEventPageCommand());
           if (command is LaunchRegionMapsLocation) {
             final url = Platform.isIOS
                 ? 'https://maps.apple.com/?q=${event.eventLocation.latitude},${event.eventLocation.longitude}'
@@ -42,14 +45,18 @@ class RegionEventDetailsScreen extends StatelessWidget {
           } else if (command is ShowEditRegionEventButtons) {
             showModalBottomSheet(
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0)),
               ),
               context: context,
               builder: (_) => BlocProvider.value(
-                  value: BlocProvider.of<RegionEventDetailsBloc>(context), child: const RegionEventDetailBottomSheet()),
+                  value: BlocProvider.of<RegionEventDetailsBloc>(context),
+                  child: const RegionEventDetailBottomSheet()),
             );
           } else if (command is NavigateToRouteWithArguments) {
-            NavigationService.of(context).navigateTo(command.route, command.arguments);
+            NavigationService.of(context)
+                .navigateTo(command.route, command.arguments);
           } else if (command is NavigateToRoute) {
             NavigationService.of(context).navigateTo(command.route);
           } else if (command is ShowErrorMessage) {
@@ -82,7 +89,8 @@ class RegionEventDetailsScreen extends StatelessWidget {
                             fit: BoxFit.cover,
                             child: CachedNetworkImage(
                               imageUrl: event.eventImage,
-                              errorWidget: (_, __, ___) => const SizedBox.shrink(),
+                              errorWidget: (_, __, ___) =>
+                                  const SizedBox.shrink(),
                             ),
                           ),
                           Positioned(
@@ -110,8 +118,10 @@ class RegionEventDetailsScreen extends StatelessWidget {
                                 if (state.isEventCreatorAccount)
                                   IconButton(
                                       icon: const Icon(Icons.more_horiz),
-                                      onPressed: () => BlocProvider.of<RegionEventDetailsBloc>(context)
-                                          .add(const OnEditRegionEventButtonTapped()))
+                                      onPressed: () => BlocProvider.of<
+                                              RegionEventDetailsBloc>(context)
+                                          .add(
+                                              const OnEditRegionEventButtonTapped()))
                               ],
                             ),
                           ),
@@ -119,22 +129,31 @@ class RegionEventDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(event.eventName, style: Theme.of(context).textTheme.headline7),
+                          Text(event.eventName,
+                              style: Theme.of(context).textTheme.headline7),
                           const SizedBox(height: 10),
                           Row(
                             children: [
-                              const Icon(Icons.calendar_today_outlined, color: AppColors.green1, size: 30),
+                              const Icon(Icons.calendar_today_outlined,
+                                  color: AppColors.green1, size: 30),
                               const SizedBox(width: 10),
-                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text('Start / ${event.formattedStartDate}',
-                                    style: Theme.of(context).textTheme.subtitle2LowEmphasis),
-                                Text('End / ${event.formattedEndDate}',
-                                    style: Theme.of(context).textTheme.subtitle2LowEmphasis)
-                              ]),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Start / ${event.formattedStartDate}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2LowEmphasis),
+                                    Text('End / ${event.formattedEndDate}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2LowEmphasis)
+                                  ]),
                             ],
                           ),
                         ],
@@ -142,25 +161,33 @@ class RegionEventDetailsScreen extends StatelessWidget {
                     ),
                     const DividerJungle(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Details', style: Theme.of(context).textTheme.headline7),
+                          Text('Details',
+                              style: Theme.of(context).textTheme.headline7),
                           const SizedBox(height: 10.0),
-                          Text(event.eventAddress, style: Theme.of(context).textTheme.subtitle2),
+                          Text(event.eventAddress,
+                              style: Theme.of(context).textTheme.titleSmall),
                           const SizedBox(height: 16.0),
                           Row(
                             children: [
-                              const Icon(Icons.location_on_outlined, color: AppColors.green3),
+                              const Icon(Icons.location_on_outlined,
+                                  color: AppColors.green3),
                               const SizedBox(width: 11.0),
                               Flexible(
                                 child: InkWell(
-                                  onTap: () => BlocProvider.of<RegionEventDetailsBloc>(context)
-                                      .add(const OnRegionMapsLinkTapped()),
+                                  onTap: () =>
+                                      BlocProvider.of<RegionEventDetailsBloc>(
+                                              context)
+                                          .add(const OnRegionMapsLinkTapped()),
                                   child: Text(
                                     'Open in maps',
-                                    style: Theme.of(context).textTheme.subtitle3OpacityEmphasisGreen,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle3OpacityEmphasisGreen,
                                   ),
                                 ),
                               )
@@ -172,7 +199,9 @@ class RegionEventDetailsScreen extends StatelessWidget {
                               Flexible(
                                 child: Text(
                                   event.eventDescription,
-                                  style: Theme.of(context).textTheme.subtitle3OpacityEmphasis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle3OpacityEmphasis,
                                 ),
                               )
                             ],
@@ -188,9 +217,12 @@ class RegionEventDetailsScreen extends StatelessWidget {
                         minimum: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
                         child: FlatButtonLong(
                           isLoading: state.pageState == PageState.loading,
-                          title: state.isUserJoined ? "Leave event" : "I'm Attending!",
+                          title: state.isUserJoined
+                              ? "Leave event"
+                              : "I'm Attending!",
                           onPressed: () {
-                            BlocProvider.of<RegionEventDetailsBloc>(context).add(
+                            BlocProvider.of<RegionEventDetailsBloc>(context)
+                                .add(
                               state.isUserJoined
                                   ? const OnLeaveRegionEventButtonPressed()
                                   : const OnJoinRegionEventButtonPressed(),

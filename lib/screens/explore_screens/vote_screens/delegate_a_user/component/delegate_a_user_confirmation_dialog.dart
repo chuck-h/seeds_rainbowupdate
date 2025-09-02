@@ -22,30 +22,38 @@ class DelegateAUserConfirmationDialog extends StatelessWidget {
             return true;
           },
           child: CustomDialog(
-            icon: SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
+            icon: SvgPicture.asset(
+                'assets/images/security/success_outlined_icon.svg'),
             leftButtonTitle: "Cancel",
             rightButtonTitle: "Yes I'm sure",
             onRightButtonPressed: () {
-              BlocProvider.of<DelegateAUserBloc>(context).add(OnConfirmDelegateTab(selectedDelegate));
+              BlocProvider.of<DelegateAUserBloc>(context)
+                  .add(OnConfirmDelegateTab(selectedDelegate));
               Navigator.of(context).pop();
             },
             children: [
-              Text('Delegate Confirmation', style: Theme.of(context).textTheme.headline6),
+              Text('Delegate Confirmation',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 30.0),
               Text(
                   'By selecting this Citizen as your delegate you are entrusting your Trust Tokens to them to vote with.',
-                  style: Theme.of(context).textTheme.subtitle2),
+                  style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: 20.0),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: 'Are you sure you would like ',
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                     children: <TextSpan>[
                       TextSpan(
-                          text: '${selectedDelegate.nickname} (${selectedDelegate.account})',
-                          style: Theme.of(context).textTheme.subtitle2Green3LowEmphasis),
-                      TextSpan(text: ' to be your delegate?', style: Theme.of(context).textTheme.subtitle2)
+                          text:
+                              '${selectedDelegate.nickname} (${selectedDelegate.account})',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle2Green3LowEmphasis),
+                      TextSpan(
+                          text: ' to be your delegate?',
+                          style: Theme.of(context).textTheme.titleSmall)
                     ]),
               ),
             ],

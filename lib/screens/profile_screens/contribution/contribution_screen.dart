@@ -21,7 +21,8 @@ class ContributionScreen extends StatefulWidget {
   _ContributionScreenState createState() => _ContributionScreenState();
 }
 
-class _ContributionScreenState extends State<ContributionScreen> with TickerProviderStateMixin {
+class _ContributionScreenState extends State<ContributionScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _contributionAnimation;
   late Animation<double> _communityAnimation;
@@ -36,7 +37,8 @@ class _ContributionScreenState extends State<ContributionScreen> with TickerProv
 
   @override
   void initState() {
-    _controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    _controller =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
     super.initState();
   }
 
@@ -55,42 +57,57 @@ class _ContributionScreenState extends State<ContributionScreen> with TickerProv
         body: BlocConsumer<ContributionBloc, ContributionState>(
           listenWhen: (previous, current) =>
               current.pageCommand != null ||
-              previous.pageState != PageState.success && current.pageState == PageState.success,
+              previous.pageState != PageState.success &&
+                  current.pageState == PageState.success,
           listener: (context, state) {
             if (state.pageCommand != null) {
               final pageCommand = state.pageCommand;
-              BlocProvider.of<ContributionBloc>(context).add(const ClearContributionPageCommand());
+              BlocProvider.of<ContributionBloc>(context)
+                  .add(const ClearContributionPageCommand());
               if (pageCommand is NavigateToScoreDetails) {
-                NavigationService.of(context).navigateTo(Routes.contributionDetail, pageCommand);
+                NavigationService.of(context)
+                    .navigateTo(Routes.contributionDetail, pageCommand);
               }
             }
-            _contributionAnimation =
-                Tween<double>(begin: 0, end: (state.score!.contributionScore?.value ?? 0).toDouble())
-                    .animate(_controller)
-                  ..addListener(() {
-                    setState(() => _contribution = _contributionAnimation.value.toInt());
-                  });
-            _communityAnimation =
-                Tween<double>(begin: 0, end: (state.score!.communityScore?.value ?? 0).toDouble()).animate(_controller)
-                  ..addListener(() {
-                    setState(() => _community = _communityAnimation.value.toInt());
-                  });
-            _reputationAnimation =
-                Tween<double>(begin: 0, end: (state.score!.reputationScore?.value ?? 0).toDouble()).animate(_controller)
-                  ..addListener(() {
-                    setState(() => _reputation = _reputationAnimation.value.toInt());
-                  });
-            _seedsAnimation =
-                Tween<double>(begin: 0, end: (state.score!.plantedScore?.value ?? 0).toDouble()).animate(_controller)
-                  ..addListener(() {
-                    setState(() => _seeds = _seedsAnimation.value.toInt());
-                  });
-            _transactionsAnimation =
-                Tween<double>(begin: 0, end: (state.score!.transactionScore?.value ?? 0).toDouble())
-                    .animate(_controller)
-                  ..addListener(() {
-                    setState(() => _transactions = _transactionsAnimation.value.toInt());
-                  });
+            _contributionAnimation = Tween<double>(
+                    begin: 0,
+                    end:
+                        (state.score!.contributionScore?.value ?? 0).toDouble())
+                .animate(_controller)
+              ..addListener(() {
+                setState(
+                    () => _contribution = _contributionAnimation.value.toInt());
+              });
+            _communityAnimation = Tween<double>(
+                    begin: 0,
+                    end: (state.score!.communityScore?.value ?? 0).toDouble())
+                .animate(_controller)
+              ..addListener(() {
+                setState(() => _community = _communityAnimation.value.toInt());
+              });
+            _reputationAnimation = Tween<double>(
+                    begin: 0,
+                    end: (state.score!.reputationScore?.value ?? 0).toDouble())
+                .animate(_controller)
+              ..addListener(() {
+                setState(
+                    () => _reputation = _reputationAnimation.value.toInt());
+              });
+            _seedsAnimation = Tween<double>(
+                    begin: 0,
+                    end: (state.score!.plantedScore?.value ?? 0).toDouble())
+                .animate(_controller)
+              ..addListener(() {
+                setState(() => _seeds = _seedsAnimation.value.toInt());
+              });
+            _transactionsAnimation = Tween<double>(
+                    begin: 0,
+                    end: (state.score!.transactionScore?.value ?? 0).toDouble())
+                .animate(_controller)
+              ..addListener(() {
+                setState(
+                    () => _transactions = _transactionsAnimation.value.toInt());
+              });
             _controller.forward();
           },
           builder: (context, state) {
@@ -111,8 +128,10 @@ class _ContributionScreenState extends State<ContributionScreen> with TickerProv
                         children: [
                           InkWell(
                             borderRadius: BorderRadius.circular(100),
-                            onTap: () => BlocProvider.of<ContributionBloc>(context)
-                                .add(const ShowScoreDetails(ScoreType.contributionScore)),
+                            onTap: () =>
+                                BlocProvider.of<ContributionBloc>(context).add(
+                                    const ShowScoreDetails(
+                                        ScoreType.contributionScore)),
                             child: CircularStepProgressIndicator(
                               totalSteps: 99,
                               currentStep: _contribution,
@@ -131,9 +150,14 @@ class _ContributionScreenState extends State<ContributionScreen> with TickerProv
                                     Text('Contribution'.i18n,
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
-                                        style: Theme.of(context).textTheme.headline7),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline7),
                                     const SizedBox(height: 8.0),
-                                    Text('$_contribution/99', style: Theme.of(context).textTheme.headline3),
+                                    Text('$_contribution/99',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall),
                                   ],
                                 ),
                               ),
@@ -150,52 +174,101 @@ class _ContributionScreenState extends State<ContributionScreen> with TickerProv
                         crossAxisCount: 2,
                         children: <Widget>[
                           CircularProgressItem(
-                            icon: SvgPicture.asset('assets/images/contribution/community.svg'),
+                            icon: SvgPicture.asset(
+                                'assets/images/contribution/community.svg'),
                             totalStep: 99,
                             currentStep: _community,
                             circleRadius: 40,
                             title: 'Community'.i18n,
-                            titleStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+                            titleStyle: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withOpacity(0.6)) ??
+                                const TextStyle(),
                             rate: '$_community',
-                            rateStyle: Theme.of(context).textTheme.headline4!,
-                            onPressed: () => BlocProvider.of<ContributionBloc>(context)
-                                .add(const ShowScoreDetails(ScoreType.communityScore)),
+                            rateStyle:
+                                Theme.of(context).textTheme.headlineMedium ??
+                                    const TextStyle(),
+                            onPressed: () =>
+                                BlocProvider.of<ContributionBloc>(context).add(
+                                    const ShowScoreDetails(
+                                        ScoreType.communityScore)),
                           ),
                           CircularProgressItem(
-                            icon: SvgPicture.asset('assets/images/contribution/reputation.svg'),
+                            icon: SvgPicture.asset(
+                                'assets/images/contribution/reputation.svg'),
                             totalStep: 99,
                             currentStep: _reputation,
                             circleRadius: 40,
                             title: 'Reputation'.i18n,
-                            titleStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+                            titleStyle: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6)) ??
+                                const TextStyle(),
                             rate: '$_reputation',
-                            rateStyle: Theme.of(context).textTheme.headline4!,
-                            onPressed: () => BlocProvider.of<ContributionBloc>(context)
-                                .add(const ShowScoreDetails(ScoreType.reputationScore)),
+                            rateStyle:
+                                Theme.of(context).textTheme.headlineMedium ?? const TextStyle(),
+                            onPressed: () =>
+                                BlocProvider.of<ContributionBloc>(context).add(
+                                    const ShowScoreDetails(
+                                        ScoreType.reputationScore)),
                           ),
                           CircularProgressItem(
-                            icon: SvgPicture.asset('assets/images/contribution/planted.svg'),
+                            icon: SvgPicture.asset(
+                                'assets/images/contribution/planted.svg'),
                             totalStep: 99,
                             currentStep: _seeds,
                             circleRadius: 40,
                             title: 'Planted'.i18n,
-                            titleStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+                            titleStyle: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6)) ??
+                                const TextStyle(),
                             rate: '$_seeds',
-                            rateStyle: Theme.of(context).textTheme.headline4!,
-                            onPressed: () => BlocProvider.of<ContributionBloc>(context)
-                                .add(const ShowScoreDetails(ScoreType.plantedScore)),
+                            rateStyle:
+                                Theme.of(context).textTheme.headlineMedium ?? const TextStyle(),
+                            onPressed: () =>
+                                BlocProvider.of<ContributionBloc>(context).add(
+                                    const ShowScoreDetails(
+                                        ScoreType.plantedScore)),
                           ),
                           CircularProgressItem(
-                            icon: SvgPicture.asset('assets/images/contribution/transaction.svg'),
+                            icon: SvgPicture.asset(
+                                'assets/images/contribution/transaction.svg'),
                             totalStep: 99,
                             currentStep: _transactions,
                             circleRadius: 40,
                             title: 'Transactions'.i18n,
-                            titleStyle: Theme.of(context).textTheme.buttonLowEmphasis,
+                            titleStyle: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6)) ??
+                                const TextStyle(),
                             rate: '$_transactions',
-                            rateStyle: Theme.of(context).textTheme.headline4!,
-                            onPressed: () => BlocProvider.of<ContributionBloc>(context)
-                                .add(const ShowScoreDetails(ScoreType.transactionScore)),
+                            rateStyle:
+                                Theme.of(context).textTheme.headlineMedium ?? const TextStyle(),
+                            onPressed: () =>
+                                BlocProvider.of<ContributionBloc>(context).add(
+                                    const ShowScoreDetails(
+                                        ScoreType.transactionScore)),
                           ),
                         ],
                       ),

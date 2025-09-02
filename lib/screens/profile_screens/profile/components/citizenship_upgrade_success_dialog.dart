@@ -13,9 +13,11 @@ class CitizenshipUpgradeSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      icon: const Image(image: AssetImage("assets/images/profile/celebration_icon.png")),
+      icon: const Image(
+          image: AssetImage("assets/images/profile/celebration_icon.png")),
       children: [
-        Text('Congratulations!'.i18n, style: Theme.of(context).textTheme.button1),
+        Text('Congratulations!'.i18n,
+            style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 30.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -26,13 +28,16 @@ class CitizenshipUpgradeSuccessDialog extends StatelessWidget {
                   height: 100,
                   child: RichText(
                     text: TextSpan(
-                        text: 'You have have fulfilled all the requirements and are now officially upgraded to be a '
-                            .i18n,
+                        text:
+                            'You have have fulfilled all the requirements and are now officially upgraded to be a '
+                                .i18n,
                         style: Theme.of(context).textTheme.subtitle2,
                         children: <TextSpan>[
                           TextSpan(
                             text: "Citizen".i18n,
-                            style: Theme.of(context).textTheme.subtitle2HighEmphasisGreen1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2HighEmphasisGreen1,
                           ),
                           TextSpan(
                             text:
@@ -49,16 +54,21 @@ class CitizenshipUpgradeSuccessDialog extends StatelessWidget {
                   height: 100,
                   child: RichText(
                     text: TextSpan(
-                        text: 'You have have fulfilled all the requirements and are now officially upgraded to be a '
-                            .i18n,
+                        text:
+                            'You have have fulfilled all the requirements and are now officially upgraded to be a '
+                                .i18n,
                         style: Theme.of(context).textTheme.subtitle2,
                         children: <TextSpan>[
                           TextSpan(
                             text: "Resident",
-                            style: Theme.of(context).textTheme.subtitle2HighEmphasisGreen1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2HighEmphasisGreen1,
                           ),
                           TextSpan(
-                            text: 'Just one more level until you are a full-fledged Citizen.!'.i18n,
+                            text:
+                                'Just one more level until you are a full-fledged Citizen.!'
+                                    .i18n,
                             style: Theme.of(context).textTheme.subtitle2,
                           )
                         ]),
@@ -66,7 +76,8 @@ class CitizenshipUpgradeSuccessDialog extends StatelessWidget {
                   ),
                 ),
               const SizedBox(height: 36.0),
-              FlatButtonLong(title: 'Done'.i18n, onPressed: () => Navigator.pop(context)),
+              FlatButtonLong(
+                  title: 'Done'.i18n, onPressed: () => Navigator.pop(context)),
               const SizedBox(height: 10.0),
             ],
           ),

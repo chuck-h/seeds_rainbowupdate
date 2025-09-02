@@ -16,7 +16,8 @@ class ContributionDetailScreen extends StatelessWidget {
       return Scaffold(appBar: AppBar(), body: const FullPageErrorIndicator());
     }
 
-    final scoreDetails = ModalRoute.of(context)!.settings.arguments! as NavigateToScoreDetails;
+    final scoreDetails =
+        ModalRoute.of(context)!.settings.arguments! as NavigateToScoreDetails;
     final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -32,8 +33,10 @@ class ContributionDetailScreen extends StatelessWidget {
             fit: BoxFit.fitWidth,
           ),
           const Spacer(),
-          Image.asset('assets/images/contribution/contribution_detail/petals_right.png',
-              width: width * 0.46, fit: BoxFit.fitWidth),
+          Image.asset(
+              'assets/images/contribution/contribution_detail/petals_right.png',
+              width: width * 0.46,
+              fit: BoxFit.fitWidth),
         ],
       ),
       body: SingleChildScrollView(
@@ -56,16 +59,20 @@ class ContributionDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(scoreDetails.scoreType,
-                        textAlign: TextAlign.center, maxLines: 2, style: Theme.of(context).textTheme.headline7),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.headline7),
                     const SizedBox(height: 8.0),
-                    Text(scoreDetails.score.toString(), style: Theme.of(context).textTheme.headline3),
+                    Text(scoreDetails.score.toString(),
+                        style: Theme.of(context).textTheme.displaySmall),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 40),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: horizontalEdgePadding),
               child: Text(
                 scoreDetails.title,
                 textAlign: TextAlign.center,

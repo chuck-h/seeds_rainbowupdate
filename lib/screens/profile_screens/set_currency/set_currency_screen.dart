@@ -25,7 +25,8 @@ class _SetCurrencyScreenState extends State<SetCurrencyScreen> {
   void initState() {
     super.initState();
     _setCurrencyBloc = SetCurrencyBloc()
-      ..add(LoadCurrencies(BlocProvider.of<RatesBloc>(context).state.fiatRate?.rates ?? {}));
+      ..add(LoadCurrencies(
+          BlocProvider.of<RatesBloc>(context).state.fiatRate?.rates ?? {}));
     _queryController.addListener(() {
       _setCurrencyBloc.add(OnQueryChanged(_queryController.text));
     });
@@ -64,16 +65,21 @@ class _SetCurrencyScreenState extends State<SetCurrencyScreen> {
                           itemCount: state.queryCurrenciesResults!.length,
                           itemBuilder: (_, index) => ListTile(
                             key: Key(state.queryCurrenciesResults![index].code),
-                            leading: Text(state.queryCurrenciesResults![index].flagEmoji,
-                                style: Theme.of(context).textTheme.headline4),
+                            leading: Text(
+                                state.queryCurrenciesResults![index].flagEmoji,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium ??
+                                        const TextStyle()),
                             title: Text(
                               state.queryCurrenciesResults![index].code,
-                              style: Theme.of(context).textTheme.button,
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
-                            subtitle: Text(state.queryCurrenciesResults![index].name,
+                            subtitle: Text(
+                                state.queryCurrenciesResults![index].name,
                                 style: Theme.of(context).textTheme.subtitle4),
                             onTap: () {
-                              settingsStorage.saveSelectedFiatCurrency(state.queryCurrenciesResults![index].code);
+                              settingsStorage.saveSelectedFiatCurrency(
+                                  state.queryCurrenciesResults![index].code);
                               Navigator.of(context).pop(true);
                             },
                           ),

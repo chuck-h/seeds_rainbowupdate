@@ -10,17 +10,20 @@ class ConfirmVoteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      icon: SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
+      icon:
+          SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
       leftButtonTitle: 'Cancel'.i18n,
       rightButtonTitle: 'Confirm'.i18n,
       onRightButtonPressed: () => Navigator.of(context).pop(true),
       children: [
-        Text('Confirm your Vote'.i18n, style: Theme.of(context).textTheme.button1),
+        Text('Confirm your Vote'.i18n,
+            style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 24.0),
         Text(
-          'Your trust tokens cannot be reallocated afterwards so please be sure of your vote!'.i18n,
+          'Your trust tokens cannot be reallocated afterwards so please be sure of your vote!'
+              .i18n,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(height: 16.0),
       ],

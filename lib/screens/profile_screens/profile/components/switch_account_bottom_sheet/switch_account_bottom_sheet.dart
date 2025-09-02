@@ -21,7 +21,8 @@ class SwithAccountBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SwitchAccountBloc(
-          BlocProvider.of<AuthenticationBloc>(context), remoteConfigurations.featureFlagExportRecoveryPhraseEnabled)
+          BlocProvider.of<AuthenticationBloc>(context),
+          remoteConfigurations.featureFlagExportRecoveryPhraseEnabled)
         ..add(const FindAccountsByKey()),
       child: DraggableScrollableSheet(
         expand: false,
@@ -38,10 +39,12 @@ class SwithAccountBottomSheet extends StatelessWidget {
                 ),
               ),
               BlocConsumer<SwitchAccountBloc, SwitchAccountState>(
-                listenWhen: (_, current) => current.pageState == PageState.failure,
+                listenWhen: (_, current) =>
+                    current.pageState == PageState.failure,
                 listener: (context, state) {
                   Navigator.of(context).pop();
-                  eventBus.fire(ShowSnackBar(state.error?.localizedDescription(context) ?? ''));
+                  eventBus.fire(ShowSnackBar(
+                      state.error?.localizedDescription(context) ?? ''));
                 },
                 builder: (context, state) {
                   switch (state.pageState) {
@@ -59,23 +62,30 @@ class SwithAccountBottomSheet extends StatelessWidget {
                           itemBuilder: (_, index) {
                             if (index == state.accounts.length) {
                               return Padding(
-                                padding: const EdgeInsets.only(top: 10.0, bottom: 30.0),
+                                padding: const EdgeInsets.only(
+                                    top: 10.0, bottom: 30.0),
                                 child: InkWell(
                                   onTap: () {
                                     if (state.isRecoverPharseEnabled) {
-                                      NavigationService.of(context).navigateTo(Routes.importWords);
+                                      NavigationService.of(context)
+                                          .navigateTo(Routes.importWords);
                                     } else {
-                                      NavigationService.of(context).navigateTo(Routes.importKey);
+                                      NavigationService.of(context)
+                                          .navigateTo(Routes.importKey);
                                     }
                                   },
                                   child: Row(
                                     children: [
                                       const SizedBox(width: 20.0),
-                                      const CustomPaint(size: Size(60, 60), painter: AddAccountCircle()),
+                                      const CustomPaint(
+                                          size: Size(60, 60),
+                                          painter: AddAccountCircle()),
                                       const SizedBox(width: 8.0),
                                       Expanded(
                                         child: Text('Add new account',
-                                            style: Theme.of(context).textTheme.buttonHighEmphasis),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLargeHighEmphasis),
                                       ),
                                       const SizedBox(width: 20.0),
                                     ],
@@ -84,13 +94,17 @@ class SwithAccountBottomSheet extends StatelessWidget {
                               );
                             }
                             return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
                               child: InkWell(
-                                onTap: state.currentAcccout == state.accounts[index]
+                                onTap: state.currentAcccout ==
+                                        state.accounts[index]
                                     ? null
                                     : () {
-                                        BlocProvider.of<SwitchAccountBloc>(context)
-                                            .add(OnAccountSelected(state.accounts[index]));
+                                        BlocProvider.of<SwitchAccountBloc>(
+                                                context)
+                                            .add(OnAccountSelected(
+                                                state.accounts[index]));
                                       },
                                 child: Row(
                                   children: [
@@ -104,15 +118,21 @@ class SwithAccountBottomSheet extends StatelessWidget {
                                     const SizedBox(width: 8.0),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(state.accounts[index].account,
-                                              style: Theme.of(context).textTheme.buttonHighEmphasis),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLargeHighEmphasis),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 8.0),
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
                                             child: Text(
                                               state.accounts[index].nickname,
-                                              style: Theme.of(context).textTheme.subtitle2OpacityEmphasis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2OpacityEmphasis,
                                             ),
                                           )
                                         ],
@@ -147,7 +167,8 @@ class SwithAccountBottomSheet extends StatelessWidget {
   void show(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
       ),
       context: context,
       isScrollControlled: true,

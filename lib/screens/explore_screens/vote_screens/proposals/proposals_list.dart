@@ -22,7 +22,8 @@ class ProposalsList extends StatefulWidget {
   _ProposalsListState createState() => _ProposalsListState();
 }
 
-class _ProposalsListState extends State<ProposalsList> with AutomaticKeepAliveClientMixin {
+class _ProposalsListState extends State<ProposalsList>
+    with AutomaticKeepAliveClientMixin {
   final _scrollController = ScrollController();
   late ProposalsListBloc _proposalsBloc;
 
@@ -31,7 +32,8 @@ class _ProposalsListState extends State<ProposalsList> with AutomaticKeepAliveCl
     _proposalsBloc = ProposalsListBloc(widget.proposalType);
     _scrollController.addListener(() {
       // if scroll to bottom of list, then load next proposals batch
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
+      if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent &&
           !_proposalsBloc.state.hasReachedMax) {
         _proposalsBloc.add(const OnUserProposalsScroll());
       }
@@ -66,14 +68,17 @@ class _ProposalsListState extends State<ProposalsList> with AutomaticKeepAliveCl
           final pageCommand = state.pageCommand;
           _proposalsBloc.add(const ClearProposalsListPageCommand());
           if (pageCommand is NavigateToRouteWithArguments<ProposalsArgsData>) {
-            final args = pageCommand.arguments
-                .copyWith(currentDelegates: BlocProvider.of<VoteBloc>(context).state.currentDelegates);
-            final int? index = await NavigationService.of(context).navigateTo(pageCommand.route, args) as int?;
+            final args = pageCommand.arguments.copyWith(
+                currentDelegates:
+                    BlocProvider.of<VoteBloc>(context).state.currentDelegates);
+            final int? index = await NavigationService.of(context)
+                .navigateTo(pageCommand.route, args) as int?;
             if (index != null) {
               // 420 is the height of this proposal card
               // ignore: unawaited_futures
               _scrollController.animateTo(420.0 * index,
-                  duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOut);
             }
           }
         },
@@ -85,22 +90,29 @@ class _ProposalsListState extends State<ProposalsList> with AutomaticKeepAliveCl
               return const FullPageErrorIndicator();
             case PageState.success:
               return RefreshIndicator(
-                onRefresh: () async => _proposalsBloc.add(const OnUserProposalsRefresh()),
+                onRefresh: () async =>
+                    _proposalsBloc.add(const OnUserProposalsRefresh()),
                 child: CustomScrollView(
                   controller: _scrollController,
                   slivers: [
-                    if (widget.proposalType.index == 0 || widget.proposalType.index == 1)
-                      const SliverPersistentHeader(floating: true, delegate: VotingCycleEndCard()),
+                    if (widget.proposalType.index == 0 ||
+                        widget.proposalType.index == 1)
+                      const SliverPersistentHeader(
+                          floating: true, delegate: VotingCycleEndCard()),
                     if (state.proposals.isEmpty)
                       SliverFillRemaining(
                         child: Center(
-                          child: Text('No proposals to show, yet', style: Theme.of(context).textTheme.button),
+                          child: Text('No proposals to show, yet',
+                              style: Theme.of(context).textTheme.labelLarge),
                         ),
                       )
                     else
                       SliverPadding(
                         padding: EdgeInsets.only(
-                            top: widget.proposalType.index != 0 && widget.proposalType.index != 1 ? 16 : 0),
+                            top: widget.proposalType.index != 0 &&
+                                    widget.proposalType.index != 1
+                                ? 16
+                                : 0),
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
@@ -109,11 +121,14 @@ class _ProposalsListState extends State<ProposalsList> with AutomaticKeepAliveCl
                               } else {
                                 return ProposalCard(
                                   proposal: state.proposals[index],
-                                  onTap: () => _proposalsBloc.add(OnProposalCardTapped(index)),
+                                  onTap: () => _proposalsBloc
+                                      .add(OnProposalCardTapped(index)),
                                 );
                               }
                             },
-                            childCount: state.hasReachedMax ? state.proposals.length : state.proposals.length + 1,
+                            childCount: state.hasReachedMax
+                                ? state.proposals.length
+                                : state.proposals.length + 1,
                           ),
                         ),
                       ),

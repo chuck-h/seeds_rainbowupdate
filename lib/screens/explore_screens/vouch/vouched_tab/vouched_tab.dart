@@ -51,16 +51,19 @@ class VouchedTab extends StatelessWidget {
               case PageState.success:
                 return Scaffold(
                   bottomNavigationBar: SafeArea(
-                    minimum: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
+                    minimum:
+                        const EdgeInsets.only(left: 16, bottom: 16, right: 16),
                     child: FlatButtonLong(
                       enabled: state.canVouch,
                       title: 'Vouch for a member',
                       onPressed: () async {
                         final bool? shouldScreenReload =
-                            await NavigationService.of(context).navigateTo(Routes.vouchForAMember, state.vouched) as bool?;
+                            await NavigationService.of(context).navigateTo(
+                                Routes.vouchForAMember, state.vouched) as bool?;
                         if (shouldScreenReload != null) {
                           // ignore: use_build_context_synchronously
-                          BlocProvider.of<VouchedBloc>(context).add(LoadUserVouchedList(shouldScreenReload));
+                          BlocProvider.of<VouchedBloc>(context)
+                              .add(LoadUserVouchedList(shouldScreenReload));
                         }
                       },
                     ),
@@ -72,12 +75,16 @@ class VouchedTab extends StatelessWidget {
                           ? Center(
                               child: Text(
                                 'You have not vouched for anyone yet',
-                                style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLargeLowEmphasis,
                               ),
                             )
                           : ListView(
                               padding: const EdgeInsets.only(bottom: 80),
-                              children: [for (final i in state.vouched) MemberInfoRow(i)],
+                              children: [
+                                for (final i in state.vouched) MemberInfoRow(i)
+                              ],
                             ),
                     ),
                   ),

@@ -23,12 +23,16 @@ class FlatButtonShort extends StatelessWidget {
     return Center(
         child: MaterialButton(
       color: AppColors.green1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultButtonBorderRadius)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(defaultButtonBorderRadius)),
       onPressed: enabled ? onPressed : null,
       child: isLoading
           ? Container(
-              width: 17, height: 17, child: const CircularProgressIndicator(color: AppColors.white, strokeWidth: 3))
-          : Text(title, style: Theme.of(context).textTheme.buttonWhiteL),
+              width: 17,
+              height: 17,
+              child: const CircularProgressIndicator(
+                  color: AppColors.white, strokeWidth: 3))
+          : Text(title, style: Theme.of(context).textTheme.labelLargeWhiteL),
     ));
   }
 }

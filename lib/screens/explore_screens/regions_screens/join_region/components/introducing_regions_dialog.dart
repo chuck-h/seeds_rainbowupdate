@@ -9,7 +9,8 @@ class IntroducingRegionsDialog extends StatelessWidget {
   const IntroducingRegionsDialog({super.key});
 
   Future<bool?> show(BuildContext context) async {
-    return showDialog(barrierDismissible: false, context: context, builder: (_) => this);
+    return showDialog(
+        barrierDismissible: false, context: context, builder: (_) => this);
   }
 
   @override
@@ -24,7 +25,8 @@ class IntroducingRegionsDialog extends StatelessWidget {
             Navigator.of(context).pop(true);
           },
           children: [
-            Text(context.loc.introducingRegionsDialogTitle, style: Theme.of(context).textTheme.headline6),
+            Text(context.loc.introducingRegionsDialogTitle,
+                style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 30.0),
             const CustomPaint(size: Size(103, 106), painter: Regions()),
             const SizedBox(height: 40.0),
@@ -33,31 +35,31 @@ class IntroducingRegionsDialog extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription1,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription2,
                       style: Theme.of(context).textTheme.subtitle2HighEmphasis),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription3,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription4,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription5,
                       style: Theme.of(context).textTheme.subtitle2Green2),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription6,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription7,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                   TextSpan(
                       text: ' ${context.loc.genericNextButtonTitle} ',
                       style: Theme.of(context).textTheme.subtitle2Green2),
                   TextSpan(
                       text: context.loc.introducingRegionsDialogDescription8,
-                      style: Theme.of(context).textTheme.subtitle2),
+                      style: Theme.of(context).textTheme.titleSmall),
                 ],
               ),
             ),

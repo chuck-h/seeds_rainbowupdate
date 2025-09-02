@@ -23,7 +23,8 @@ class ProposalCard extends StatefulWidget {
   _ProposalCardState createState() => _ProposalCardState();
 }
 
-class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClientMixin {
+class _ProposalCardState extends State<ProposalCard>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -36,14 +37,18 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
       child: Stack(
         children: [
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             clipBehavior: Clip.antiAlias,
-            margin: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 26.0),
+            margin:
+                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 26.0),
             elevation: 8,
             child: InkWell(
               onTap: widget.onTap,
               child: Ink(
-                decoration: BoxDecoration(color: AppColors.darkGreen2, borderRadius: BorderRadius.circular(12)),
+                decoration: BoxDecoration(
+                    color: AppColors.darkGreen2,
+                    borderRadius: BorderRadius.circular(12)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -72,7 +77,8 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                       painter: widget.proposal.stage == 'staged'
                                           ? const DoubleSidedArrow()
                                           : const VotesUpArrow(
-                                              circleColor: AppColors.lightGreen3,
+                                              circleColor:
+                                                  AppColors.lightGreen3,
                                               arrowColor: AppColors.green3,
                                             ),
                                     ),
@@ -82,7 +88,8 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                     widget.proposal.title,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.headline7,
+                                    style:
+                                        Theme.of(context).textTheme.headline7,
                                   )),
                                 ],
                               ),
@@ -97,7 +104,8 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                               Stack(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 25.0, left: 16.0, right: 16.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 25.0, left: 16.0, right: 16.0),
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(12),
@@ -106,7 +114,9 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                         bottomRight: Radius.circular(12),
                                       ),
                                       child: StepProgressIndicator(
-                                        totalSteps: widget.proposal.total > 1 ? widget.proposal.total : 1,
+                                        totalSteps: widget.proposal.total > 1
+                                            ? widget.proposal.total
+                                            : 1,
                                         currentStep: widget.proposal.favour,
                                         size: 6,
                                         padding: 0,
@@ -118,17 +128,24 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                   LayoutBuilder(
                                     builder: (_, constrains) {
                                       // leftPadding = unity triangle position - triangle middle width - left margin
-                                      final leftPadding = constrains.maxWidth * unityThreshold - 6 - 16;
+                                      final leftPadding =
+                                          constrains.maxWidth * unityThreshold -
+                                              6 -
+                                              16;
                                       return Padding(
-                                        padding: EdgeInsets.only(left: leftPadding, top: 20),
-                                        child: const CustomPaint(size: Size(12, 8), painter: TrianglePassValue()),
+                                        padding: EdgeInsets.only(
+                                            left: leftPadding, top: 20),
+                                        child: const CustomPaint(
+                                            size: Size(12, 8),
+                                            painter: TrianglePassValue()),
                                       );
                                     },
                                   ),
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
                                 child: Column(
                                   children: [
                                     const SizedBox(height: 10.0),
@@ -139,31 +156,45 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                           child: Row(
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.only(right: 6.0),
+                                                padding:
+                                                    EdgeInsets.only(right: 6.0),
                                                 child: CustomPaint(
                                                   size: Size(20, 20),
                                                   painter: VotesUpArrow(
-                                                    circleColor: AppColors.lightGreen3,
-                                                    arrowColor: AppColors.green3,
+                                                    circleColor:
+                                                        AppColors.lightGreen3,
+                                                    arrowColor:
+                                                        AppColors.green3,
                                                   ),
                                                 ),
                                               ),
                                               Flexible(
                                                 child: Text(
                                                     context.loc
-                                                        .proposalVotesInFavourPercent(widget.proposal.favourPercent),
-                                                    style: Theme.of(context).textTheme.subtitle3Green),
+                                                        .proposalVotesInFavourPercent(
+                                                            widget.proposal
+                                                                .favourPercent),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle3Green),
                                               ),
                                             ],
                                           ),
                                         ),
                                         Expanded(
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Flexible(
-                                                child: Text(context.loc.proposalVotesTotal(widget.proposal.total),
-                                                    style: Theme.of(context).textTheme.subtitle3Opacity),
+                                                child: Text(
+                                                    context.loc
+                                                        .proposalVotesTotal(
+                                                            widget.proposal
+                                                                .total),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle3Opacity),
                                               ),
                                             ],
                                           ),
@@ -171,23 +202,31 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                                         Expanded(
                                           flex: 2,
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
                                             children: [
                                               const Padding(
-                                                padding: EdgeInsets.only(right: 6.0),
+                                                padding:
+                                                    EdgeInsets.only(right: 6.0),
                                                 child: CustomPaint(
                                                   size: Size(20, 20),
                                                   painter: VotesDownArrow(
-                                                    circleColor: AppColors.lightGreen3,
-                                                    arrowColor: AppColors.lightGreen6,
+                                                    circleColor:
+                                                        AppColors.lightGreen3,
+                                                    arrowColor:
+                                                        AppColors.lightGreen6,
                                                   ),
                                                 ),
                                               ),
                                               Flexible(
                                                 child: Text(
                                                     context.loc
-                                                        .proposalVotesAgainstPercent(widget.proposal.againstPercent),
-                                                    style: Theme.of(context).textTheme.subtitle3LightGreen6),
+                                                        .proposalVotesAgainstPercent(
+                                                            widget.proposal
+                                                                .againstPercent),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle3LightGreen6),
                                               ),
                                             ],
                                           ),
@@ -215,29 +254,43 @@ class _ProposalCardState extends State<ProposalCard> with AutomaticKeepAliveClie
                 CustomPaint(
                   painter: const CategoryLabel(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-                    child: Text(widget.proposal.proposalCategory.localizedDescription(context).inCaps,
-                        style: Theme.of(context).textTheme.subtitle2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                    child: Text(
+                        widget.proposal.proposalCategory
+                            .localizedDescription(context)
+                            .inCaps,
+                        style: Theme.of(context).textTheme.titleSmall),
                   ),
                 ),
               ],
             ),
           ),
           if (widget.proposal.stage != 'staged')
-            Positioned(top: 10.0, right: 26.0, child: VoteAmountLabel(widget.proposal)),
+            Positioned(
+                top: 10.0,
+                right: 26.0,
+                child: VoteAmountLabel(widget.proposal)),
           if (widget.proposal.stage == 'done' || widget.proposal.stage.isEmpty)
             Positioned(
               top: 10.0,
               left: 26.0,
               child: Container(
-                decoration: BoxDecoration(color: AppColors.darkGreen2, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                    color: AppColors.darkGreen2,
+                    borderRadius: BorderRadius.circular(6.0)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     widget.proposal.localizedStatus(context).toUpperCase(),
                     style: widget.proposal.status == 'rejected'
-                        ? Theme.of(context).textTheme.subtitle3OpacityEmphasisRed
-                        : Theme.of(context).textTheme.subtitle3OpacityEmphasisGreen,
+                        ? Theme.of(context)
+                            .textTheme
+                            .subtitle3OpacityEmphasisRed
+                        : Theme.of(context)
+                            .textTheme
+                            .subtitle3OpacityEmphasisGreen,
                   ),
                 ),
               ),

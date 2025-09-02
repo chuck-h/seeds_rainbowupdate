@@ -31,31 +31,43 @@ class VoteScreen extends StatelessWidget {
                               await NavigationService.of(context)
                                   .navigateTo(Routes.delegate)
                                   .then((shouldRefreshDelegates) {
-                                if (shouldRefreshDelegates != null && shouldRefreshDelegates as bool) {
-                                  BlocProvider.of<VoteBloc>(context).add(const OnRefreshCurrentDelegates());
+                                if (shouldRefreshDelegates != null &&
+                                    shouldRefreshDelegates as bool) {
+                                  BlocProvider.of<VoteBloc>(context)
+                                      .add(const OnRefreshCurrentDelegates());
                                 }
                               });
                             }
                           : null,
-                      icon: SvgPicture.asset('assets/images/explore/delegate.svg',
+                      icon: SvgPicture.asset(
+                          'assets/images/explore/delegate.svg',
                           color: state.isCitizen ? null : AppColors.grey),
                     ),
                   const SizedBox(width: horizontalEdgePadding)
                 ],
                 title: Text('Vote'.i18n),
-                shape: const Border(bottom: BorderSide(color: AppColors.lightGreen2)),
+                shape: const Border(
+                    bottom: BorderSide(color: AppColors.lightGreen2)),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(kToolbarHeight),
                   child: TabBar(
                     indicatorWeight: 4.0,
                     indicatorSize: TabBarIndicatorSize.label,
-                    unselectedLabelStyle: Theme.of(context).textTheme.buttonOpacityEmphasis,
-                    labelStyle: Theme.of(context).textTheme.buttonLowEmphasis,
-                    tabs: [for (var i in proposalTypes) Tab(child: FittedBox(child: Text(i.type.i18n)))],
+                    unselectedLabelStyle:
+                        Theme.of(context).textTheme.labelLargeOpacityEmphasis,
+                    labelStyle:
+                        Theme.of(context).textTheme.labelLargeLowEmphasis,
+                    tabs: [
+                      for (var i in proposalTypes)
+                        Tab(child: FittedBox(child: Text(i.type.i18n)))
+                    ],
                   ),
                 ),
               ),
-              body: SafeArea(child: TabBarView(children: [for (final i in proposalTypes) ProposalsList(i)])),
+              body: SafeArea(
+                  child: TabBarView(children: [
+                for (final i in proposalTypes) ProposalsList(i)
+              ])),
             );
           },
         ),

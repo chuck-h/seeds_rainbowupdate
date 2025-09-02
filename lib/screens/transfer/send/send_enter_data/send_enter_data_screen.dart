@@ -35,77 +35,96 @@ import 'package:seeds/screens/transfer/send/send_enter_data/interactor/viewmodel
 import 'package:seeds/utils/build_context_extension.dart';
 import 'package:seeds/navigation/navigation_service.dart';
 
-
 class SendEnterDataScreen extends StatelessWidget {
   const SendEnterDataScreen({super.key});
-  
+
   @override
   Widget build(BuildContext pageContext) {
-    final Map<String,ProfileModel> memberModels = (ModalRoute.of(pageContext)!.settings.arguments! as Map<String, ProfileModel>)!;
+    final Map<String, ProfileModel> memberModels = (ModalRoute.of(pageContext)!
+        .settings
+        .arguments! as Map<String, ProfileModel>)!;
     final RatesState rates = BlocProvider.of<RatesBloc>(pageContext).state;
-    
+
     return BlocProvider<SendEnterDataBloc>(
       lazy: false,
-      create: (_) => SendEnterDataBloc(memberModels, rates)..add(InitSendDataArguments()),
+      create: (_) =>
+          SendEnterDataBloc(memberModels, rates)..add(InitSendDataArguments()),
       child: BlocListener<SendEnterDataBloc, SendEnterDataState>(
         listenWhen: (_, current) => current.pageCommand != null,
         listener: (context, state) {
           final PageCommand? command = state.pageCommand;
-          BlocProvider.of<SendEnterDataBloc>(context).add(const ClearSendEnterDataPageCommand());
+          BlocProvider.of<SendEnterDataBloc>(context)
+              .add(const ClearSendEnterDataPageCommand());
 
           if (command is ShowFailedTransactionReason) {
             ErrorDialog(
               title: command.title,
               details: command.details,
               onRightButtonPressed: () {
-                final RatesState rates = BlocProvider.of<RatesBloc>(context).state;
-                BlocProvider.of<SendEnterDataBloc>(context).add(OnSendButtonTapped());
+                final RatesState rates =
+                    BlocProvider.of<RatesBloc>(context).state;
+                BlocProvider.of<SendEnterDataBloc>(context)
+                    .add(OnSendButtonTapped());
               },
-              bottomButtonText: (command.failureClass == "canMsig" && command.details.contains('authority')) ?
-                "Retry as Msig Proposal" : null,
-              onBottomButtonPressed: (command.failureClass == "canMsig" && command.details.contains('authority')) ?
-                () async {
-                  final transaction = SendEnterDataBloc.buildTransferTransaction(state);
-                  final auth = transaction.actions?[0]!.authorization?.map((e) => 
-                        esr.Authorization() ..actor = e?.actor ..permission = e?.permission ).toList();
-                  if (auth == null || auth.length == 0) {
-                    Navigator.pop(context);
-                    return;
-                  } 
-                  final msigESRAction =         
-                    (await MsigProposal.msigProposalAction(
-                      actions: transaction.actions!.map((e) => e!,).toList(),
-                      auth: transaction.actions![0]!.authorization!.map((e) => 
-                        esr.Authorization() ..actor = e?.actor ..permission = e?.permission ).toList(),
-                      proposer: settingsStorage.accountName,
-                      proposalName: 'seeds${MsigProposal.RandomName(length: 5)}'
-                      )
-                    );
-                  if (msigESRAction == null) {
-                    Navigator.pop(context);
-                    return;
-                  }
-                  final args = SendConfirmationArguments(
-                    transaction: EOSTransaction( [
-                      EOSAction.fromESRAction(msigESRAction!)
-                    ] )
-                  );
-                  NavigationService.of(context).navigateTo(Routes.sendConfirmation, args, true);
-                  //Navigator.of(context).pop();
-                } : null,
+              bottomButtonText: (command.failureClass == "canMsig" &&
+                      command.details.contains('authority'))
+                  ? "Retry as Msig Proposal"
+                  : null,
+              onBottomButtonPressed: (command.failureClass == "canMsig" &&
+                      command.details.contains('authority'))
+                  ? () async {
+                      final transaction =
+                          SendEnterDataBloc.buildTransferTransaction(state);
+                      final auth = transaction.actions?[0]!.authorization
+                          ?.map((e) => esr.Authorization()
+                            ..actor = e?.actor
+                            ..permission = e?.permission)
+                          .toList();
+                      if (auth == null || auth.length == 0) {
+                        Navigator.pop(context);
+                        return;
+                      }
+                      final msigESRAction =
+                          (await MsigProposal.msigProposalAction(
+                              actions: transaction.actions!
+                                  .map(
+                                    (e) => e!,
+                                  )
+                                  .toList(),
+                              auth: transaction.actions![0]!.authorization!
+                                  .map((e) => esr.Authorization()
+                                    ..actor = e?.actor
+                                    ..permission = e?.permission)
+                                  .toList(),
+                              proposer: settingsStorage.accountName,
+                              proposalName:
+                                  'seeds${MsigProposal.RandomName(length: 5)}'));
+                      if (msigESRAction == null) {
+                        Navigator.pop(context);
+                        return;
+                      }
+                      final args = SendConfirmationArguments(
+                          transaction: EOSTransaction(
+                              [EOSAction.fromESRAction(msigESRAction!)]));
+                      NavigationService.of(context)
+                          .navigateTo(Routes.sendConfirmation, args, true);
+                      //Navigator.of(context).pop();
+                    }
+                  : null,
             ).show(context);
           } else if (command is NavigateToSendConfirmation) {
             final RatesState rates = BlocProvider.of<RatesBloc>(context).state;
             //BlocProvider.of<SendConfirmationBloc>(pageContext).add(OnAuthorizationFailure(rates));
-            NavigationService.of(context).navigateTo(Routes.sendConfirmation, command.arguments, true);
-          } else
-          if (command is ShowSendConfirmDialog) {
+            NavigationService.of(context)
+                .navigateTo(Routes.sendConfirmation, command.arguments, true);
+          } else if (command is ShowSendConfirmDialog) {
             showDialog<void>(
               context: context,
               barrierDismissible: false, // user must tap button
               builder: (_) => SendConfirmationDialog(
                 onSendButtonPressed: () {
-                  BlocProvider.of<SendEnterDataBloc>(context).add(const OnSendButtonTapped());
+                  BlocProvider.of<SendEnterDataBloc>(context)
+                      .add(const OnSendButtonTapped());
                 },
                 tokenAmount: command.tokenAmount,
                 fiatAmount: command.fiatAmount,
@@ -120,21 +139,23 @@ class SendEnterDataScreen extends StatelessWidget {
             Navigator.of(context).pop(); // pop scanner
             if (command.shouldShowInAppReview) {
               InAppReview.instance.requestReview();
-              settingsStorage.saveDateSinceRateAppPrompted(DateTime.now().millisecondsSinceEpoch);
+              settingsStorage.saveDateSinceRateAppPrompted(
+                  DateTime.now().millisecondsSinceEpoch);
             }
             SendTransactionSuccessDialog.fromPageCommand(command).show(context);
           } else if (command is ShowTransactionSuccess) {
             Navigator.of(context).pop(); // pop send
             Navigator.of(context).pop(); // pop scanner
-            GenericTransactionSuccessDialog(command.transactionModel).show(context);
+            GenericTransactionSuccessDialog(command.transactionModel)
+                .show(context);
           }
         },
         child: Scaffold(
-          appBar: AppBar(title: Text(pageContext.loc.transferSendTitle), backgroundColor: Colors.transparent),
+          appBar: AppBar(
+              title: Text(pageContext.loc.transferSendTitle),
+              backgroundColor: Colors.transparent),
           extendBodyBehindAppBar: true,
-          body: 
-
-          BlocBuilder<SendEnterDataBloc, SendEnterDataState>(
+          body: BlocBuilder<SendEnterDataBloc, SendEnterDataState>(
             buildWhen: (_, current) => current.pageCommand == null,
             builder: (ctxt, state) {
               /*BlocProvider<SendEnterDataBloc>.value(
@@ -150,7 +171,9 @@ class SendEnterDataScreen extends StatelessWidget {
                       ? const SendLoadingIndicator()
                       : const SafeArea(child: FullPageLoadingIndicator());
                 case PageState.failure:
-                  return SafeArea(child: FullPageErrorIndicator(errorMessage: state.errorMessage));
+                  return SafeArea(
+                      child: FullPageErrorIndicator(
+                          errorMessage: state.errorMessage));
                 case PageState.success:
                   return SafeArea(
                     minimum: const EdgeInsets.all(horizontalEdgePadding),
@@ -158,81 +181,92 @@ class SendEnterDataScreen extends StatelessWidget {
                       children: [
                         SingleChildScrollView(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  //ctxt.loc.transferSendSendTo + ' (${state.tokenAmount.symbol})',
-                                  'Send ${state.tokenAmount.symbol} to',
-                                  style: Theme.of(ctxt).textTheme.subtitle1,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    //ctxt.loc.transferSendSendTo + ' (${state.tokenAmount.symbol})',
+                                    'Send ${state.tokenAmount.symbol} to',
+                                    style:
+                                        Theme.of(ctxt).textTheme.titleLarge ??
+                                            const TextStyle(),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              SearchResultRow(member: memberModels["to"]!),
-                              const SizedBox(height: 8),
-                              AmountEntryWidget(
-                                tokenDataModel: TokenDataModel(0, token: settingsStorage.selectedToken),
-                                onValueChange: (value) {
-                                  BlocProvider.of<SendEnterDataBloc>(ctxt).add(OnAmountChange(amountChanged: value));
-                                },
-                                autoFocus: state.pageState == PageState.initial,
-                              ),
-                              const SizedBox(height: 24),
-                              AlertInputValue(ctxt.loc.transferSendNotEnoughBalanceAlert,
-                                  isVisible: state.showAlert),
-                              const SizedBox(height: 30),
-                              Column(
-                                children: [
-                                  TextFormFieldLight(
-                                    labelText: ctxt.loc.transferMemoFieldLabel,
-                                    hintText: ctxt.loc.transferMemoFieldHint,
-                                    maxLength: blockChainMaxChars,
-                                    onChanged: (String value) {
-                                      BlocProvider.of<SendEnterDataBloc>(ctxt).add(OnMemoChange(memoChanged: value));
-                                    },
-                                  ),
-
-
-                                ],
-                              ),
-
-                              if (memberModels["from"]?.account != settingsStorage.accountName) 
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      //ctxt.loc.transferSendSendTo,
-                                      "Send From",
-                                      style: Theme.of(ctxt).textTheme.subtitle1,
+                                const SizedBox(height: 8),
+                                SearchResultRow(member: memberModels["to"]!),
+                                const SizedBox(height: 8),
+                                AmountEntryWidget(
+                                  tokenDataModel: TokenDataModel(0,
+                                      token: settingsStorage.selectedToken),
+                                  onValueChange: (value) {
+                                    BlocProvider.of<SendEnterDataBloc>(ctxt)
+                                        .add(OnAmountChange(
+                                            amountChanged: value));
+                                  },
+                                  autoFocus:
+                                      state.pageState == PageState.initial,
+                                ),
+                                const SizedBox(height: 24),
+                                AlertInputValue(
+                                    ctxt.loc.transferSendNotEnoughBalanceAlert,
+                                    isVisible: state.showAlert),
+                                const SizedBox(height: 30),
+                                Column(
+                                  children: [
+                                    TextFormFieldLight(
+                                      labelText:
+                                          ctxt.loc.transferMemoFieldLabel,
+                                      hintText: ctxt.loc.transferMemoFieldHint,
+                                      maxLength: blockChainMaxChars,
+                                      onChanged: (String value) {
+                                        BlocProvider.of<SendEnterDataBloc>(ctxt)
+                                            .add(OnMemoChange(
+                                                memoChanged: value));
+                                      },
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  SearchResultRow(member: memberModels["from"]!),
-                                  const SizedBox(height: 16),
-                                ]
-                              ),
-                              const SizedBox(height: 16),
-                              BalanceRow(
-                                label: ctxt.loc.transferSendAvailableBalance,
-                                fiatAmount: state.availableBalanceFiat,
-                                tokenAmount: state.availableBalance,
-                              ),
-                              const SizedBox(height: 24), 
-                            ]
-                          ),
+                                  ],
+                                ),
+                                if (memberModels["from"]?.account !=
+                                    settingsStorage.accountName)
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Text(
+                                            //ctxt.loc.transferSendSendTo,
+                                            "Send From",
+                                            style: Theme.of(ctxt)
+                                                    .textTheme
+                                                    .titleLarge ??
+                                                const TextStyle(),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        SearchResultRow(
+                                            member: memberModels["from"]!),
+                                        const SizedBox(height: 16),
+                                      ]),
+                                const SizedBox(height: 16),
+                                BalanceRow(
+                                  label: ctxt.loc.transferSendAvailableBalance,
+                                  fiatAmount: state.availableBalanceFiat,
+                                  tokenAmount: state.availableBalance,
+                                ),
+                                const SizedBox(height: 24),
+                              ]),
                         ),
-
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: FlatButtonLong(
                             title: ctxt.loc.transferSendNextButtonTitle,
                             enabled: state.isNextButtonEnabled,
                             onPressed: () {
-                              BlocProvider.of<SendEnterDataBloc>(ctxt).add(const OnNextButtonTapped());
+                              BlocProvider.of<SendEnterDataBloc>(ctxt)
+                                  .add(const OnNextButtonTapped());
                             },
                           ),
                         )

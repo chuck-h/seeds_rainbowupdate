@@ -48,8 +48,10 @@ class ExploreCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset('assets/images/wallet/leaves_bttm_left.png', width: constrains.maxWidth * 0.5),
-                      Image.asset('assets/images/wallet/leaves_bttm_right.png', width: constrains.maxWidth * 0.5),
+                      Image.asset('assets/images/wallet/leaves_bttm_left.png',
+                          width: constrains.maxWidth * 0.5),
+                      Image.asset('assets/images/wallet/leaves_bttm_right.png',
+                          width: constrains.maxWidth * 0.5),
                     ],
                   ),
                 );
@@ -66,7 +68,9 @@ class ExploreCard extends StatelessWidget {
                       child: Container(
                         height: 70,
                         width: 70,
-                        decoration: const BoxDecoration(color: AppColors.lightGreen2, shape: BoxShape.circle),
+                        decoration: const BoxDecoration(
+                            color: AppColors.lightGreen2,
+                            shape: BoxShape.circle),
                         child: Center(child: icon),
                       ),
                     ),
@@ -87,8 +91,11 @@ class ExploreCard extends StatelessWidget {
                   Flexible(
                       child: Text(title,
                           style: !iconUseCircleBackground
-                              ? Theme.of(context).textTheme.buttonWhiteL.copyWith(fontSize: 18)
-                              : Theme.of(context).textTheme.buttonWhiteL)),
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .labelLargeWhiteL
+                                  .copyWith(fontSize: 18)
+                              : Theme.of(context).textTheme.labelLargeWhiteL)),
                 ],
               ),
             ),

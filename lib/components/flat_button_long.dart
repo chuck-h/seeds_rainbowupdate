@@ -11,7 +11,11 @@ class FlatButtonLong extends StatelessWidget {
   final bool isLoading;
 
   const FlatButtonLong(
-      {super.key, required this.title, required this.onPressed, this.enabled = true, this.isLoading = false});
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      this.enabled = true,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,8 @@ class FlatButtonLong extends StatelessWidget {
         color: AppColors.green1,
         disabledTextColor: AppColors.grey1,
         disabledColor: AppColors.darkGreen2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultButtonBorderRadius)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(defaultButtonBorderRadius)),
         onPressed: enabled ? onPressed : null,
         child: isLoading
             ? Container(
@@ -32,7 +37,7 @@ class FlatButtonLong extends StatelessWidget {
                   color: AppColors.white,
                   strokeWidth: 3,
                 ))
-            : Text(title, style: Theme.of(context).textTheme.buttonWhiteL),
+            : Text(title, style: Theme.of(context).textTheme.labelLargeWhiteL),
       ),
     );
   }

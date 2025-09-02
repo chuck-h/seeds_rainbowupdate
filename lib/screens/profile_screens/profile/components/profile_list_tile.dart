@@ -22,8 +22,10 @@ class ProfileListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Text titleText = Text(title, style: Theme.of(context).textTheme.button);
-    final Text trailingText = Text(trailing, style: Theme.of(context).textTheme.headline7LowEmphasis);
+    final Text titleText =
+        Text(title, style: Theme.of(context).textTheme.labelLarge);
+    final Text trailingText =
+        Text(trailing, style: Theme.of(context).textTheme.headline7LowEmphasis);
     return SizedBox(
       height: 60,
       child: showShimmer
@@ -48,8 +50,14 @@ class ProfileListTile extends StatelessWidget {
           : InkWell(
               onTap: onTap,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
-                child: Row(children: [leading, const SizedBox(width: 20), Expanded(child: titleText), trailingText]),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+                child: Row(children: [
+                  leading,
+                  const SizedBox(width: 20),
+                  Expanded(child: titleText),
+                  trailingText
+                ]),
               ),
             ),
     );

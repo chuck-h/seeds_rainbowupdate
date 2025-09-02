@@ -32,7 +32,8 @@ class GuardiansScreen extends StatelessWidget {
           BlocProvider.of<GuardiansBloc>(context).add(const ClearPageCommand());
 
           if (pageCommand is NavigateToRouteWithArguments) {
-            NavigationService.of(context).navigateTo(pageCommand.route, pageCommand.arguments);
+            NavigationService.of(context)
+                .navigateTo(pageCommand.route, pageCommand.arguments);
           } else if (pageCommand is ShowRecoveryStarted) {
             _showRecoveryStartedBottomSheet(context, pageCommand.guardian);
           } else if (pageCommand is ShowRemoveGuardianView) {
@@ -57,21 +58,27 @@ class GuardiansScreen extends StatelessWidget {
                 bottomNavigationBar: state.pageState == PageState.loading
                     ? const SizedBox.shrink()
                     : SafeArea(
-                        minimum: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
+                        minimum: const EdgeInsets.only(
+                            left: 16, bottom: 16, right: 16),
                         child: FlatButtonLong(
                           title: "+ Add Guardians".i18n,
                           isLoading: state.isAddGuardianButtonLoading,
                           enabled: !state.isAddGuardianButtonLoading,
                           onPressed: () {
-                            BlocProvider.of<GuardiansBloc>(context).add(OnAddGuardiansTapped());
+                            BlocProvider.of<GuardiansBloc>(context)
+                                .add(OnAddGuardiansTapped());
                           },
                         ),
                       ),
                 appBar: AppBar(
                   bottom: TabBar(
                     tabs: [
-                      Padding(padding: const EdgeInsets.all(16.0), child: Text("My Guardians".i18n)),
-                      Padding(padding: const EdgeInsets.all(16.0), child: Text("I'm Guardian For".i18n))
+                      Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text("My Guardians".i18n)),
+                      Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text("I'm Guardian For".i18n))
                     ],
                   ),
                   leading: IconButton(
@@ -82,7 +89,9 @@ class GuardiansScreen extends StatelessWidget {
                 ),
                 body: state.pageState == PageState.loading
                     ? const FullPageLoadingIndicator()
-                    : const SafeArea(child: TabBarView(children: [MyGuardiansTab(), ImGuardianForTab()])),
+                    : const SafeArea(
+                        child: TabBarView(
+                            children: [MyGuardiansTab(), ImGuardianForTab()])),
               ),
             );
           },
@@ -92,7 +101,8 @@ class GuardiansScreen extends StatelessWidget {
   }
 }
 
-void _showRecoveryStartedBottomSheet(BuildContext context, GuardianModel guardian) {
+void _showRecoveryStartedBottomSheet(
+    BuildContext context, GuardianModel guardian) {
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {
@@ -114,10 +124,14 @@ void _showRecoveryStartedBottomSheet(BuildContext context, GuardianModel guardia
               child: Center(
                 child: RichText(
                   text: TextSpan(
-                      text: 'A motion to Recover your Key has been initiated by '.i18n,
-                      style: Theme.of(context).textTheme.button,
+                      text:
+                          'A motion to Recover your Key has been initiated by '
+                              .i18n,
+                      style: Theme.of(context).textTheme.labelLarge,
                       children: <TextSpan>[
-                        TextSpan(text: guardian.nickname, style: Theme.of(context).textTheme.button)
+                        TextSpan(
+                            text: guardian.nickname,
+                            style: Theme.of(context).textTheme.labelLarge)
                       ]),
                 ),
               ),
@@ -131,7 +145,8 @@ void _showRecoveryStartedBottomSheet(BuildContext context, GuardianModel guardia
                 "Stop this Recovery".i18n,
                 style: const TextStyle(color: Colors.blue),
               ),
-              icon: const Icon(Icons.cancel_rounded, color: AppColors.darkGreen3),
+              icon:
+                  const Icon(Icons.cancel_rounded, color: AppColors.darkGreen3),
             ),
           ],
         ),
@@ -140,7 +155,8 @@ void _showRecoveryStartedBottomSheet(BuildContext context, GuardianModel guardia
   );
 }
 
-void _showStopRecoveryConfirmationDialog(GuardianModel guardian, BuildContext context) {
+void _showStopRecoveryConfirmationDialog(
+    GuardianModel guardian, BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -154,7 +170,8 @@ void _showStopRecoveryConfirmationDialog(GuardianModel guardian, BuildContext co
           ),
           TextButton(
             onPressed: () {
-              BlocProvider.of<GuardiansBloc>(context).add(OnStopRecoveryForUser());
+              BlocProvider.of<GuardiansBloc>(context)
+                  .add(OnStopRecoveryForUser());
               Navigator.pop(context);
               Navigator.pop(context);
             },
@@ -166,14 +183,16 @@ void _showStopRecoveryConfirmationDialog(GuardianModel guardian, BuildContext co
   );
 }
 
-void _showRemoveGuardianDialog(BuildContext buildContext, GuardianModel guardian) {
+void _showRemoveGuardianDialog(
+    BuildContext buildContext, GuardianModel guardian) {
   showDialog(
     context: buildContext,
     builder: (context) {
       return RemoveGuardianConfirmationDialog(
         guardian: guardian,
         onConfirm: () {
-          BlocProvider.of<GuardiansBloc>(buildContext).add(OnRemoveGuardianTapped(guardian));
+          BlocProvider.of<GuardiansBloc>(buildContext)
+              .add(OnRemoveGuardianTapped(guardian));
           Navigator.pop(context);
         },
         onDismiss: () => Navigator.pop(context),
@@ -193,7 +212,8 @@ void _showOnboardingGuardianDialogSingleAction(
             image: pageCommand.image,
             description: pageCommand.description,
             onNext: () {
-              BlocProvider.of<GuardiansBloc>(buildContext).add(const OnNextGuardianOnboardingTapped());
+              BlocProvider.of<GuardiansBloc>(buildContext)
+                  .add(const OnNextGuardianOnboardingTapped());
               Navigator.pop(context);
             });
       });
@@ -211,11 +231,13 @@ void _showOnboardingGuardianDialogDoubleAction(
         image: pageCommand.image,
         description: pageCommand.description,
         onRightButtonTab: () {
-          BlocProvider.of<GuardiansBloc>(buildContext).add(const OnNextGuardianOnboardingTapped());
+          BlocProvider.of<GuardiansBloc>(buildContext)
+              .add(const OnNextGuardianOnboardingTapped());
           Navigator.pop(context);
         },
         onLeftButtonTab: () {
-          BlocProvider.of<GuardiansBloc>(buildContext).add(const OnPreviousGuardianOnboardingTapped());
+          BlocProvider.of<GuardiansBloc>(buildContext)
+              .add(const OnPreviousGuardianOnboardingTapped());
           Navigator.pop(context);
         },
       );
@@ -223,7 +245,8 @@ void _showOnboardingGuardianDialogDoubleAction(
   );
 }
 
-void _showActivateGuardianDialog(ShowActivateGuardian pageCommand, BuildContext buildContext) {
+void _showActivateGuardianDialog(
+    ShowActivateGuardian pageCommand, BuildContext buildContext) {
   showDialog(
     context: buildContext,
     builder: (context) {
@@ -234,7 +257,8 @@ void _showActivateGuardianDialog(ShowActivateGuardian pageCommand, BuildContext 
         image: pageCommand.image,
         description: pageCommand.description,
         onRightButtonTab: () {
-          BlocProvider.of<GuardiansBloc>(buildContext).add(InitGuardians(pageCommand.myGuardians));
+          BlocProvider.of<GuardiansBloc>(buildContext)
+              .add(InitGuardians(pageCommand.myGuardians));
           Navigator.pop(context);
         },
         onLeftButtonTab: () {

@@ -1,4 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart' as s;
 import 'package:flutter/material.dart';
 import 'package:seeds/components/dots_indicator.dart';
 import 'package:seeds/navigation/navigation_service.dart';
@@ -15,7 +16,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class OnboardingState extends State<OnboardingScreen> {
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
   int _selectedIndex = 0;
 
   void _onPageChangeForward() {
@@ -44,14 +45,15 @@ class OnboardingState extends State<OnboardingScreen> {
         top: false,
         child: Column(
           children: [
-            CarouselSlider(
+            s.CarouselSlider(
               carouselController: _controller,
               items: [const FirstPage(), const SecondPage(), const ThirdPage()],
-              options: CarouselOptions(
+              options: s.CarouselOptions(
                 height: height * 0.91,
                 viewportFraction: 1,
                 enableInfiniteScroll: false,
-                onPageChanged: (index, _) => setState(() => _selectedIndex = index),
+                onPageChanged: (index, _) =>
+                    setState(() => _selectedIndex = index),
               ),
             ),
             Expanded(
@@ -65,19 +67,22 @@ class OnboardingState extends State<OnboardingScreen> {
                           )
                         : const SizedBox.shrink(),
                   ),
-                  Expanded(child: DotsIndicator(dotsCount: 3, position: _selectedIndex.toDouble())),
+                  Expanded(
+                      child: DotsIndicator(
+                          dotsCount: 3, position: _selectedIndex.toDouble())),
                   if (_selectedIndex == 2)
                     Expanded(
                       child: Row(
                         children: [
                           Flexible(
                             child: InkWell(
-                              onTap: () => NavigationService.of(context).navigateTo(Routes.login, null, true),
+                              onTap: () => NavigationService.of(context)
+                                  .navigateTo(Routes.login, null, true),
                               child: Text(
                                 context.loc.onboardingJoinButtonTitle,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.subtitle1,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
                           ),

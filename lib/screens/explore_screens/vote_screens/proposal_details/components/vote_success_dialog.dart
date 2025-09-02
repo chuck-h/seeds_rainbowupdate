@@ -10,16 +10,17 @@ class VoteSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      icon: SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
+      icon:
+          SvgPicture.asset('assets/images/security/success_outlined_icon.svg'),
       singleLargeButtonTitle: 'Done'.i18n,
       children: [
-        Text('Thank you!'.i18n, style: Theme.of(context).textTheme.button1),
+        Text('Thank you!'.i18n, style: Theme.of(context).textTheme.labelLarge1),
         const SizedBox(height: 24.0),
         Text(
           'Thank you for coming and contributing your voice to the collective decision making process. Please make sure to come back at the start of the next Voting Cycle to empower more people!'
               .i18n,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(height: 16.0),
       ],

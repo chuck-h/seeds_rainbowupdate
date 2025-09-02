@@ -25,12 +25,15 @@ class SupportScreen extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    borderRadius: BorderRadius.circular(defaultCardBorderRadius),
-                    onTap: () async => launchUrl(Uri.parse('https://discord.gg/pSWdqxTjvB')),
+                    borderRadius:
+                        BorderRadius.circular(defaultCardBorderRadius),
+                    onTap: () async =>
+                        launchUrl(Uri.parse('https://discord.gg/pSWdqxTjvB')),
                     child: Ink(
                       decoration: const BoxDecoration(
                         color: AppColors.lightGreen2,
-                        borderRadius: BorderRadius.all(Radius.circular(defaultCardBorderRadius)),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(defaultCardBorderRadius)),
                       ),
                       child: Stack(
                         alignment: Alignment.bottomCenter,
@@ -40,7 +43,8 @@ class SupportScreen extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(defaultCardBorderRadius),
+                                  topLeft:
+                                      Radius.circular(defaultCardBorderRadius),
                                 ),
                                 child: SvgPicture.asset(
                                   "assets/images/lotus_support_small.svg",
@@ -54,7 +58,8 @@ class SupportScreen extends StatelessWidget {
                                   const SizedBox(height: 50),
                                   ClipRRect(
                                     borderRadius: const BorderRadius.only(
-                                      bottomRight: Radius.circular(defaultCardBorderRadius),
+                                      bottomRight: Radius.circular(
+                                          defaultCardBorderRadius),
                                     ),
                                     child: SvgPicture.asset(
                                       "assets/images/lotus_support_big.svg",
@@ -67,7 +72,8 @@ class SupportScreen extends StatelessWidget {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 24.0, bottom: 24.0),
+                            padding:
+                                const EdgeInsets.only(left: 24.0, bottom: 24.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -75,32 +81,47 @@ class SupportScreen extends StatelessWidget {
                                   padding: const EdgeInsets.only(right: 80.0),
                                   child: Text(
                                     context.loc.supportDiscordChannelPart1,
-                                    style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLargeLowEmphasis,
                                   ),
                                 ),
                                 Text(
                                   context.loc.supportDiscordChannelPart2,
-                                  style: Theme.of(context).textTheme.headline8.copyWith(color: AppColors.canopy),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline8
+                                      .copyWith(color: AppColors.canopy),
                                 ),
                                 const SizedBox(height: 8.0),
                                 RichText(
                                   text: TextSpan(
-                                    style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLargeLowEmphasis,
                                     children: <TextSpan>[
-                                      TextSpan(text: context.loc.supportDiscordChannelPart3),
                                       TextSpan(
-                                          text: context.loc.supportDiscordChannelPart4,
+                                          text: context
+                                              .loc.supportDiscordChannelPart3),
+                                      TextSpan(
+                                          text: context
+                                              .loc.supportDiscordChannelPart4,
                                           style: Theme.of(context)
                                               .textTheme
                                               .buttonLowEmphasis
-                                              .copyWith(color: AppColors.canopy)),
-                                      TextSpan(text: context.loc.supportDiscordChannelPart5),
+                                              .copyWith(
+                                                  color: AppColors.canopy)),
+                                      TextSpan(
+                                          text: context
+                                              .loc.supportDiscordChannelPart5),
                                     ],
                                   ),
                                 ),
                                 Text(
                                   context.loc.supportDiscordChannelPart6,
-                                  style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLargeLowEmphasis,
                                 ),
                               ],
                             ),
@@ -120,7 +141,8 @@ class SupportScreen extends StatelessWidget {
                     onPressed: () => Share.share(
                         "${state.appName}, ${state.version} (${state.buildNumber}), ${state.firebaseInstallationId}"),
                     color: AppColors.green1,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                     child: Text(context.loc.supportTapToShare),
                   ),
                 ],

@@ -11,7 +11,8 @@ class ReceiveSendButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TokenBalancesBloc, TokenBalancesState>(
-      buildWhen: (previous, current) => previous.selectedIndex != current.selectedIndex,
+      buildWhen: (previous, current) =>
+          previous.selectedIndex != current.selectedIndex,
       builder: (context, state) {
         final tokenColor = state.selectedToken.dominantColor;
         return Container(
@@ -22,7 +23,8 @@ class ReceiveSendButtons extends StatelessWidget {
               Expanded(
                 child: MaterialButton(
                   padding: const EdgeInsets.only(top: 14, bottom: 14),
-                  onPressed: () => NavigationService.of(context).navigateTo(Routes.transfer),
+                  onPressed: () =>
+                      NavigationService.of(context).navigateTo(Routes.transfer),
                   color: tokenColor ?? AppColors.green1,
                   disabledColor: tokenColor ?? AppColors.green1,
                   shape: const RoundedRectangleBorder(
@@ -39,7 +41,8 @@ class ReceiveSendButtons extends StatelessWidget {
                         const Icon(Icons.arrow_upward, color: AppColors.white),
                         Container(
                           padding: const EdgeInsets.only(left: 4, top: 4),
-                          child: Text(context.loc.walletSendButtonTitle, style: Theme.of(context).textTheme.button),
+                          child: Text(context.loc.walletSendButtonTitle,
+                              style: Theme.of(context).textTheme.labelLarge),
                         ),
                       ],
                     ),
@@ -50,7 +53,8 @@ class ReceiveSendButtons extends StatelessWidget {
               Expanded(
                 child: MaterialButton(
                   padding: const EdgeInsets.only(top: 14, bottom: 14),
-                  onPressed: () => NavigationService.of(context).navigateTo(Routes.receiveEnterData),
+                  onPressed: () => NavigationService.of(context)
+                      .navigateTo(Routes.receiveEnterData),
                   color: tokenColor ?? AppColors.green1,
                   disabledColor: tokenColor ?? AppColors.green1,
                   shape: const RoundedRectangleBorder(
@@ -64,10 +68,12 @@ class ReceiveSendButtons extends StatelessWidget {
                   child: Center(
                     child: Wrap(
                       children: [
-                        const Icon(Icons.arrow_downward, color: AppColors.white),
+                        const Icon(Icons.arrow_downward,
+                            color: AppColors.white),
                         Container(
                           padding: const EdgeInsets.only(left: 4, top: 4),
-                          child: Text(context.loc.walletReceiveButtonTitle, style: Theme.of(context).textTheme.button),
+                          child: Text(context.loc.walletReceiveButtonTitle,
+                              style: Theme.of(context).textTheme.labelLarge),
                         ),
                       ],
                     ),

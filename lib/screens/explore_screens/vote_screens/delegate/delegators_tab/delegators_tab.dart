@@ -31,19 +31,24 @@ class DelegatorsTab extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                             'Delegators are Citizens that have chosen you to vote on their behalf. All votes already cast this cycle will not change.',
-                            style: Theme.of(context).textTheme.subtitle2),
+                            style: Theme.of(context).textTheme.titleSmall),
                       ),
                       Expanded(
                         child: state.delegators.isEmpty
                             ? Center(
                                 child: Text(
                                   'Currently no delegators',
-                                  style: Theme.of(context).textTheme.buttonLowEmphasis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .buttonLowEmphasis,
                                 ),
                               )
                             : ListView(
                                 padding: const EdgeInsets.only(top: 10),
-                                children: [for (final i in state.delegators) DelegatorRow(i)],
+                                children: [
+                                  for (final i in state.delegators)
+                                    DelegatorRow(i)
+                                ],
                               ),
                       ),
                     ],
