@@ -36,7 +36,7 @@ class CurrencyInfoCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          if ((tokenBalance.token.usecases?.contains('experimental')) ?? false)
+          if ( /*(tokenBalance.token.usecases?.contains('experimental')) ??*/ false)
             Container(
               width: 128,
               height: 128,

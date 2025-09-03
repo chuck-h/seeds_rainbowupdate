@@ -105,7 +105,7 @@ class AmountEntryWidgetState extends State<AmountEntryWidget> {
                           TextFormField(
                             controller: _controller,
                             textAlign: TextAlign.end,
-                            style: Theme.of(context).textTheme.headlineMedium,
+                            style: Theme.of(context).textTheme.displayMedium,
                             keyboardType: const TextInputType.numberWithOptions(decimal: true),
                             decoration: const InputDecoration(
                               hintText: "0.0",

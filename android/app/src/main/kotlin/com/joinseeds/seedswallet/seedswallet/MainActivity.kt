@@ -1,4 +1,4 @@
-package xyz.cc42.seedswallet
+package com.joinseeds.seedswallet
 
 import android.util.Log
 import android.webkit.WebStorage

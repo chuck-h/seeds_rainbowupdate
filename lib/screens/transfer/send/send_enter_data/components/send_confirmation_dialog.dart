@@ -76,12 +76,14 @@ class SendConfirmationDialog extends StatelessWidget {
             account: toAccount,
             name: toName,
             toOrFromText: context.loc.transferSendTo),
+        /* TODO get true sender (e.g. msig); get full profile info  */
         const SizedBox(height: 24.0),
         DialogRow(
-            imageUrl: toImage,
-            account: toAccount,
-            name: toName,
+            imageUrl: "",
+            account: settingsStorage.accountName,
+            name: "",
             toOrFromText: context.loc.transferTransactionSuccessFrom),
+        /**/
         const SizedBox(height: 24.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

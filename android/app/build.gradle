@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 35 //flutter.compileSdkVersion override flutter v3.24.4 default
     ndkVersion flutter.ndkVersion
 
     sourceSets {
@@ -52,12 +52,12 @@ android {
         jvmTarget = '17'
     }
     
-    namespace "xyz.cc42.seedswallet"
+    namespace "com.joinseeds.seedswallet"
     
     defaultConfig {
-        applicationId "xyz.cc42.seedswallet"
+        applicationId "com.joinseeds.seedswallet"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
