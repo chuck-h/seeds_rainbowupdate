@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,42 @@ Future<void> main() async {
   // Zone to handle asynchronous errors (Dart).
   // for details: https://docs.flutter.dev/testing/errors
   await runZonedGuarded(() async {
+    final DateTime stamp1 = DateTime.now();
     WidgetsFlutterBinding.ensureInitialized();
+    final DateTime stamp2 = DateTime.now();
     await dotenv.load(fileName: '.env');
     await Firebase.initializeApp();
+    final DateTime stamp3 = DateTime.now();
+    final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    final DateTime stamp4 = DateTime.now();
+    await analytics.logEvent(
+      name: 'app_initialized',
+      parameters: {
+        'stamp1': stamp1.toString(),
+        'stamp2': stamp2.toString(),
+        'stamp3': stamp3.toString(),
+        'stamp4': stamp4.toString(),
+        'item_id': 'LWupdate',
+      },
+    );
     await settingsStorage.initialise();
     await PushNotificationService().initialise();
     await remoteConfigurations.initialise();
+    await analytics.logEvent(
+      name: 'remoteconfig_initialized',
+      parameters: {
+        'action_type': 'startup',
+        'item_id': 'LWupdate',
+      },
+    );
     await TokenModel.installModels(['localscale','lightwallet','experimental'], [TokenModel.seedsEcosysUsecase]);
+    await analytics.logEvent(
+      name: 'tokenmodels_installed',
+      parameters: {
+        'action_type': 'startup',
+        'item_id': 'LWupdate',
+      },
+    );
     await Hive.initFlutter();
     Hive.registerAdapter(MemberModelCacheItemAdapter());
     Hive.registerAdapter(VoteModelAdapter());
