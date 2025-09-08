@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart' as s;
 import 'package:flutter/material.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:seeds/components/dots_indicator.dart';
 import 'package:seeds/navigation/navigation_service.dart';
 import 'package:seeds/screens/authentication/onboarding/components/pages/onboarding_page_1.dart';
@@ -36,6 +37,18 @@ class OnboardingState extends State<OnboardingScreen> {
       });
     }
   }
+
+      @override
+      void initState() {
+        super.initState();
+        // Log a custom event when the widget builds
+        FirebaseAnalytics.instance.logEvent(
+          name: 'onboarding_screen_view',
+          parameters: {
+            'timestamp': DateTime.now().toString(),
+          },
+        );
+      }
 
   @override
   Widget build(BuildContext context) {

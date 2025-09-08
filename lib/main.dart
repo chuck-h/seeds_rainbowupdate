@@ -40,7 +40,21 @@ Future<void> main() async {
       },
     );
     await settingsStorage.initialise();
+        await analytics.logEvent(
+      name: 'settingsstore_initialized',
+      parameters: {
+        'action_type': 'startup',
+        'item_id': 'LWupdate',
+      },
+    );
     await PushNotificationService().initialise();
+    await analytics.logEvent(
+      name: 'pushnotify_initialized',
+      parameters: {
+        'action_type': 'startup',
+        'item_id': 'LWupdate',
+      },
+    );
     await remoteConfigurations.initialise();
     await analytics.logEvent(
       name: 'remoteconfig_initialized',

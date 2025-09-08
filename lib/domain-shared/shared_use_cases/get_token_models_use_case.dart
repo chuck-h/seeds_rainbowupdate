@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:dynamic_parallel_queue/dynamic_parallel_queue.dart';
 import 'package:seeds/datasource/remote/api/stat_repository.dart';
 import 'package:seeds/datasource/remote/api/tokenmodels_repository.dart';
@@ -88,6 +89,7 @@ class GetTokenModelsUseCase extends InputUseCase<List<TokenModel>, TokenModelSel
       Future loadData(token) async {
         final TokenModel? tm = TokenModel.fromJson(token as Map<String, dynamic>);
         if (tm != null) {
+
           await statRepository
             .getTokenStat(tokenContract: tm.contract, symbol: tm.symbol)
             .then(
@@ -107,7 +109,20 @@ class GetTokenModelsUseCase extends InputUseCase<List<TokenModel>, TokenModelSel
       for (final dynamic token in tokens) {
         unawaited(
           queue.add(() async {
-          await loadData(token);
+            final before = DateTime.now();
+            await loadData(token);
+            final TokenModel? tm = TokenModel.fromJson(token as Map<String, dynamic>);
+            if (tm != null) {
+              final elapsed = DateTime.now().difference(before);
+              await FirebaseAnalytics.instance.logEvent(
+                name: 'token_load_data',
+                parameters: {
+                  'token': tm.contract+'#'+tm.symbol,
+                  'elapsed_msec': elapsed.inMilliseconds
+                },
+              );
+            }
+
           }
         ));
       }
