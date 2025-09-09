@@ -117,12 +117,6 @@ class SupportScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Text(
-                                  context.loc.supportDiscordChannelPart6,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLargeLowEmphasis,
-                                ),
                               ],
                             ),
                           ),

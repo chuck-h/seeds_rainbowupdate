@@ -7,8 +7,6 @@ import 'package:seeds/blocs/rates/viewmodels/rates_bloc.dart';
 import 'package:seeds/datasource/local/models/fiat_data_model.dart';
 import 'package:seeds/datasource/local/models/token_data_model.dart';
 import 'package:seeds/datasource/local/settings_storage.dart';
-import 'package:seeds/datasource/remote/firebase/firebase_push_notification_service.dart';
-import 'package:seeds/datasource/remote/model/firebase_models/push_notification_data.dart';
 import 'package:seeds/datasource/remote/model/token_model.dart';
 import 'package:seeds/domain-shared/event_bus/event_bus.dart';
 import 'package:seeds/domain-shared/event_bus/events.dart';
@@ -22,18 +20,15 @@ part 'receive_details_event.dart';
 part 'receive_details_state.dart';
 
 class ReceiveDetailsBloc extends Bloc<ReceiveDetailsEvent, ReceiveDetailsState> {
-  late final StreamSubscription<PushNotificationData> _pushNotificationtListener;
   late final StreamSubscription<int> _pollListener;
   final RatesState _rateState;
 
-  ReceiveDetailsBloc(ReceiveDetails details, this._rateState) : super(ReceiveDetailsState.initial(details)) {
-    _pushNotificationtListener = PushNotificationService().notificationStream.listen((data) {
-      if (data.notificationType != null && data.notificationType == NotificationTypes.paymentReceived) {
-        add(const OnPaymentReceived());
-      }
-    });
-    _pollListener =
-        Stream.periodic(const Duration(seconds: 5), (x) => x).listen((_) => add(const OnPollCheckPayment()));
+  ReceiveDetailsBloc(ReceiveDetails details, this._rateState)
+    : super(ReceiveDetailsState.initial(details)) {
+    _pollListener = Stream.periodic(
+      const Duration(seconds: 5),
+      (x) => x,
+    ).listen((_) => add(const OnPollCheckPayment()));
     on<OnPaymentReceived>(_checkPayment);
     on<OnPollCheckPayment>(_checkPayment);
     on<OnCheckPaymentButtonPressed>(_checkPayment);
@@ -41,7 +36,6 @@ class ReceiveDetailsBloc extends Bloc<ReceiveDetailsEvent, ReceiveDetailsState> 
 
   @override
   Future<void> close() async {
-    await _pushNotificationtListener.cancel();
     await _pollListener.cancel();
     return super.close();
   }
