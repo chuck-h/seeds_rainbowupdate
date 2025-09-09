@@ -24,7 +24,8 @@ Future<void> main() async {
     await dotenv.load(fileName: '.env');
     await Firebase.initializeApp();
     await settingsStorage.initialise();
-    await PushNotificationService().initialise();
+    // notifications may cause iOS hang on launch (ref Localscale)
+    // await PushNotificationService().initialise();
     await remoteConfigurations.initialise();
     await TokenModel.installModels(['localscale','lightwallet','experimental'], [TokenModel.seedsEcosysUsecase]);
     await Hive.initFlutter();
