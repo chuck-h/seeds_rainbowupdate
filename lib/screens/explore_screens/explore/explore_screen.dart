@@ -70,16 +70,9 @@ class ExploreScreen extends StatelessWidget {
         onTapEvent: const OnExploreCardTapped(Routes.swapSeeds),
       ),
       ExploreItem(
-        title: context.loc.explorerGetSeedsItemTitle,
-        icon: const CustomPaint(size: Size(9, 22), painter: SeedsSymbol()),
-        backgroundIconColor: AppColors.white,
-        backgroundImage: 'assets/images/explore/get_seeds_card.png',
-        gradient: const LinearGradient(
-          colors: [AppColors.green1, AppColors.green2],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        ),
-        iconUseCircleBackground: false,
+        title: context.loc.explorerAboutSeedsItemTitle,
+        icon: const CustomPaint(size: Size(18, 44), painter: SeedsSymbol()),
+
         onTapEvent: const OnBuySeedsCardTapped(),
       ),
     ];
@@ -99,7 +92,7 @@ class ExploreScreen extends StatelessWidget {
           if (pageCommand is NavigateToRoute) {
             NavigationService.of(context).navigateTo(pageCommand.route);
           } else if (pageCommand is NavigateToBuySeeds) {
-            launchUrl(Uri.parse('$urlBuySeeds${settingsStorage.accountName}'));
+            launchUrl(Uri.parse(urlBuySeeds));
           } else if (pageCommand is ShowUserFlagInformation) {
             showDialog<void>(
               context: context,
