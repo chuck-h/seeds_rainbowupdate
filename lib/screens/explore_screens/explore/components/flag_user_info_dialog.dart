@@ -10,38 +10,42 @@ class FlagUserInfoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomDialog(
-      icon: const CustomPaint(
-          size: Size(60, 60), painter: RedExclamationCircle()),
-      children: [
-        Text(context.loc.explorerFlagInfoDialogTitle,
-            style: Theme.of(context).textTheme.labelLarge1),
-        const SizedBox(height: 30.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            children: [
-              Text(
-                context.loc.explorerFlagInfoDialogSubTitle,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall,
+    return Center(
+      child:  SingleChildScrollView(
+        child:CustomDialog(
+          icon: const CustomPaint(
+            size: Size(60, 60), painter: RedExclamationCircle()),
+          children: [
+            Text(context.loc.explorerFlagInfoDialogTitle,
+                style: Theme.of(context).textTheme.labelLarge1),
+            const SizedBox(height: 30.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  Text(
+                    context.loc.explorerFlagInfoDialogSubTitle,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: 36.0),
+                  Text(
+                    context.loc.explorerFlagInfoDialogSubTitlePartTwo,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const SizedBox(height: 36.0),
+                  FlatButtonLong(
+                    title: context.loc.explorerFlagInfoDialogButtonTitle,
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(height: 10.0),
+                ],
               ),
-              const SizedBox(height: 36.0),
-              Text(
-                context.loc.explorerFlagInfoDialogSubTitlePartTwo,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(height: 36.0),
-              FlatButtonLong(
-                title: context.loc.explorerFlagInfoDialogButtonTitle,
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              const SizedBox(height: 10.0),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      )
     );
   }
 }
