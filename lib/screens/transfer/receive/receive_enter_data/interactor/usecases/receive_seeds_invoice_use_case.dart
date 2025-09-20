@@ -25,10 +25,8 @@ class ReceiveSeedsInvoiceUseCase extends InputUseCase<ReceiveInvoiceResponse, _I
     if (invoice.isError) {
       return Result.error(invoice.asError!.error);
     } else {
-      final Result<Uri> decodedInvoice =
-          await _firebaseDynamicLinkUseCase.createDynamicLink(invoiceTargetLink, invoice.valueOrCrash);
-
-      return Result.value(ReceiveInvoiceResponse(invoice.valueOrCrash, decodedInvoice.valueOrNull));
+      final esrCode = invoice.valueOrCrash.split(':')[1];
+      return Result.value(ReceiveInvoiceResponse('https://eosio.to/${esrCode}', null));
     }
   }
 }
