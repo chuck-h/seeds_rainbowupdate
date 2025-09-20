@@ -192,7 +192,7 @@ class SigningRequestManager {
     }
     final splitUri = uri.split(':');
     final scheme = splitUri[0];
-    final path = splitUri[1];
+    final path = splitUri[splitUri.length-1];
     if (scheme != 'esr' && scheme != 'web+esr') {
       throw 'Invalid scheme';
     }
