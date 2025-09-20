@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -59,23 +60,12 @@ class DeeplinkBloc extends Bloc<DeeplinkEvent, DeeplinkState> {
   }
 
   Future<void> initSigningRequests() async {
-    // try {
-    //   final initialLink = await getInitialLink();
-
-    //   if (initialLink != null) {
-    //     add(HandleIncomingSigningRequest(initialLink));
-    //   }
-    // } catch (err) {
-    //   print("initial link error: $err");
-    // }
-
-    // _linkStreamSubscription = linkStream.listen((String? uri) {
-    //   if (uri != null) {
-    //     add(HandleIncomingSigningRequest(uri));
-    //   }
-    // }, onError: (err) {
-    //   print("ESR Error: ${err}");
-    // });
+    final _appLinks = AppLinks();
+    _appLinks.uriLinkStream.listen((uri) {
+      if (uri.isScheme('esr')) {
+        add(HandleIncomingSigningRequest(uri.toString()));
+      }
+    });
   }
 
   Future<void> _handleIncomingFirebaseDeepLink(
