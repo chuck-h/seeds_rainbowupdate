@@ -116,7 +116,7 @@ class MsigProposal {
         nodeUrl: remoteConfigurations.defaultEndPointUrl,
           ));
 
-      final rv = response.encode();
+      final rv = response.encode(slashes: false);
       return rv;
 
   }

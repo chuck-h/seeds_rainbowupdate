@@ -316,7 +316,7 @@ class GuardiansRepository extends EosRepository with HttpRepository {
             options: esr.defaultSigningRequestEncodingOptions(
               nodeUrl: remoteConfigurations.hyphaEndPoint,
             ))
-        .then((esr.SigningRequestManager response) => ValueResult(response.encode()))
+        .then((esr.SigningRequestManager response) => ValueResult(response.encode(slashes: false)))
         // ignore: return_of_invalid_type_from_catch_error
         .catchError((error) => mapEosError(error));
   }
