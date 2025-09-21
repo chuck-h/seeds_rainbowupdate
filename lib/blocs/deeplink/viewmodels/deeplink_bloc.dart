@@ -61,10 +61,12 @@ class DeeplinkBloc extends Bloc<DeeplinkEvent, DeeplinkState> {
 
   Future<void> initSigningRequests() async {
     final _appLinks = AppLinks();
-    _appLinks.uriLinkStream.listen((uri) {
-      if (uri.isScheme('esr')) {
-        add(HandleIncomingSigningRequest(uri.toString()));
+    _appLinks.stringLinkStream.listen((uri) {
+      if (uri!= null) {
+        add(HandleIncomingSigningRequest(uri));
       }
+    }, onError: (err) {
+      print("ESR Error: ${err}");
     });
   }
 
