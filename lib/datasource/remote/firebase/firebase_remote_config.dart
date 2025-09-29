@@ -65,17 +65,19 @@ class _FirebaseRemoteConfigService {
     _defaultV2EndPointUrlKey: _defaultV2EndpointUrl
   };
 
-  void refresh() {
-    _remoteConfig.fetch().then((value) {
+  Future refresh() async {
+    try {
+      await _remoteConfig.fetch();
       print(" _remoteConfig fetch worked");
-      _remoteConfig.activate().then((bool value) {
+      try {
+        final value = await _remoteConfig.activate();
         print(" _remoteConfig activate worked params were activated $value");
-      }).onError((error, stackTrace) {
-        print(" _remoteConfig activate failed");
-      });
-    }).onError((error, stackTrace) {
-      print(" _remoteConfig fetch failed");
-    });
+      } catch (e) {
+        print(" _remoteConfig activate failed $e");
+      }
+    } catch (e) {
+      print(" _remoteConfig fetch failed $e");
+    }
   }
 
   Future initialise() async {
@@ -88,7 +90,7 @@ class _FirebaseRemoteConfigService {
       fetchTimeout: const Duration(seconds: 5),
     ));
 
-    refresh();
+    await refresh();
   }
 
   bool get featureFlagImportAccountEnabled => _remoteConfig.getBool(_featureFlagImportAccount);
