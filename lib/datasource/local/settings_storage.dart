@@ -202,18 +202,13 @@ class _SettingsStorage {
   Future<void> initialise() async {
     _preferences = await SharedPreferences.getInstance();
     _secureStorage = const FlutterSecureStorage();
-    print("settingsstorage: initializing");
-    print("settingsstorage: accountName ->${accountName}<-");
-    print("settingstorage: firstrun ${_preferences.getBool(_kIsFirstRun)}");
 
     // on iOS secure storage items are not deleted on app uninstall - must be deleted manually
     if (accountName.isEmpty && (_preferences.getBool(_kIsFirstRun) ?? true)) {
       print("settingsstorage: firstrun, deleting");
       await _secureStorage.deleteAll();
     }
-    print("settingsstorage: resetting firstrun flag");
     await _preferences.setBool(_kIsFirstRun, false);
-    print("settingsstorage: reading storage");
     final success = await _secureStorage.readAll().then((values) {
       setSecrets(values);
       return true;
@@ -224,7 +219,7 @@ class _SettingsStorage {
     if (success) {
       return;
     }
-    // On Android, fresh install from Play Store can see old preferences values but may or
+    // On Android, upgrade/install from Play Store may see old preferences values but may or
     //  may not be able to decrypt secure storage.
     print("settingsstorage: deleting after error");
     await _secureStorage.deleteAll();
