@@ -72,7 +72,7 @@ class _FirebaseRemoteConfigService {
       try {
         final value = await _remoteConfig.activate();
         print(" _remoteConfig activate worked params were activated $value");
-        return true;
+        return value;
       } catch (e) {
         print(" _remoteConfig activate failed $e");
         return false;

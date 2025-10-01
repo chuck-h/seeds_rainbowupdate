@@ -234,7 +234,7 @@ class _SettingsStorage {
     }).catchError((e) {
       print("setingsstorage: retried, caught error $e");
     }); 
-  }q
+  }
 
   // Used to migrate old settings versions
   String? _migrateFromPrefs(String key) {
