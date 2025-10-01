@@ -176,13 +176,15 @@ class _SettingsStorage {
   Future<void> initialise() async {
     _preferences = await SharedPreferences.getInstance();
     _secureStorage = const FlutterSecureStorage();
-
+    print("settingsstorage: initializing");
     // on iOS secure storage items are not deleted on app uninstall - must be deleted manually
     if (accountName.isEmpty && (_preferences.getBool(_kIsFirstRun) ?? true)) {
+      print("settingsstorage: firstrun, deleting");
       await _secureStorage.deleteAll();
     }
+    print("settingsstorage: resetting firstrun flag");
     await _preferences.setBool(_kIsFirstRun, false);
-
+    print("settingsstorage: reading storage");
     await _secureStorage.readAll().then((values) {
       _privateKeysList = values[_kPrivateKeysList]?.split(',');
 
@@ -207,7 +209,9 @@ class _SettingsStorage {
       } else {
         _biometricActive = false;
       }
+      print("settingsstorage: values read");
     });
+    print("settingsstorage: returning");
   }
 
   // Used to migrate old settings versions

@@ -24,6 +24,7 @@ Future<void> main() async {
     await dotenv.load(fileName: '.env');
     await Firebase.initializeApp();
     await settingsStorage.initialise();
+    print("settingstorage: initialise finished");
 
     // notifications may cause iOS hang on launch (ref Localscale)
     // await PushNotificationService().initialise();
