@@ -173,12 +173,39 @@ class _SettingsStorage {
     }
   }
 
+  void setSecrets(Map<String, String> values) {
+    _privateKeysList = values[_kPrivateKeysList]?.split(',');
+
+    _privateKey = values[_kPrivateKey];
+    _privateKey ??= _migrateFromPrefs(_kPrivateKey); // <-- privateKey is not in pref
+
+    _passcode = values[_kPasscode];
+    _passcode ??= _migrateFromPrefs(_kPasscode); // <-- passcode is not in pref
+
+    if (values.containsKey(_kPasscodeActive)) {
+      _passcodeActive = values[_kPasscodeActive] == 'true';
+    } else {
+      _passcodeActive = true;
+    }
+
+    if (values.containsKey(_kRecoveryWords)) {
+      _recoveryWords = values[_kRecoveryWords]!.split(',');
+    }
+
+    if (values.containsKey(_kBiometricActive)) {
+      _biometricActive = values[_kBiometricActive] == 'true';
+    } else {
+      _biometricActive = false;
+    }
+    print("settingsstorage: values read");
+  }
   Future<void> initialise() async {
     _preferences = await SharedPreferences.getInstance();
     _secureStorage = const FlutterSecureStorage();
     print("settingsstorage: initializing");
     print("settingsstorage: accountName ->${accountName}<-");
     print("settingstorage: firstrun ${_preferences.getBool(_kIsFirstRun)}");
+
     // on iOS secure storage items are not deleted on app uninstall - must be deleted manually
     if (accountName.isEmpty && (_preferences.getBool(_kIsFirstRun) ?? true)) {
       print("settingsstorage: firstrun, deleting");
@@ -187,36 +214,27 @@ class _SettingsStorage {
     print("settingsstorage: resetting firstrun flag");
     await _preferences.setBool(_kIsFirstRun, false);
     print("settingsstorage: reading storage");
-    await _secureStorage.readAll().then((values) {
-      _privateKeysList = values[_kPrivateKeysList]?.split(',');
-
-      _privateKey = values[_kPrivateKey];
-      _privateKey ??= _migrateFromPrefs(_kPrivateKey); // <-- privateKey is not in pref
-
-      _passcode = values[_kPasscode];
-      _passcode ??= _migrateFromPrefs(_kPasscode); // <-- passcode is not in pref
-
-      if (values.containsKey(_kPasscodeActive)) {
-        _passcodeActive = values[_kPasscodeActive] == 'true';
-      } else {
-        _passcodeActive = true;
-      }
-
-      if (values.containsKey(_kRecoveryWords)) {
-        _recoveryWords = values[_kRecoveryWords]!.split(',');
-      }
-
-      if (values.containsKey(_kBiometricActive)) {
-        _biometricActive = values[_kBiometricActive] == 'true';
-      } else {
-        _biometricActive = false;
-      }
-      print("settingsstorage: values read");
+    final success = await _secureStorage.readAll().then((values) {
+      setSecrets(values);
+      return true;
     }).catchError((e) {
       print("setingsstorage: caught error $e");
+      return false;
     });
-    print("settingsstorage: returning");
-  }
+    if (success) {
+      return;
+    }
+    // On Android, fresh install from Play Store can see old preferences values but may or
+    //  may not be able to decrypt secure storage.
+    print("settingsstorage: deleting after error");
+    await _secureStorage.deleteAll();
+    await _preferences.setBool(_kIsFirstRun, false);
+    await _secureStorage.readAll().then((values) {
+      setSecrets(values);
+    }).catchError((e) {
+      print("setingsstorage: retried, caught error $e");
+    }); 
+  }q
 
   // Used to migrate old settings versions
   String? _migrateFromPrefs(String key) {
