@@ -177,6 +177,8 @@ class _SettingsStorage {
     _preferences = await SharedPreferences.getInstance();
     _secureStorage = const FlutterSecureStorage();
     print("settingsstorage: initializing");
+    print("settingsstorage: accountName ->${accountName}<-");
+    print("settingstorage: firstrun ${_preferences.getBool(_kIsFirstRun)}");
     // on iOS secure storage items are not deleted on app uninstall - must be deleted manually
     if (accountName.isEmpty && (_preferences.getBool(_kIsFirstRun) ?? true)) {
       print("settingsstorage: firstrun, deleting");
@@ -210,6 +212,8 @@ class _SettingsStorage {
         _biometricActive = false;
       }
       print("settingsstorage: values read");
+    }).catchError((e) {
+      print("setingsstorage: caught error $e");
     });
     print("settingsstorage: returning");
   }
