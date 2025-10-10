@@ -26,7 +26,8 @@ class ReceiveSeedsInvoiceUseCase extends InputUseCase<ReceiveInvoiceResponse, _I
       return Result.error(invoice.asError!.error);
     } else {
       final esrCode = invoice.valueOrCrash.split(':')[1];
-      return Result.value(ReceiveInvoiceResponse('https://eosio.to/${esrCode}', null));
+      final esrUri = Uri.tryParse('https://eosio.to/${esrCode}');
+      return Result.value(ReceiveInvoiceResponse('esr:${esrCode}', esrUri));
     }
   }
 }
